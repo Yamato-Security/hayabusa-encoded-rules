@@ -45,7 +45,7 @@ jobs:
       - name: Commit changes
         run: |
           cd ./self
-          git add encrypted-hayabusa-rules.zip
+          git add encrypted-rules.zip
           git commit -m "Automated update"
 
       - name: Push changes
