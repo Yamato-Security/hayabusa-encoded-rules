@@ -3,7 +3,7 @@ name: Create encrypted rule package
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 40 * * *'
+    - cron: '0 30 * * *'
 
 jobs:
   zip-and-commit:
