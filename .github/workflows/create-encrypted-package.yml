@@ -34,14 +34,18 @@ jobs:
         run: |
           cp ./encrypted-hayabusa-rules.zip ./self
 
-      - name: Commit and push if changes
+      - name: Configure Git
         run: |
-          cd ./self
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          if git diff-index --quiet HEAD --; then
-            echo "No changes to commit"
-          else
-            git commit -m "Add updated encrypted-hayabusa-rules.zip"
-            git push
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Commit changes
+        run: |
+          git add encrypted-hayabusa-rules.zip
+          git commit -m "Automated update"
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin main
