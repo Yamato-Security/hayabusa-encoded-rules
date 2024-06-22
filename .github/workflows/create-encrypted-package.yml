@@ -18,9 +18,9 @@ jobs:
       - name: Extract directory
         run: |
           mkdir encrypted-rules
-          cp -r ./config ./encrypted-rules
-          cp -r ./hayabusa ./encrypted-rules
-          cp -r ./sigma ./encrypted-rules
+          mv ./config ./encrypted-rules/
+          mv ./hayabusa ./encrypted-rules/
+          mv ./sigma ./encrypted-rules/
 
       - name: Zip directory
         run: |
