@@ -36,33 +36,19 @@ jobs:
 
       - name: Configure Git
         run: |
+          cd ./self
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Commit changes
         run: |
+          cd ./self
           git add encrypted-hayabusa-rules.zip
           git commit -m "Automated update"
 
-      - name: Create Pull Request
-        if: env.change_exist == 'true'
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
-        with:
-          path: hayabusa-rules
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Sigma Rule Update (${{ env.action_date }})
-          branch: rules/auto-sigma-update
-          delete-branch: true
-          title: '[Auto] Sigma Update report(${{ env.action_date }})' ### If a PR with the same name already exists, this github action library will not create a new pull request but it will update the PR with the same name. Therefore I added the date to the pull request's title so it creates a new PR.
-          branch-suffix: timestamp ### I use this field in order to avoid name duplication. If the pull request which is related to the same branch exists, the pull request is not newly created but is updated. So the next step will be skipped due to its if-field
-          body: |
-            ${{ env.action_date }} Update report
-
-      - name: Enable Pull Request Automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created' # This only runs if there were sigma rules updates and a new PR was created.
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd ./self
+          git push origin main
