@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 40 * * *'
+
 jobs:
   zip-and-commit:
     runs-on: ubuntu-latest
