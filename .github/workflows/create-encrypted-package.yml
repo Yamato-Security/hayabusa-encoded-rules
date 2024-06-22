@@ -17,14 +17,14 @@ jobs:
       - name: Extract directory
         run: |
           mkdir extracted
-          cp -r ./config ./extracted
-          cp -r ./hayabusa ./extracted
-          cp -r ./sigma ./extracted
+          cp -r ./config ./encrypted-rules
+          cp -r ./hayabusa ./encrypted-rules
+          cp -r ./sigma ./encrypted-rules
 
       - name: Zip directory
         run: |
           sudo apt-get install zip
-          zip -r -P yamato-security-hayabusa encrypted-hayabusa-rules.zip ./extracted
+          zip -r -P yamato-security-hayabusa encrypted-rules.zip ./encrypted-rules
 
       - name: Checkout self repository
         uses: actions/checkout@v4
@@ -33,7 +33,7 @@ jobs:
 
       - name: Copy zip to self repository
         run: |
-          cp ./encrypted-hayabusa-rules.zip ./self
+          cp ./encrypted-rules.zip ./self
 
       - name: Configure Git
         run: |
