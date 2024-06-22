@@ -25,7 +25,7 @@ jobs:
       - name: Zip directory
         run: |
           sudo apt-get install zip
-          zip -r -P yamato-security-hayabusa encrypted-rules.zip ./encrypted-rules
+          zip -r -P yamato-security-hayabusa rules.zip ./encrypted-rules
 
       - name: Checkout self repository
         uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
 
       - name: Copy zip to self repository
         run: |
-          cp ./encrypted-rules.zip ./self
+          cp ./rules.zip ./self
 
       - name: Configure Git
         run: |
@@ -45,7 +45,7 @@ jobs:
       - name: Commit changes
         run: |
           cd ./self
-          git add encrypted-rules.zip
+          git add rules.zip
           git commit -m "Automated update"
 
       - name: Push changes
