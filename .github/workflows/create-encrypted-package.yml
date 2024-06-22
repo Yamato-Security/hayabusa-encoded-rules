@@ -46,11 +46,15 @@ jobs:
         run: |
           cd ./self
           git add rules.zip
-          git commit -m "Automated update"
+          if ! git diff --quiet; then
+            git commit -m "Automated update"
+          fi
 
       - name: Push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd ./self
-          git push origin main
+          if [ "$(git log -1 --pretty=%B)" = "Automated update" ]; then
+            git push origin main
+          fi
