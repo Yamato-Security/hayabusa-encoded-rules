@@ -17,15 +17,15 @@ jobs:
 
       - name: Extract directory
         run: |
-          mkdir encrypted-rules
-          mv ./config ./encrypted-rules/
-          mv ./hayabusa ./encrypted-rules/
-          mv ./sigma ./encrypted-rules/
+          mkdir rules
+          mv ./config ./rules/
+          mv ./hayabusa ./rules/
+          mv ./sigma ./rules/
 
       - name: Zip directory
         run: |
           sudo apt-get install zip
-          zip -r -P yamato-security-hayabusa rules.zip ./encrypted-rules
+          zip -r -P yamato-security-hayabusa rules.zip ./rules
 
       - name: Checkout self repository
         uses: actions/checkout@v4
