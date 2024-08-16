@@ -56,7 +56,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dir = Path::new(&args[1]);
     let yaml_files = list_yaml_files(dir)?;
     let merged_yaml = merge_yaml_files(yaml_files)?;
+    println!("***\n {}", merged_yaml);
     let encrypted_yaml = xor_encrypt(&merged_yaml, 0xAA);
+    println!("@@@\n {}", merged_yaml);
     let mut output_file = File::create(&args[2])?;
     output_file.write_all(&encrypted_yaml)?;
 
