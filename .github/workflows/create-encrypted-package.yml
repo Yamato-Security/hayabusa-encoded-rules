@@ -67,8 +67,10 @@ jobs:
 
       - name: Encode rules
         run: |
-           cd self
-           cargo run --release -- ../hayabusa-rules ../encoded_rules
+          cd self
+          HAYABUSA_RULES_ABS_PATH=$(realpath ../hayabusa-rules)
+          ENCODED_RULES_ABS_PATH=$(realpath ../encoded_rules)
+          cargo run --release -- $HAYABUSA_RULES_ABS_PATH $ENCODED_RULES_ABS_PATH
 
       - name: Copy zip and encrypted file to self repository
         run: |
