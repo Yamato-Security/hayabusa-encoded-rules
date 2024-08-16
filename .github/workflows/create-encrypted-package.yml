@@ -50,7 +50,7 @@ jobs:
 
       - name: Update Sigma rules
         run: |
-          cd sigma-to-hayabusa-converter/
+          cd ../sigma-to-hayabusa-converter/
           poetry install --no-root
           poetry run python sigma-to-hayabusa-converter.py -r ../sigma-repo -o converted_rules
           cd -
