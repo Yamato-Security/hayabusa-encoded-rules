@@ -69,11 +69,13 @@ jobs:
         run: |
            cd self
            cargo run --release -- ../hayabusa-rules ../encoded_rules
+           ls -la
 
       - name: Copy zip and encrypted file to self repository
         run: |
           cp ./rules.zip ./self
           cp ./encoded_rules ./self
+          ls -la
 
       - name: Configure Git
         run: |
