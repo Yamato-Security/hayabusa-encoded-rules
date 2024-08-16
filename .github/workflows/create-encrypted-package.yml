@@ -68,7 +68,7 @@ jobs:
       - name: Encode rules
         run: |
           cd self
-          HAYABUSA_RULES_ABS_PATH=$(realpath ../hayabusa-rules)
+          HAYABUSA_RULES_ABS_PATH=$(realpath ../rules)
           ENCODED_RULES_ABS_PATH=$(realpath ../encoded_rules)
           cargo run --release -- $HAYABUSA_RULES_ABS_PATH $ENCODED_RULES_ABS_PATH
 
