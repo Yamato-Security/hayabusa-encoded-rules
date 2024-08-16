@@ -37,6 +37,11 @@ jobs:
           repository: Yamato-Security/hayabusa-rules
           path: hayabusa-rules
 
+      - name: Checkout self repository
+        uses: actions/checkout@v4
+        with:
+          path: './self'
+
       - name: Update Sigma rules
         run: |
           cd sigma-to-hayabusa-converter
@@ -59,11 +64,6 @@ jobs:
         run: |
           sudo apt-get install zip
           zip -r -P yamato-security-hayabusa rules.zip ./rules
-
-      - name: Checkout self repository
-        uses: actions/checkout@v4
-        with:
-          path: './self'
 
       - name: Encode rules
         run: |
