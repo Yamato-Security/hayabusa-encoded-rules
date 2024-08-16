@@ -31,6 +31,16 @@ jobs:
           repository: Yamato-Security/sigma-to-hayabusa-converter
           path: sigma-to-hayabusa-converter
 
+      - name: Update Sigma rules
+        run: |
+          cd sigma-to-hayabusa-converter
+          poetry install --no-root
+          poetry run python sigma-to-hayabusa-converter.py -r ../sigma-repo -o converted_rules
+          cd -
+          rm -rf hayabusa-rules/sigma/
+          mkdir hayabusa-rules/sigma/
+          cp -r sigma-to-hayabusa-converter/converted_rules/* hayabusa-rules/sigma/
+
       - name: Checkout hayabusa-rules
         uses: actions/checkout@v4
         with:
@@ -47,16 +57,6 @@ jobs:
         run: |
           sudo apt-get install zip
           zip -r -P yamato-security-hayabusa rules.zip ./rules
-
-      - name: Update Sigma rules
-        run: |
-          cd ../sigma-to-hayabusa-converter/
-          poetry install --no-root
-          poetry run python sigma-to-hayabusa-converter.py -r ../sigma-repo -o converted_rules
-          cd -
-          rm -rf hayabusa-rules/sigma/
-          mkdir hayabusa-rules/sigma/
-          cp -r sigma-to-hayabusa-converter/converted_rules/* hayabusa-rules/sigma/
 
       - name: Encrypt rules
         run: cargo run --release -- hayabusa-rules encrypted_rules
