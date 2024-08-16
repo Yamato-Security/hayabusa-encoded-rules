@@ -72,7 +72,6 @@ jobs:
       - name: Copy zip and encrypted file to self repository
         run: |
           cp ./rules.zip ./self
-          cp ./encoded_rules ./self
 
       - name: Configure Git
         run: |
