@@ -67,7 +67,8 @@ jobs:
 
       - name: Encode rules
         run: |
-           cd self && cargo run --release -- ../hayabusa-rules encoded_rules
+           cd self
+           cargo run --release -- ../hayabusa-rules encoded_rules
 
       - name: Configure Git
         run: |
