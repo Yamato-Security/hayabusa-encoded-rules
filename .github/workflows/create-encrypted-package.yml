@@ -10,10 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Setup Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Checkout Sigma
         uses: actions/checkout@v4
         with:
-          repository: 'Yamato-Security/hayabusa-rules'
+          repository: SigmaHQ/sigma
+          path: sigma-path
+
+      - name: Checkout sigma-to-hayabusa-converter
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/sigma-to-hayabusa-converter
+          path: sigma-to-hayabusa-converter
+
+      - name: Checkout hayabusa-rules
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/hayabusa-rules
 
       - name: Extract directory
         run: |
@@ -27,14 +48,28 @@ jobs:
           sudo apt-get install zip
           zip -r -P yamato-security-hayabusa rules.zip ./rules
 
+      - name: Update Sigma rules
+        run: |
+          cd sigma-to-hayabusa-converter/
+          poetry install --no-root
+          poetry run python sigma-to-hayabusa-converter.py -r ../sigma-repo -o converted_rules
+          cd -
+          rm -rf hayabusa-rules/sigma/
+          mkdir hayabusa-rules/sigma/
+          cp -r sigma-to-hayabusa-converter/converted_rules/* hayabusa-rules/sigma/
+
+      - name: Encrypt rules
+        run: cargo run --release -- hayabusa-rules encrypted_rules
+
       - name: Checkout self repository
         uses: actions/checkout@v4
         with:
           path: './self'
 
-      - name: Copy zip to self repository
+      - name: Copy zip and encrypted file to self repository
         run: |
           cp ./rules.zip ./self
+          cp ./encrypted_rules ./self
 
       - name: Configure Git
         run: |
@@ -46,9 +81,9 @@ jobs:
         run: |
           cd ./self
           git add rules.zip
+          git add encrypted_rules
           git commit -m "Automated update"
       
-
       - name: Push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
