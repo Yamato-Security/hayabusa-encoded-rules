@@ -53,8 +53,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         eprintln!("Usage: {} <directory>", args[0]);
         std::process::exit(1);
     }
-    let current_dir = env::current_dir()?;
-    let dir = current_dir.join(&args[1]);
+    let dir = Path::new(&args[1]);
     let yaml_files = list_yaml_files(&dir)?;
     let merged_yaml = merge_yaml_files(yaml_files)?;
     println!("***\n {}", merged_yaml);
