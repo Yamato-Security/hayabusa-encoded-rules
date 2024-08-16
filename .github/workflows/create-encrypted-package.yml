@@ -31,6 +31,12 @@ jobs:
           repository: Yamato-Security/sigma-to-hayabusa-converter
           path: sigma-to-hayabusa-converter
 
+      - name: Checkout hayabusa-rules
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/hayabusa-rules
+          path: hayabusa-rules
+
       - name: Update Sigma rules
         run: |
           cd sigma-to-hayabusa-converter
@@ -40,11 +46,6 @@ jobs:
           rm -rf hayabusa-rules/sigma/
           mkdir hayabusa-rules/sigma/
           cp -r sigma-to-hayabusa-converter/converted_rules/* hayabusa-rules/sigma/
-
-      - name: Checkout hayabusa-rules
-        uses: actions/checkout@v4
-        with:
-          repository: Yamato-Security/hayabusa-rules
 
       - name: Extract directory
         run: |
