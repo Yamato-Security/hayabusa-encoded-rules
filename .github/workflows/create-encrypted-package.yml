@@ -87,7 +87,7 @@ jobs:
         run: |
           cd ./self
           git add rules.zip
-          git add encoded_rules
+          git add encoded_rules.yml
           git commit -m "Automated update"
       
       - name: Push changes
