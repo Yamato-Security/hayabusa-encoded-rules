@@ -69,13 +69,13 @@ jobs:
         run: |
           cd self
           HAYABUSA_RULES_ABS_PATH=$(realpath ../rules)
-          ENCODED_RULES_ABS_PATH=$(realpath ../encoded_rules)
+          ENCODED_RULES_ABS_PATH=$(realpath ../encoded_rules.yml)
           cargo run --release -- $HAYABUSA_RULES_ABS_PATH $ENCODED_RULES_ABS_PATH
 
       - name: Copy zip and encrypted file to self repository
         run: |
           cp ./rules.zip ./self
-          cp ./encoded_rules ./self
+          cp ./encoded_rules.yml ./self
 
       - name: Configure Git
         run: |
