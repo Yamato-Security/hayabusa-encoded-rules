@@ -39,36 +39,33 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
     Ok(out_str)
 }
 
-fn xor_encrypt(data: &str, key: u8) -> Vec<u8> {
+fn xor_encode(data: &str, key: u8) -> Vec<u8> {
     data.bytes().map(|b| b ^ key).collect()
 }
 
-// fn xor_decrypt(data: &[u8], key: u8) -> Vec<u8> {
-//     data.iter().map(|&b| b ^ key).collect()
-// }
+fn xor_decode(data: &[u8], key: u8) -> Vec<u8> {
+    data.iter().map(|&b| b ^ key).collect()
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 3 {
-        eprintln!("Usage: {} <directory>", args[0]);
         std::process::exit(1);
     }
     let dir = Path::new(&args[1]);
     let yaml_files = list_yaml_files(&dir)?;
     let merged_yaml = merge_yaml_files(yaml_files)?;
-    println!("***\n {}", merged_yaml);
-    let encrypted_yaml = xor_encrypt(&merged_yaml, 0xAA);
-    println!("@@@\n {}", merged_yaml);
+    let encrypted_yaml = xor_encode(&merged_yaml, 0xAA);
     let mut output_file = File::create(&args[2])?;
     output_file.write_all(&encrypted_yaml)?;
 
-    // // decrypt
-    // let encrypted_file_path = Path::new("encrypted_output.yml");
-    // let mut encrypted_file = File::open(encrypted_file_path)?;
-    // let mut encrypted_content = Vec::new();
-    // encrypted_file.read_to_end(&mut encrypted_content)?;
-    // let decrypted_content = xor_decrypt(&encrypted_content, 0xAA); // Example key: 0xAA
-    // let mut output_file = File::create("decrypted_output.yml")?;
-    // output_file.write_all(&decrypted_content.as_bytes())?;
+    // decode
+    let encoded_file_path = Path::new(&args[2]);
+    let mut encoded_file = File::open(encoded_file_path)?;
+    let mut encoded_content = Vec::new();
+    encoded_file.read_to_end(&mut encoded_content)?;
+    let decoded_content = xor_decode(&encoded_content, 0xAA); // Example key: 0xAA
+    let mut output_file = File::create("decoded_rulse.yml")?;
+    output_file.write_all(&decoded_content)?;
     Ok(())
 }
