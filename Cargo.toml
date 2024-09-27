@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 yaml-rust = "0.4.*"
+regex = "1.10.6"

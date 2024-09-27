@@ -3,6 +3,7 @@ use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::Path;
 use yaml_rust::{YamlEmitter, YamlLoader};
+use regex::Regex;
 
 fn list_yaml_files(dir: &Path) -> io::Result<Vec<String>> {
     let mut yaml_files = Vec::new();
@@ -20,7 +21,7 @@ fn list_yaml_files(dir: &Path) -> io::Result<Vec<String>> {
 
 fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Error>> {
     let mut merged_yaml = Vec::new();
-    for file in files {
+    for file in &files {
         let mut content = String::new();
         File::open(&file)?.read_to_string(&mut content)?;
         let docs = YamlLoader::load_from_str(&content)?;
@@ -29,6 +30,9 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
     let mut out_str = String::new();
     for (i, doc) in merged_yaml.iter().enumerate() {
         if i > 0 {
+            out_str.push_str("\nrulefile: ");
+            let re = Regex::new(r".*/").unwrap();
+            out_str.push_str(&*re.replace(files[i].as_str(), ""));
             out_str.push('\n'); // Add separator between documents
         }
         {
