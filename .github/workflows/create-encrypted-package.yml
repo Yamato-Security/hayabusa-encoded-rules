@@ -70,12 +70,14 @@ jobs:
           cd self
           HAYABUSA_RULES_ABS_PATH=$(realpath ../rules)
           ENCODED_RULES_ABS_PATH=$(realpath ../encoded_rules.yml)
-          cargo run --release -- $HAYABUSA_RULES_ABS_PATH $ENCODED_RULES_ABS_PATH
+          CONFIG_TXT_ABS_PATH=$(realpath ../config.txt)
+          cargo run --release -- $HAYABUSA_RULES_ABS_PATH $ENCODED_RULES_ABS_PATH $CONFIG_TXT_ABS_PATH
 
       - name: Copy zip and encrypted file to self repository
         run: |
           cp ./rules.zip ./self
           cp ./encoded_rules.yml ./self
+          cp ./config.txt ./self
 
       - name: Configure Git
         run: |
@@ -88,6 +90,7 @@ jobs:
           cd ./self
           git add rules.zip
           git add encoded_rules.yml
+          git add config.txt
           git commit -m "Automated update"
       
       - name: Push changes
