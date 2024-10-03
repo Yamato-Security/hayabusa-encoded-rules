@@ -77,7 +77,7 @@ jobs:
         run: |
           cp ./rules.zip ./self
           cp ./encoded_rules.yml ./self
-          cp ./rules_config_files ./self
+          cp ./rules_config_files.txt ./self
 
       - name: Configure Git
         run: |
