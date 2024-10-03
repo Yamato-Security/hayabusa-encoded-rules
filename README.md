@@ -1,4 +1,4 @@
-# About Hayabusa Encoded Rules
+# Hayabusa encoded rules
 
 This repository hosts two files that are going to be used with Hayabusa v2.18.0+ in order to minimize files that need to be put on a target system as well as bypass any false positives from anti-virus products. 
 > At the time of writing, Windows Defender would alert with false-positives on a few Sigma `.yml` text files because they had malicious-looking keywords in them.
