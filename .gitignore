@@ -13,7 +13,6 @@ hayabusa*
 *.html
 *.htm
 *.css
-*.txt
 !contributors.txt
 !LICENSE.txt
 .~*
