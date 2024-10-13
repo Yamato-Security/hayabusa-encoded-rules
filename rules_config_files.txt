@@ -518,6 +518,15 @@ ab0d6f07-d3a5-dcce-b343-05bfd1a8b000 # "Windows Kernel and 3rd-Party Drivers Exp
 00000000-0000-0000-0000-000000000000 # TestFile
 ---FILE_END---
 ---FILE_START---
+path: windash_characters.txt
+---CONTENT---
+/ # forward slash (0x002F)
+- # hyphen (0x002D)
+– # en dash (0x2013)
+— # em dash (0x2014)
+― # horizontal bar (0x2015)
+---FILE_END---
+---FILE_START---
 path: default_details.txt
 ---CONTENT---
 Provider, EID, Details
