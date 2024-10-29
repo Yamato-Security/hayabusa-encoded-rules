@@ -1,9 +1,8 @@
+use regex::Regex;
 use std::env;
 use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::Path;
-use yaml_rust::{YamlEmitter, YamlLoader};
-use regex::Regex;
 
 fn list_files_with_extensions(dir: &Path, extensions: &[&str]) -> io::Result<Vec<String>> {
     let mut files = Vec::new();
@@ -25,22 +24,19 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
     let mut merged_yaml = Vec::new();
     for file in &files {
         let mut content = String::new();
-        File::open(&file)?.read_to_string(&mut content)?;
-        let docs = YamlLoader::load_from_str(&content)?;
-        merged_yaml.extend(docs);
+        File::open(file)?.read_to_string(&mut content)?;
+        merged_yaml.push((file, content));
     }
     let mut out_str = String::new();
-    for (i, doc) in merged_yaml.iter().enumerate() {
+    for (i, (file, docs)) in merged_yaml.iter().enumerate() {
         if i > 0 {
             out_str.push_str("\nrulefile: ");
             let re = Regex::new(r".*/").unwrap();
-            out_str.push_str(&*re.replace(files[i].as_str(), ""));
-            out_str.push('\n'); // Add separator between documents
+            out_str.push_str(&re.replace(file, ""));
+            out_str.push('\n');
+            out_str.push_str("---\n");
         }
-        {
-            let mut emitter = YamlEmitter::new(&mut out_str);
-            emitter.dump(doc)?;
-        }
+        out_str.push_str(docs)
     }
     Ok(out_str)
 }
@@ -77,7 +73,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // encode
     let dir = Path::new(&args[1]);
-    let yaml_files = list_files_with_extensions(&dir, &["yml"])?;
+    let yaml_files = list_files_with_extensions(dir, &["yml"])?;
     let merged_yaml = merge_yaml_files(yaml_files)?;
     let encrypted_yaml = xor_encode(&merged_yaml, 0xAA);
     let mut output_file = File::create(&args[2])?;

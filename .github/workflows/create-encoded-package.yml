@@ -1,4 +1,4 @@
-name: Create encrypted rule package
+name: Create encoded rule package
 
 on:
   workflow_dispatch:
