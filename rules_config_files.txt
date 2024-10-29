@@ -1,80 +1,816 @@
 ---FILE_START---
-path: data_mapping/Security_4688_ProcessCreation.yaml
+path: provider_abbreviations.txt
 ---CONTENT---
-Title: 'Process Creation'
-Channel: Security
-EventID: 4688
-RewriteFieldData:
-    MandatoryLabel:
-        - 'S-1-16-0': 'UNTRUSTED'
-        - 'S-1-16-4096': 'LOW_INTEGRITY'
-        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
-        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
-        - 'S-1-16-12288': 'HIGH_INTEGRITY'
-        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
-        - 'S-1-16-20480': 'PROTECTED_PROCESS'
-    TokenElevationType:
-        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
-        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
-        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
-HexToDecimal:
-    - 'NewProcessId'
-    - 'ProcessId'
-
-sample-evtx: |
-  <?xml version="1.0"?>
-  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-    <System>
-      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-      <EventID>4688</EventID>
-      <Version>2</Version>
-      <Level>0</Level>
-      <Task>13312</Task>
-      <Opcode>0</Opcode>
-      <Keywords>0x8020000000000000</Keywords>
-      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
-      <EventRecordID>284391</EventRecordID>
-      <Correlation/>
-      <Execution ProcessID="4" ThreadID="6292"/>
-      <Channel>Security</Channel>
-      <Computer>wef.windomain.local</Computer>
-      <Security/>
-    </System>
-    <EventData>
-      <Data Name="SubjectUserSid">S-1-5-18</Data>
-      <Data Name="SubjectUserName">WEF$</Data>
-      <Data Name="SubjectDomainName">WINDOMAIN</Data>
-      <Data Name="SubjectLogonId">0x3e7</Data>
-      <Data Name="NewProcessId">0x1980</Data>
-      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
-      <Data Name="TokenElevationType">%%1936</Data>
-      <Data Name="ProcessId">0x24c</Data>
-      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
-      <Data Name="TargetUserSid">S-1-0-0</Data>
-      <Data Name="TargetUserName">-</Data>
-      <Data Name="TargetDomainName">-</Data>
-      <Data Name="TargetLogonId">0x0</Data>
-      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
-      <Data Name="MandatoryLabel">S-1-16-16384</Data>
-    </EventData>
-  </Event>
-
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
+Provider,Abbreviation
+Microsoft-Windows-Security-Auditing,Sec
+Microsoft-Windows-Sysmon,Sysmon
+Microsoft-Windows-TaskScheduler,TaskScheduler
+Microsoft-Windows-TerminalServices-LocalSessionManager,RDS-LSM
+Microsoft-Windows-TerminalServices-RemoteConnectionManager,RDS-RCM
+Microsoft-Windows-WMI-Activity,WMI-Activity
+Microsoft-Windows-WinRM,WinRM
+Microsoft-Windows-Windows Defender,Defender
+Microsoft-Windows-Windows Firewall With Advanced Security,Firewall
+Microsoft-Windows-WindowsUpdateClient,WinUpdate
+Service Control Manager,SCM
 ---FILE_END---
 ---FILE_START---
-path: data_mapping/Security_5140_NetShareAccess.yaml
+path: target_event_IDs.txt
 ---CONTENT---
-Title: 'NetShare Access'
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+50
+56
+59
+70
+98
+99
+104
+106
+129
+140
+141
+150
+191
+200
+216
+255
+300
+301
+302
+325
+326
+327
+354
+400
+524
+534
+567
+770
+771
+823
+848
+849
+854
+1013
+1024
+1034
+1040
+1042
+1102
+1116
+1149
+1511
+2002
+2003
+2004
+2005
+2006
+2008
+2100
+2102
+3001
+3002
+3007
+3033
+4100
+4103
+4104
+4616
+4624
+4625
+4634
+4647
+4648
+4649
+4656
+4661
+4662
+4663
+4672
+4673
+4674
+4688
+4689
+4692
+4697
+4698
+4699
+4702
+4706
+4719
+4720
+4728
+4729
+4732
+4738
+4741
+4742
+4743
+4765
+4768
+4769
+4771
+4776
+4778
+4779
+4781
+4794
+4800
+4825
+4904
+4905
+5001
+5010
+5012
+5038
+5136
+5140
+5142
+5145
+5156
+5379
+5805
+5857
+5859
+5860
+5861
+6004
+6005
+6006
+6008
+6038
+6281
+6416
+7023
+7031
+7034
+7036
+7040
+7045
+11724
+15457
+16403
+20001
+28115
+30803
+30804
+30806
+31010
+33205
+---FILE_END---
+---FILE_START---
+path: geoip_field_mapping.yaml
+---CONTENT---
+SrcIP:
+  - '%IpAddress%'
+  - '%ClientAddress%'
+  - '%SourceAddress%'
+  - '%SourceIp%'
+  - '%UserDataAddress%'
+  - '%UserDataParam3%'
+
+TgtIP:
+  - '%DestinationIp%'
+  - '%DestAddress%'
+
+Filter:
+  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
+    - 21 # RDS Sess Logon %UserDataAddress%
+    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
+    - 24 # RDS Sess Disconnect %UserDataAddress%
+  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
+    - 1149 # RDS Logon %UserDataParam3%
+  - Security:
+    - 4624 # Logon Success %IpAddress%
+    - 4625 # Logon Failure %IpAddress%
+    - 4648 # Explicit Logon %IpAddress%
+    - 4768 # Kerberos TGT Requested %IpAddress%
+    - 4769 # Kerberos Service Ticket Requested %IpAddress%
+    - 4778 # RDP Session Reconnect %ClientAddress%
+    - 4779 # RDP Session Disconnect %ClientAddress%
+    - 4825 # RDP Logon Failed %ClientAddress%
+    - 5140 # A network share object was accessed %IpAddress%
+    - 5145 # NetShare File Access %IpAddress%
+    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
+  - Microsoft-Windows-Sysmon/Operational: 
+    - 3 # Network Connection %SourceIp%
+---FILE_END---
+---FILE_START---
+path: eventkey_alias.txt
+---CONTENT---
+Accesses,Event.EventData.Accesses
+AccessList,Event.EventData.AccessList
+AccessMask,Event.EventData.AccessMask
+AccountDomain,Event.EventData.AccountDomain
+AccountName,Event.EventData.AccountName
+Account_Name,Event.EventData.Account_Name
+Action,Event.EventData.Action
+AllowedToDelegateTo,Event.EventData.AllowedToDelegateTo
+ApplicationPath,Event.EventData.ApplicationPath
+AttributeLDAPDisplayName,Event.EventData.AttributeLDAPDisplayName
+AttributeValue,Event.EventData.AttributeValue
+AuditPolicyChanges,Event.EventData.AuditPolicyChanges
+AuditSourceName,Event.EventData.AuditSourceName
+AuthenticationPackageName,Event.EventData.AuthenticationPackageName
+CallerProcessName,Event.EventData.CallerProcessName
+Caller_Process_Name,Event.EventData.Caller_Process_Name
+CallingProcessName,Event.EventData.CallingProcessName
+CallTrace,Event.EventData.CallTrace
+CategoryName,Event.EventData.Category Name
+CertThumbprint,Event.EventData.CertThumbprint
+Channel,Event.System.Channel
+ClassName,Event.EventData.ClassName
+ClientAddress,Event.EventData.ClientAddress
+ClientName,Event.EventData.ClientName
+Client_Address,Event.EventData.Client_Address
+CommandLine,Event.EventData.CommandLine
+Company,Event.EventData.Company
+Computer,Event.System.Computer
+ComputerName,Event.System.Computer
+ContextInfo,Event.EventData.ContextInfo
+CurrentDirectory,Event.EventData.CurrentDirectory
+Description,Event.EventData.Description
+DestAddress,Event.EventData.DestAddress
+Destination,Event.EventData.Destination
+DestinationAddress,Event.EventData.DestinationAddress
+DestinationHostname,Event.EventData.DestinationHostname
+DestinationIp,Event.EventData.DestinationIp
+DestinationIsIpv6,Event.EventData.DestinationIsIpv6
+DestinationPort,Event.EventData.DestinationPort
+DestPort,Event.EventData.DestPort
+Details,Event.EventData.Details
+DetectionSource,Event.EventData.DetectionSource
+DetectionUser,Event.EventData.Detection User
+Device,Event.EventData.Device
+DeviceClassName,Event.EventData.DeviceClassName
+DeviceDescription,Event.EventData.DeviceDescription
+DeviceInstanceID,Event.UserData.InstallDeviceID.DeviceInstanceID
+DeviceName,Event.EventData.DeviceName
+DomainName,Event.EventData.SubjectDomainName
+DriverDescription,Event.UserData.InstallDeviceID.DriverDescription
+DriverProvider,Event.UserData.InstallDeviceID.DriverProvider
+DvrFmwk2003InstanceId,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
+DvrFmwkInstanceId,Event.UserData.UMDFHostDeviceRequest.InstanceId
+EngineVersion,Event.EventData.EngineVersion
+ErrorCode,Event.EventData.ErrorCode
+EventID,Event.System.EventID
+EventType,Event.EventData.EventType
+ExecutionProcessID,Event.System.Execution_attributes.ProcessID
+FailureCode,Event.EventData.FailureCode
+Filename,Event.EventData.Filename
+FilePath,Event.EventData.FilePath
+FileVersion,Event.EventData.FileVersion
+GrantedAccess,Event.EventData.GrantedAccess
+GroupName,Event.EventData.GroupName
+GroupSid,Event.EventData.GroupSid
+Hashes,Event.EventData.Hashes
+HiveName,Event.EventData.HiveName
+HostApplication,Event.EventData.HostApplication
+HostName,Event.EventData.HostName
+HostVersion,Event.EventData.HostVersion
+Image,Event.EventData.Image
+image,Event.EventData.Image
+ImageLoaded,Event.EventData.ImageLoaded
+ImagePath,Event.EventData.ImagePath
+Imphash,Event.EventData.Hashes
+Initiated,Event.EventData.Initiated
+InstallStatus,Event.UserData.InstallDeviceID.InstallStatus
+InstanceID,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
+IntegrityLevel,Event.EventData.IntegrityLevel
+IpAddress,Event.EventData.IpAddress
+IpPort,Event.EventData.IpPort
+JobTitle,Event.EventData.name
+KeyLength,Event.EventData.KeyLength
+Keywords,Event.System.Keywords
+LayerRTID,Event.EventData.LayerRTID
+LDAPDisplayName,Event.EventData.LDAPDisplayName
+Level,Event.System.Level
+LogFileClearedChannel,Event.UserData.LogFileCleared.Channel
+LogFileClearedSubjectUserName,Event.UserData.LogFileCleared.SubjectUserName
+LogonID,Event.EventData.LogonID
+LogonId,Event.EventData.LogonId
+LogonProcessName,Event.EventData.LogonProcessName
+LogonType,Event.EventData.LogonType
+Logon_Account,Event.EventData.Logon_Account
+MachineName,Event.EventData.MachineName
+MemberName,Event.EventData.MemberName
+MemberSid,Event.EventData.MemberSid
+Message,Event.EventData
+ModifyingApplication,Event.EventData.ModifyingApplication
+NewName,Event.EventData.NewName
+NewProcessId,Event.EventData.NewProcessId
+NewProcessName,Event.EventData.NewProcessName
+NewTemplateContent, Event.EventData.NewTemplateContent
+NewUacValue,Event.EventData.NewUacValue
+NewValue,Event.EventData.NewValue
+New_Value,Event.EventData.New Value
+ObjectClass,Event.EventData.ObjectClass
+ObjectName,Event.EventData.ObjectName
+ObjectServer,Event.EventData.ObjectServer
+ObjectType,Event.EventData.ObjectType
+ObjectValueName,Event.EventData.ObjectValueName
+OldUacValue,Event.EventData.OldUacValue
+OperationEssStartedNamespaceName,Event.UserData.Operation_EssStarted.NamespaceName
+OperationEssStartedPossibleCause,Event.UserData.Operation_EssStarted.PossibleCause
+OperationEssStartedProcessid,Event.UserData.Operation_EssStarted.Processid
+OperationEssStartedProvider,Event.UserData.Operation_EssStarted.Provider
+OperationEssStartedQuery,Event.UserData.Operation_EssStarted.Query
+OperationEssStartedUser,Event.UserData.Operation_EssStarted.User
+Origin,Event.EventData.Origin
+OriginalFileName,Event.EventData.OriginalFileName
+OriginalFilename,Event.EventData.OriginalFileName
+param1,Event.EventData.param1
+param2,Event.EventData.param2
+param3,Event.EventData.param3
+param4,Event.EventData.param4
+param5,Event.EventData.param5
+ParentCommandLine,Event.EventData.ParentCommandLine
+ParentImage,Event.EventData.ParentImage
+ParentIntegrityLevel,Event.EventData.ParentIntegrityLevel
+ParentProcessName,Event.EventData.ParentProcessName
+ParentUser,Event.EventData.ParentUser
+PasswordLastSet,Event.EventData.PasswordLastSet
+Path,Event.EventData.Path
+Payload,Event.EventData.Payload
+PipeName,Event.EventData.PipeName
+PossibleCause,Event.UserData.PossibleCause
+PreAuthType,Event.EventData.PreAuthType
+PrivilegeList,Event.EventData.PrivilegeList
+ProcessCommandLine,Event.EventData.ProcessCommandLine
+ProcessGuid,Event.EventData.ProcessGuid
+ProcessId,Event.EventData.ProcessId
+ProcessName,Event.EventData.ProcessName
+Product,Event.EventData.Product
+Properties,Event.EventData.Properties
+Provider,Event.UserData.Provider
+ProviderName,Event.System.Provider_attributes.Name
+Provider_Name,Event.System.Provider_attributes.Name
+QNAME,Event.EventData.QNAME
+query,Event.EventData.Query
+Query,Event.UserData.Query
+QueryName,Event.EventData.QueryName
+QueryResults,Event.EventData.QueryResults
+QueryStatus,Event.EventData.QueryStatus
+RelativeTargetName,Event.EventData.RelativeTargetName
+RuleName,Event.EventData.RuleName
+SAMAccountName,Event.EventData.SamAccountName
+ScriptBlockText,Event.EventData.ScriptBlockText
+SearchFilter,Event.System.SearchFilter
+SecurityUserID,Event.System.Security_attributes.UserID
+ServerName,Event.System.ServerName
+Service,Event.EventData.Service
+service,Event.EventData.Service
+ServiceFileName,Event.EventData.ServiceFileName
+ServiceName,Event.EventData.ServiceName
+ServicePrincipalNames,Event.EventData.ServicePrincipalNames
+ServiceStartType,Event.EventData.ServiceStartType
+ServiceType,Event.EventData.ServiceType
+SeverityID,Event.EventData.Severity ID
+SeverityName,Event.EventData.Severity Name
+sha1,Event.EventData.Hashes_sha1
+ShareLocalPath,Event.EventData.ShareLocalPath
+ShareName,Event.EventData.ShareName
+SidHistory,Event.EventData.SidHistory
+Signature,Event.EventData.Signature
+SignatureStatus,Event.EventData.SignatureStatus
+Signed,Event.EventData.Signed
+Source,Event.System.Provider_Name
+SourceAddress,Event.EventData.SourceAddress
+SourceImage,Event.EventData.SourceImage
+SourceNetworkAddress,Event.EventData.SourceNetworkAddress
+SourcePort,Event.EventData.SourcePort
+Source_Name,Event.EventData.Source Name
+Source_Network_Address,Event.EventData.Source_Network_Address
+Source_WorkStation,Event.EventData.Source_WorkStation
+StartAddress,Event.EventData.StartAddress
+StartFunction,Event.EventData.StartFunction
+StartModule,Event.EventData.StartModule
+StartType,Event.EventData.StartType
+State,Event.EventData.State
+Status,Event.EventData.Status
+SubjectDomainName,Event.EventData.SubjectDomainName
+SubjectLogonId,Event.EventData.SubjectLogonId
+SubjectUserName,Event.EventData.SubjectUserName
+SubjectUserSid,Event.EventData.SubjectUserSid
+SubStatus,Event.EventData.SubStatus
+SysmonVersion,Event.EventData.SysmonVersion
+TargetDomainName,Event.EventData.TargetDomainName
+TargetFilename,Event.EventData.TargetFilename
+TargetImage,Event.EventData.TargetImage
+TargetInfo,Event.EventData.TargetInfo
+TargetLogonId,Event.EventData.TargetLogonId
+TargetObject,Event.EventData.TargetObject
+TargetProcessAddress,Event.EventData.TargetProcessAddress
+TargetServerName,Event.EventData.TargetServerName
+TargetSid,Event.EventData.TargetSid
+TargetUserName,Event.EventData.TargetUserName
+TaskDate,Event.EventData.TaskContent
+TaskName,Event.EventData.TaskName
+TemplateContent,Event.EventData.TemplateContent
+ThreatName,Event.EventData.Threat Name
+TicketEncryptionType,Event.EventData.TicketEncryptionType
+TicketOptions,Event.EventData.TicketOptions
+Url,Event.EventData.url
+User,Event.EventData.User
+UserDataAddress,Event.UserData.EventXML.Address
+UserDataCode,Event.UserData.Operation_StartedOperational.Code
+UserDataConsumer,Event.UserData.Operation_ESStoConsumerBinding.CONSUMER
+UserDataESS,Event.UserData.Operation_ESStoConsumerBinding.ESS
+UserDataHostProcess,Event.UserData.Operation_StartedOperational.HostProcess
+UserDataNamespace,Event.UserData.Operation_ESStoConsumerBinding.Namespace
+UserDataNamespaceName,Event.UserData.Operation_TemporaryEssStarted.NamespaceName
+UserDataParam1,Event.UserData.EventXML.Param1
+UserDataParam2,Event.UserData.EventXML.Param2
+UserDataParam3,Event.UserData.EventXML.Param3
+UserDataPossibleCause,Event.UserData.Operation_ESStoConsumerBinding.PossibleCause
+UserDataProcessID,Event.UserData.Operation_StartedOperational.ProcessID
+UserDataProcessid,Event.UserData.Operation_TemporaryEssStarted.Processid
+UserDataProviderName,Event.UserData.Operation_StartedOperational.ProviderName
+UserDataProviderPath,Event.UserData.Operation_StartedOperational.ProviderPath
+UserDataQuery,Event.UserData.Operation_TemporaryEssStarted.Query
+UserDataSessionID,Event.UserData.EventXML.SessionID
+UserDataUser,Event.UserData.EventXML.User
+UserName,Event.EventData.UserName
+Value,Event.EventData.Value
+Version,Event.System.Version
+WindowsDefenderProcessName,Event.EventData.Process Name
+WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
+Workstation,Event.EventData.Workstation
+WorkstationName,Event.EventData.WorkstationName
+
+---FILE_END---
+---FILE_START---
+path: noisy_rules.txt
+---CONTENT---
+#Hayabusa rules
+0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
+8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
+1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
+9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
+3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
+6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
+320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
+a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
+b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
+0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
+84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
+84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
+---FILE_END---
+---FILE_START---
+path: exclude_rules.txt
+---CONTENT---
+# Replaced by Hayabusa rules:
+6695d6a2-9365-ee87-ccdd-966b0e1cdbd4 # "User Added to Local Administrators".
+5ecd226b-563f-4723-7a1e-d637d81f0a1f # "Local User Creation".
+23013005-3d59-4dbe-dabd-d17a54e6c6cf # "Hidden Local User Creation".
+cb7a40d5-f1de-9dd4-465d-eada7e316d8f # "PsExec Tool Execution" win_tool_psexec.yml Note: rule not working to begin with.
+c063426c-1b9b-025d-71cc-5097a233285d # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
+3ce7b51a-ad12-59bb-6c81-3e9532685c1e # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
+c70d7033-8146-fe73-8430-90b23c296f9d # "Windows Defender Threat Detected"
+23f0b75b-66c0-4895-ae63-4243fa898109 # "Security Event Log Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
+9b14c9d8-6b61-e49f-f8a8-0836d0ad98c9 # "Security Eventlog Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
+30966a3a-2224-0e1a-d28d-c0f7e84cfed3 # "Important Eventlog Cleared" replaced by f481a1f3-969e-4187-b3a5-b47c272bfebd
+8617b59c-812e-c88e-0bd4-5267e0e825f0 # "Eventlog Cleared" replaced by ed90ed4f-0d93-4f1a-99a2-4b9003b750a7
+73f64ce7-a76d-0208-ea75-dd26a09d719b # "User Logoff Event"
+de5d0dd7-b73e-7f18-02b0-6b1acb7e9f52 # "Admin User Remote Logon". Already covered with rule "Logon (Type 10 RemoteInteractive)"
+f508ff7b-4021-6693-0852-ce59ee2d0343 # Sysmon 4,16: Configuration Modification
+0f88cce2-f7ed-3b15-a7fe-27f2d440680c # Sysmon 16: Configuration Change
+17d51ceb-915d-bf28-8699-81e3f51b2a4e # Sysmon 25: Process Hollowing
+5dd9120c-635f-ace4-6acf-d10a14229f19 # Sysmon 27: "Sysmon Blocked Executable" replaced with "Blocked Exe File Creation" (bb35ca48-8e4a-445b-bc6d-0a994a0e9310)
+8a5ee8f3-da35-b174-1d66-ff5ad8125abe # Sysmon 255: Configuration Error
+
+# Disabled because they require placeholders to be set so cannot be used as is:
+f8d98d6c-7a07-4d74-b064-dd4a3c244528 # Pass the Hash Activity (%Workstations%)
+dd7876d8-0f09-11eb-adc1-0242ac120002 # Possible Zerologon (CVE-2020-1472) Exploitation (%DC-MACHINE-NAME%)
+68fcba0d-73a5-475e-a915-e8b4c576827e # Remote Registry Management Using Reg Utility (%Admins_Workstations%)
+3ff152b2-1388-4984-9cd9-a323323fdadf # Interactive Logon to Server Systems (%ServerSystems%, %DomainControllers%, %Workstations%)
+
+# Disabled because they cannot but used as is:
+d85240fc-d5ad-8061-a795-9eaea580fbf0 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
+ab0d6f07-d3a5-dcce-b343-05bfd1a8b000 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
+
+# Replaced by Sigma correlation rules
+35e8a0fc-60c2-46d7-ba39-aafb15b9854e # PW Guessing
+4574194d-e7ca-4356-a95c-21b753a1787e # User Guessing
+ffd622af-d049-449f-af5a-0492fdcc3a58 # PW Spray
+
+# Test Files
+00000000-0000-0000-0000-000000000000 # TestFile
+---FILE_END---
+---FILE_START---
+path: windash_characters.txt
+---CONTENT---
+/ # forward slash (0x002F)
+- # hyphen (0x002D)
+– # en dash (0x2013)
+— # em dash (0x2014)
+― # horizontal bar (0x2015)
+---FILE_END---
+---FILE_START---
+path: default_details.txt
+---CONTENT---
+Provider, EID, Details
+Microsoft-Windows-Bits-Client, 3, JobTitle: %jobTitle% ¦ JobID: %jobId% ¦ JobOwner: %jobOwner% ¦ Proc: %processPath% ¦ PID: %ProcessId%
+PowerShellCore, 4103, Payload: %Payload%
+PowerShellCore, 4104, ScriptBlock: %ScriptBlockText%
+Microsoft-Windows-PowerShell, 4103, Payload: %Payload%
+Microsoft-Windows-PowerShell, 4104, ScriptBlock: %ScriptBlockText%
+Microsoft-Windows-Security-Auditing, 1102, User: %LogFileClearedSubjectUserName%
+Microsoft-Windows-Security-Auditing, 4611, LogonProc: %LogonProcessName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId% ¦ SID: %SubjectUserSid% ¦ Dom: %SubjectDomainName%
+Microsoft-Windows-Security-Auditing, 4624, Type: %LogonType% ¦ TgtUser: %TargetUserName% ¦ SrcComp: %WorkstationName% ¦ SrcIP: %IpAddress% ¦ LID: %TargetLogonId%
+Microsoft-Windows-Security-Auditing, 4625, Type: %LogonType% ¦ TgtUser: %TargetUserName% ¦ SrcComp: %WorkstationName% ¦ SrcIP: %IpAddress% ¦ AuthPkg: %AuthenticationPackageName% ¦ Proc: %ProcessName%
+Microsoft-Windows-Security-Auditing, 4648, TgtUser: %TargetUserName% ¦ SrcUser: %SubjectUserName% ¦ SrcIP: %IpAddress% ¦ Proc: %ProcessName% ¦ TgtSvr: %TargetInfo%
+Microsoft-Windows-Security-Auditing, 4672, TgtUser: %SubjectUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4673, Proc: %ProcessName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4674, Svc: %ObjectName% ¦ User: %SubjectUserName% ¦ AccessMask: %AccessMask% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4688, Cmdline: %CommandLine% ¦ Proc: %NewProcessName% ¦ PID: %NewProcessId% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4698, Name: %TaskName% ¦ Content: %TaskContent% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4699, Name: %TaskName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4720, TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid%
+Microsoft-Windows-Security-Auditing, 4728, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4732, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4768, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status% ¦ PreAuthType: %PreAuthType%
+Microsoft-Windows-Security-Auditing, 4769, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status%
+Microsoft-Windows-Security-Auditing, 4776, TgtUser: %TargetUserName% ¦ SrcComp: %Workstation% ¦ Status: %Status%
+Microsoft-Windows-Security-Auditing, 4778, SrcUser: %AccountName% ¦ Domain: %AccountDomain% ¦ SrcIP: %ClientAddress% ¦ SrcComp: %ClientName% ¦ LID: %LogonID%
+Microsoft-Windows-Security-Auditing, 4779, SrcUser: %AccountName% ¦ Domain: %AccountDomain% ¦ SrcIP: %ClientAddress% ¦ SrcComp: %ClientName% ¦ LID: %LogonID%
+Microsoft-Windows-Security-Auditing, 5136, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ ObjDN: %ObjectDN% ¦ AttrLDAPName: %AttributeLDAPDisplayName% ¦ OpType: %OperationType% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 5140, SrcUser: %SubjectUserName% ¦ ShareName: %ShareName% ¦ SharePath: %ShareLocalPath% ¦ SrcIP: %IpAddress% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 5145, SrcUser: %SubjectUserName% ¦ ShareName: %ShareName% ¦ SharePath: %ShareLocalPath% ¦ Path: %RelativeTargetName% ¦ SrcIP: %IpAddress% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4616, PrevTime: %PreviousTime% ¦ NewTime: %NewTime% ¦ User: %SubjectUserName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4697, Svc: %ServiceName% ¦ Path: %ServiceFileName% ¦ User: %SubjectUserName% ¦ SvcAcct: %ServiceAccount% ¦ SvcType: %ServiceType% ¦ SvcStartType: %ServiceStartType% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4661, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjType: %ObjectType% ¦ ObjName: %ObjectName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4662, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ OpType: %OperationType% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4663, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ ObjType: %ObjectType% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4656, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ ObjType: %ObjectType% ¦ AccessReason: %AccessReason% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4738, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ SamUser: %SamAccountName% ¦ DisplayName: %DisplayName% ¦ UAC: %UserAccountControl% ¦ OldUAC: %OldUacValue% ¦ NewUAC: %NewUacValue% ¦ AcctExpires: %AccountExpires% ¦ AllowedToDelegateTo: %AllowedToDelegateTo% ¦ HomeDir: %HomeDirectory% ¦ HomePath: %HomePath% ¦ LogonHours: %LogonHours% ¦  PwLastSet: %PasswordLastSet% ¦ PrimaryGrpID: %PrimaryGroupId% ¦ PrivList: %PrivilegeList% ¦ ProfilePath: %ProfilePath% ¦ ScriptPath: %ScriptPath% ¦ SidHistory: %SidHistory% ¦ UserParams: %UserParameters% ¦ UPN: %UserPrincipalName% ¦ SrcComp: %UserWorkstations% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4825, Domain: %AccountDomain% ¦ User: %AccountName% ¦ SrcIP: %ClientAddress% ¦ LID: %LogonID%
+Microsoft-Windows-Security-Auditing, 4904, AuditSrcName: %AuditSourceName% ¦ EventSrcID: %EventSourceId% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4905, AuditSrcName: %AuditSourceName% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4719, User: %SubjectUserName% ¦ AuditPolicyChanges: %AuditPolicyChanges% ¦ CategoryId: %CategoryId% ¦ SubcategoryGuid: %SubcategoryGuid% ¦ SubcategoryId: %SubcategoryId% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4742, SPN: %ServicePrincipalNames% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ SamUser: %SamAccountName% ¦ DisplayName: %DisplayName% ¦ UAC: %UserAccountControl% ¦ OldUAC: %OldUacValue% ¦ NewUAC: %NewUacValue% ¦ AcctExpires: %AccountExpires% ¦ AllowedToDelegateTo: %AllowedToDelegateTo% ¦ HomeDir: %HomeDirectory% ¦ HomePath: %HomePath% ¦ LogonHours: %LogonHours% ¦  PwLastSet: %PasswordLastSet% ¦ PrimaryGrpID: %PrimaryGroupId% ¦ PrivList: %PrivilegeList% ¦ ProfilePath: %ProfilePath% ¦ ScriptPath: %ScriptPath% ¦ SidHistory: %SidHistory% ¦ UserParams: %UserParameters% ¦ UPN: %UserPrincipalName% ¦ SrcComp: %UserWorkstations% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4765, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ SrcUser: %SourceUserName% ¦ SrcSID: %SourceSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ PrivList: %PrivilegeList% ¦ SidList: %SidList% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4781, OldTgtUser: %OldTargetUserName% ¦ NewTgtUser: %NewTargetUserName% ¦ TgtSID: %TargetSid% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ PrivList: %PrivilegeList% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4794, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ Status: %Status% ¦ SrcComp: %Workstation% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 5156, Proc: %Application% ¦ SrcIP: %SourceAddress% ¦ SrcPort: %SourcePort% ¦ TgtIP: %DestAddress% ¦ TgtPort: %DestPort% ¦ Protocol: %Protocol% ¦ TgtMachineID: %RemoteMachineID% ¦ TgtSID: %RemoteUserID% ¦ PID: %ProcessID%
+Microsoft-Windows-Security-Auditing, 5157, Proc: %Application% ¦ SrcIP: %SourceAddress% ¦ SrcPort: %SourcePort% ¦ TgtIP: %DestAddress% ¦ TgtPort: %DestPort% ¦ Protocol: %Protocol% ¦ TgtMachineID: %RemoteMachineID% ¦ TgtSID: %RemoteUserID% ¦ PID: %ProcessID%
+Microsoft-Windows-Security-Auditing, 5379, PID: %ClientProcessId% ¦ SrcUser: %SubjectUserName% ¦ Tgt: %TargetName% ¦ CredsReturned: %CountOfCredentialsReturned% ¦ ReturnCode: %ReturnCode% ¦ LID: %SubjectLogonId% ¦ SrcSID: %SubjectUserSid%
+Microsoft-Windows-Security-Auditing, 6416, DeviceDescrip: %DeviceDescription% ¦ DeviceID: %DeviceId% ¦ LocInfo: %LocationInformation% ¦ CompatibleIDs: %CompatibleIds% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 5142, User: %SubjectUserName% ¦ ShareName: %ShareName% ¦ ShareLocalPath: %ShareLocalPath% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 6281, Path: %param1%
+Microsoft-Windows-Security-Auditing, 4692, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ MasterKeyId: %MasterKeyId% ¦ RecoveryServer: %RecoveryServer% ¦ RecoveryKeyId: %RecoveryKeyId% ¦ FailureReason: %FailureReason%
+Microsoft-Windows-Security-Auditing, 5038, Path: %param1%
+Microsoft-Windows-Sysmon, 1, Cmdline: %CommandLine% ¦ Proc: %Image% ¦ User: %User% ¦ ParentCmdline: %ParentCommandLine% ¦ LID: %LogonId% ¦ LGUID: %LogonGuid% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ ParentPID: %ParentProcessId% ¦ ParentPGUID: %ParentProcessGuid% ¦ Description: %Description% ¦ Product: %Product% ¦ Company: %Company% ¦ Hashes: %Hashes%
+Microsoft-Windows-Sysmon, 2, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ CreationTime: %CreationUtcTime% ¦ PreviousTime: %PreviousCreationUtcTime% ¦ PID: %PID% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 3, Initiated: %Initiated% ¦ Proto: %Protocol% ¦ SrcIP: %SourceIp% ¦ SrcPort: %SourcePort% ¦ SrcHost: %SourceHostname% ¦ TgtIP: %DestinationIp% ¦ TgtPort: %DestinationPort% ¦ TgtHost: %DestinationHostname% ¦ User: %User% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 4, State: %State% ¦ SysmonVer: %SysmonVersion% ¦ SchemaVer: %SchemaVersion%
+Microsoft-Windows-Sysmon, 5, Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 6, Path: %ImageLoaded% ¦ Sig: %Signature% ¦ Signed: %Signed% ¦ SigStatus: %SignatureStatus% ¦ Hashes: %Hashes%
+Microsoft-Windows-Sysmon, 7, Image: %ImageLoaded% ¦ Proc: %Image% ¦ Description: %Description% ¦ Product: %Product% ¦ Company: %Company% ¦ Signed: %Signed% ¦ Sig: %SignatureStatus% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ Hash: %Hashes% ¦ OrigFilename: %OriginalFilename%
+Microsoft-Windows-Sysmon, 8, SrcProc: %SourceImage% ¦ TgtProc: %TargetImage% ¦ SrcPID: %SourceProcessId% ¦ SrcPGUID: %SourceProcessGuid% ¦ TgtPID: %TargetProcessId% ¦ TgtPGUID: %TargetProcessGuid%
+Microsoft-Windows-Sysmon, 9, Proc: %Image% ¦ Device: %Device% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 10, SrcProc: %SourceImage% ¦ TgtProc: %TargetImage% ¦ SrcUser: %SourceUser% ¦ TgtUser: %TargetUser% ¦ Access: %GrantedAccess% ¦ SrcPID: %SourceProcessId% ¦ SrcPGUID: %SourceProcessGUID% ¦ TgtPID: %TargetProcessId% ¦ TgtPGUID: %TargetProcessGUID%
+Microsoft-Windows-Sysmon, 11, Path: %TargetFilename% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 12, EventType: %EventType% ¦ TgtObj: %TargetObject% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 13, EventType: %EventType% ¦ RegKey: %TargetObject% ¦ Details: %Details% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ User: %User%
+Microsoft-Windows-Sysmon, 14, EventType: %EventType% ¦ OldName: %TargetObject% ¦ NewName: %NewName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ User: %User%
+Microsoft-Windows-Sysmon, 15, Path: %TargetFilename% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ Hash: %Hash%
+Microsoft-Windows-Sysmon, 16, Config: %Configuration%
+Microsoft-Windows-Sysmon, 17, Pipe: %PipeName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 18, Pipe: %PipeName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 19, Op: %Operation% ¦ Namespace: %EventNamespace% ¦ Name: %Name% ¦ Query: %query% ¦ User: %User%
+Microsoft-Windows-Sysmon, 20, Op: %Operation% ¦ Type: %Type% ¦ Name: %Name% ¦ Tgt: %Destination% ¦ User: %User%
+Microsoft-Windows-Sysmon, 21, Op: %Operation% ¦ Consumer: %Consumer% ¦ Filter: %Filter%
+Microsoft-Windows-Sysmon, 22, Query: %QueryName% ¦ Result: %QueryResults% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 23, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 24, Proc: %Image% ¦ User: %User% ¦ CliInfo: %ClientInfo% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 25, Proc: %Image% ¦ Type: %Type% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 26, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
+Microsoft-Windows-Sysmon, 255, ID: %ID% ¦ Description: %Description%
+Service Control Manager, 7031, Svc: %param1% ¦ CrashCount: %param2% ¦ Action: %param5%
+Service Control Manager, 7045, Svc: %ServiceName% ¦ Path: %ImagePath% ¦ Acct: %AccountName% ¦ StartType: %StartType%
+Microsoft-Windows-Windows Firewall With Advanced Security, 2003, Profile: %Profiles% ¦ Type: %SettingType% ¦ Value: %SettingValueString% ¦ User: %ModifyingUser% ¦ App: %ModifyingApplication%
+Microsoft-Windows-Windows Firewall With Advanced Security, 2004, RuleName: %RuleName% ¦ App: %ApplicationPath% ¦ ModifyingApp: %ModifyingApplication% ¦ User: %ModifyingUser% ¦ Svc: %ServiceName% ¦ Protocol: %Protocol% ¦ LocalAddr: %LocalAddresses% ¦ LocalPort: %LocalPorts% ¦ RemoteAddr: %RemoteAddresses% ¦ RemotePort: %RemotePorts% ¦ Action: %Action%
+Microsoft-Windows-DNS-Server-Service, 150, DLL: %param1%
+Microsoft-Windows-DNS-Server-Service, 770, Path: %param1% ¦ SrcComp: %param2%
+MSExchange CmdletLogs, 6, Data: %Data%
+Microsoft-Windows-Windows Defender, 1013, Time: %Timestamp% ¦ User: %User%
+Microsoft-Windows-Windows Defender, 1116, Threat: %ThreatName% ¦ Severity: %SeverityName% ¦ Type: %CategoryName% ¦ User: %DetectionUser% ¦ Path: %Path% ¦ Proc: %WindowsDefenderProcessName%
+Microsoft-Windows-PrintService, 301, DeletedPrinter: %Param1%
+Microsoft-Windows-PrintService, 302, PrinterDeletionPending: %PrinterDeletionPending%
+Microsoft-Windows-PrintService, 823, OldDefaultPrinter: %OldDefaultPrinter% ¦ NewDefaultPrinter: %NewDefaultPrinter% ¦ Status: %Status% ¦ Module: %Module%
+Microsoft-Windows-PrintService, 848, PrinterName: %PrinterName% ¦ ShareName: %ShareName%
+Microsoft-Windows-PrintService, 849, PrinterName: %PrinterName% ¦ ShareName: %ShareName%
+Microsoft-Windows-PrintService, 354, Printer: %Param1% ¦ DLL: %Param2% ¦ Error: %Param3%
+Microsoft-Windows-PrintService, 300, PrinterCreated: %PrinterCreated%
+Microsoft-Windows-WMI-Activity, 5859, Namespace: %OperationEssStartedNamespaceName% ¦ Query: %UserDataQuery% ¦ SID: %OperationEssStartedUser% ¦ PID: %OperationEssStartedProcessid% ¦ Provider: %OperationEssStartedProvider% ¦ PossibleCause: %OperationEssStartedPossibleCause%
+Microsoft-Windows-DriverFrameworks-UserMode, 2003, Device: %DvrFmwk2003InstanceId%
+Microsoft-Windows-DriverFrameworks-UserMode, 2102, Device: %DvrFmwkInstanceId%
+Microsoft-Windows-DriverFrameworks-UserMode, 2100, Device: %DvrFmwkInstanceId%
+MsiInstaller, 1034, Product: %Data[1]% ¦ Ver: %Data[2]% ¦ Vendor: %Data[5]% ¦ Status: %Data[4]%
+MsiInstaller, 11724, Product: %Data[1]%
+Microsoft-Windows-Ntfs, 98, Drive: %DriveName% ¦ Device: %DeviceName%
+---FILE_END---
+---FILE_START---
+path: level_tuning.txt
+---CONTENT---
+id,new_level
+570ae5ec-33dc-427c-b815-db86228ad43e,info # 'Application Uninstalled'. Originally low.
+
+---FILE_END---
+---FILE_START---
+path: generic_abbreviations.txt
+---CONTENT---
+Original,GeneralAbbreviation
+Application,App
+Authentication,Auth
+Client,Cli
+Configuration,Config
+Connection,Conn
+Connectivity,Conn
+Deployment,Deploy
+Diagnostics,Diag
+Directory,Dir
+Experience,Exp
+Group,Grp
+Infrastructure,Infra
+Kernel,Kern
+Language,Lang
+Management,Mgmt
+Manager,Mgr
+Microsoft,MS
+Network,Net
+Notification,Notif
+Operational,Op
+Package,Pkg
+Power,Pwr
+Profile,Prof
+Program,Prog
+Provider,Prov
+Provisioning,Provision
+Registration,Reg
+Security,Sec
+Server,Svr
+Service,Svc
+Terminal,Term
+Universal,Univ
+Windows,Win
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5145_NetShareFileAccess.yaml
+---CONTENT---
+Title: 'NetShare File Access'
 Channel: Security
-EventID: 5140
+EventID: 5145
 RewriteFieldData:
     AccessList:
-        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
+        - '%%1537': 'DELETE'
+        - '%%1538': 'READ_CONTROL'
+        - '%%1539': 'WRITE_DAC'
+        - '%%1540': 'WRITE_OWNER'
+        - '%%1541': 'SYNCHRONIZE'
+        - '%%1542': 'ACCESS_SYS_SEC'
+        - '%%4416': 'READ_DATA'
+        - '%%4417': 'WRITE_DATA'
+        - '%%4418': 'APPEND_DATA'
+        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
+        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
+        - '%%4421': 'EXECUTE/TRAVERSE'
+        - '%%4422': 'DELETE_CHILD'
+        - '%%4423': 'READ_ATTRIBUTES'
+        - '%%4424': 'WRITE_ATTRIBUTES'
 
 sample-evtx:
 references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4625_FailedLogon.yaml
+---CONTENT---
+Title: 'Failed Logon'
+Channel: Security
+EventID: 4625
+RewriteFieldData:
+    LogonType:
+        - '0': '0 - SYSTEM'
+        - '2': '2 - INTERACTIVE'
+        - '3': '3 - NETWORK'
+        - '4': '4 - BATCH'
+        - '5': '5 - SERVICE'
+        - '7': '7 - UNLOCK'
+        - '8': '8 - NETWORK CLEARTEXT'
+        - '9': '9 - NEW CREDENTIALS'
+        - '10': '10 - REMOTE INTERACTIVE'
+        - '11': '11 - CACHED INTERACTIVE'
+        - '12': '12 - CACHED REMOTE INTERACTIVE'
+        - '13': '13 - CACHED UNLOCK'
+    FailureReason:
+        - '%%2304': 'ERROR'
+        - '%%2305': 'ACCOUNT EXPIRED'
+        - '%%2306': 'NETLOGON NOT ACTIVE'
+        - '%%2307': 'ACCOUNT LOCKOUT'
+        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
+        - '%%2309': 'PW EXPIRED'
+        - '%%2310': 'ACCOUNT DISABLED'
+        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
+        - '%%2312': 'UNAUTHORIZED COMPUTER'
+        - '%%2313': 'BAD USER OR PW'
+        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
+        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
+    Status:
+        - '0x0': 'SUCCESS'
+        - '0xc000005e': 'NO LOGON SERVER'
+        - '0xc000006d': 'BAD USER OR PW'
+        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
+        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
+        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
+        - '0xc0000071': 'PW EXPIRED'
+        - '0xc0000072': 'ACCOUNT DISABLED'
+        - '0xc00000dc': 'SERVER IN WRONG STATE'
+        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
+        - '0xc000015b': 'NO LOGON RIGHT'
+        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
+        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
+        - '0xc0000193': 'ACCOUNT EXPIRED'
+        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
+        - '0xc0000225': 'WINDOWS BUG'
+        - '0xc0000234': 'ACCOUNT LOCKED'
+        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
+        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
+    SubStatus:
+        - '0x0': 'SUCCESS'
+        - '0xc0000064': 'UNKNOWN USER'
+        - '0xc000006a': 'WRONG PW'
+        - '0xc0000073': 'NO TRANSLATIONS'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+            <EventID>4625</EventID>
+            <Version>0</Version>
+            <Level>0</Level>
+            <Task>12544</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8010000000000000</Keywords>
+            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
+            <EventRecordID>1861989</EventRecordID>
+            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
+            <Execution ProcessID="576" ThreadID="5164"/>
+            <Channel>Security</Channel>
+            <Computer>fs01.offsec.lan</Computer>
+            <Security/>
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data>
+            <Data Name="SubjectUserName">FS01$</Data>
+            <Data Name="SubjectDomainName">OFFSEC</Data>
+            <Data Name="SubjectLogonId">0x3e7</Data>
+            <Data Name="TargetUserSid">S-1-0-0</Data>
+            <Data Name="TargetUserName">NOUSER</Data>
+            <Data Name="TargetDomainName">FS01</Data>
+            <Data Name="Status">0xc000006d</Data>
+            <Data Name="FailureReason">%%2313</Data>
+            <Data Name="SubStatus">0xc0000064</Data>
+            <Data Name="LogonType">8</Data>
+            <Data Name="LogonProcessName">Advapi</Data>
+            <Data Name="AuthenticationPackageName">Negotiate</Data>
+            <Data Name="WorkstationName">FS01</Data>
+            <Data Name="TransmittedServices">-</Data>
+            <Data Name="LmPackageName">-</Data>
+            <Data Name="KeyLength">0</Data>
+            <Data Name="ProcessId">0x16d8</Data>
+            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
+            <Data Name="IpAddress">-</Data>
+            <Data Name="IpPort">-</Data>
+        </EventData>
+    </Event>
 ---FILE_END---
 ---FILE_START---
 path: data_mapping/Security_4674_ObjectAccessAttempt.yaml
@@ -140,6 +876,20 @@ sample-evtx: |
             <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
         </EventData>
     </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5140_NetShareAccess.yaml
+---CONTENT---
+Title: 'NetShare Access'
+Channel: Security
+EventID: 5140
+RewriteFieldData:
+    AccessList:
+        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
+
+sample-evtx:
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
 ---FILE_END---
 ---FILE_START---
 path: data_mapping/Security_4624_SuccessfulLogon.yaml
@@ -451,238 +1201,68 @@ sample-evtx: |
     </Event>
 ---FILE_END---
 ---FILE_START---
-path: data_mapping/Security_4625_FailedLogon.yaml
+path: data_mapping/Security_4688_ProcessCreation.yaml
 ---CONTENT---
-Title: 'Failed Logon'
+Title: 'Process Creation'
 Channel: Security
-EventID: 4625
+EventID: 4688
 RewriteFieldData:
-    LogonType:
-        - '0': '0 - SYSTEM'
-        - '2': '2 - INTERACTIVE'
-        - '3': '3 - NETWORK'
-        - '4': '4 - BATCH'
-        - '5': '5 - SERVICE'
-        - '7': '7 - UNLOCK'
-        - '8': '8 - NETWORK CLEARTEXT'
-        - '9': '9 - NEW CREDENTIALS'
-        - '10': '10 - REMOTE INTERACTIVE'
-        - '11': '11 - CACHED INTERACTIVE'
-        - '12': '12 - CACHED REMOTE INTERACTIVE'
-        - '13': '13 - CACHED UNLOCK'
-    FailureReason:
-        - '%%2304': 'ERROR'
-        - '%%2305': 'ACCOUNT EXPIRED'
-        - '%%2306': 'NETLOGON NOT ACTIVE'
-        - '%%2307': 'ACCOUNT LOCKOUT'
-        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
-        - '%%2309': 'PW EXPIRED'
-        - '%%2310': 'ACCOUNT DISABLED'
-        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
-        - '%%2312': 'UNAUTHORIZED COMPUTER'
-        - '%%2313': 'BAD USER OR PW'
-        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
-        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
-    Status:
-        - '0x0': 'SUCCESS'
-        - '0xc000005e': 'NO LOGON SERVER'
-        - '0xc000006d': 'BAD USER OR PW'
-        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
-        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
-        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
-        - '0xc0000071': 'PW EXPIRED'
-        - '0xc0000072': 'ACCOUNT DISABLED'
-        - '0xc00000dc': 'SERVER IN WRONG STATE'
-        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
-        - '0xc000015b': 'NO LOGON RIGHT'
-        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
-        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
-        - '0xc0000193': 'ACCOUNT EXPIRED'
-        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
-        - '0xc0000225': 'WINDOWS BUG'
-        - '0xc0000234': 'ACCOUNT LOCKED'
-        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
-        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
-    SubStatus:
-        - '0x0': 'SUCCESS'
-        - '0xc0000064': 'UNKNOWN USER'
-        - '0xc000006a': 'WRONG PW'
-        - '0xc0000073': 'NO TRANSLATIONS'
-HexToDecimal: 'ProcessId'
+    MandatoryLabel:
+        - 'S-1-16-0': 'UNTRUSTED'
+        - 'S-1-16-4096': 'LOW_INTEGRITY'
+        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
+        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
+        - 'S-1-16-12288': 'HIGH_INTEGRITY'
+        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
+        - 'S-1-16-20480': 'PROTECTED_PROCESS'
+    TokenElevationType:
+        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
+        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
+        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
+HexToDecimal:
+    - 'NewProcessId'
+    - 'ProcessId'
 
 sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-            <EventID>4625</EventID>
-            <Version>0</Version>
-            <Level>0</Level>
-            <Task>12544</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8010000000000000</Keywords>
-            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
-            <EventRecordID>1861989</EventRecordID>
-            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
-            <Execution ProcessID="576" ThreadID="5164"/>
-            <Channel>Security</Channel>
-            <Computer>fs01.offsec.lan</Computer>
-            <Security/>
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data>
-            <Data Name="SubjectUserName">FS01$</Data>
-            <Data Name="SubjectDomainName">OFFSEC</Data>
-            <Data Name="SubjectLogonId">0x3e7</Data>
-            <Data Name="TargetUserSid">S-1-0-0</Data>
-            <Data Name="TargetUserName">NOUSER</Data>
-            <Data Name="TargetDomainName">FS01</Data>
-            <Data Name="Status">0xc000006d</Data>
-            <Data Name="FailureReason">%%2313</Data>
-            <Data Name="SubStatus">0xc0000064</Data>
-            <Data Name="LogonType">8</Data>
-            <Data Name="LogonProcessName">Advapi</Data>
-            <Data Name="AuthenticationPackageName">Negotiate</Data>
-            <Data Name="WorkstationName">FS01</Data>
-            <Data Name="TransmittedServices">-</Data>
-            <Data Name="LmPackageName">-</Data>
-            <Data Name="KeyLength">0</Data>
-            <Data Name="ProcessId">0x16d8</Data>
-            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
-            <Data Name="IpAddress">-</Data>
-            <Data Name="IpPort">-</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5145_NetShareFileAccess.yaml
----CONTENT---
-Title: 'NetShare File Access'
-Channel: Security
-EventID: 5145
-RewriteFieldData:
-    AccessList:
-        - '%%1537': 'DELETE'
-        - '%%1538': 'READ_CONTROL'
-        - '%%1539': 'WRITE_DAC'
-        - '%%1540': 'WRITE_OWNER'
-        - '%%1541': 'SYNCHRONIZE'
-        - '%%1542': 'ACCESS_SYS_SEC'
-        - '%%4416': 'READ_DATA'
-        - '%%4417': 'WRITE_DATA'
-        - '%%4418': 'APPEND_DATA'
-        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
-        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
-        - '%%4421': 'EXECUTE/TRAVERSE'
-        - '%%4422': 'DELETE_CHILD'
-        - '%%4423': 'READ_ATTRIBUTES'
-        - '%%4424': 'WRITE_ATTRIBUTES'
+  <?xml version="1.0"?>
+  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+    <System>
+      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+      <EventID>4688</EventID>
+      <Version>2</Version>
+      <Level>0</Level>
+      <Task>13312</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8020000000000000</Keywords>
+      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
+      <EventRecordID>284391</EventRecordID>
+      <Correlation/>
+      <Execution ProcessID="4" ThreadID="6292"/>
+      <Channel>Security</Channel>
+      <Computer>wef.windomain.local</Computer>
+      <Security/>
+    </System>
+    <EventData>
+      <Data Name="SubjectUserSid">S-1-5-18</Data>
+      <Data Name="SubjectUserName">WEF$</Data>
+      <Data Name="SubjectDomainName">WINDOMAIN</Data>
+      <Data Name="SubjectLogonId">0x3e7</Data>
+      <Data Name="NewProcessId">0x1980</Data>
+      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
+      <Data Name="TokenElevationType">%%1936</Data>
+      <Data Name="ProcessId">0x24c</Data>
+      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
+      <Data Name="TargetUserSid">S-1-0-0</Data>
+      <Data Name="TargetUserName">-</Data>
+      <Data Name="TargetDomainName">-</Data>
+      <Data Name="TargetLogonId">0x0</Data>
+      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
+      <Data Name="MandatoryLabel">S-1-16-16384</Data>
+    </EventData>
+  </Event>
 
-sample-evtx:
 references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
----FILE_END---
----FILE_START---
-path: channel_abbreviations.txt
----CONTENT---
-Channel,Abbreviation
-Application,App
-DNS Server,DNS-Svr
-Key Management Service,KeyMgtSvc
-Microsoft-ServiceBus-Client,SvcBusCli
-Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
-Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
-Microsoft-Windows-AppLocker/MSI and Script,AppLocker
-Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
-Microsoft-Windows-Bits-Client/Operational,BitsCli
-Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
-Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
-Microsoft-Windows-NTLM/Operational,NTLM
-Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
-Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
-Microsoft-Windows-SmbClient/Security,SmbCliSec
-Microsoft-Windows-Sysmon/Operational,Sysmon
-Microsoft-Windows-TaskScheduler/Operational,TaskSch
-Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Client
-Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
-Microsoft-Windows-PrintService/Admin,PrintAdm
-Microsoft-Windows-PrintService/Operational,PrintOp
-Microsoft-Windows-PowerShell/Operational,PwSh
-Microsoft-Windows-Windows Defender/Operational,Defender
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
-Microsoft-Windows-WinRM/Operational,WinRM
-Microsoft-Windows-WMI-Activity/Operational,WMI
-MSExchange Management,Exchange
-OpenSSH/Operational,OpenSSH
-Security,Sec
-System,Sys
-Windows PowerShell,PwShClassic
-Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
-Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-Forwarding/Operational,Forwarding
-Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
-Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
-Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
-Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
-PowerShellCore,PwShCore
----FILE_END---
----FILE_START---
-path: geoip_field_mapping.yaml
----CONTENT---
-SrcIP:
-  - '%IpAddress%'
-  - '%ClientAddress%'
-  - '%SourceAddress%'
-  - '%SourceIp%'
-  - '%UserDataAddress%'
-  - '%UserDataParam3%'
-
-TgtIP:
-  - '%DestinationIp%'
-  - '%DestAddress%'
-
-Filter:
-  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
-    - 21 # RDS Sess Logon %UserDataAddress%
-    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
-    - 24 # RDS Sess Disconnect %UserDataAddress%
-  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
-    - 1149 # RDS Logon %UserDataParam3%
-  - Security:
-    - 4624 # Logon Success %IpAddress%
-    - 4625 # Logon Failure %IpAddress%
-    - 4648 # Explicit Logon %IpAddress%
-    - 4768 # Kerberos TGT Requested %IpAddress%
-    - 4769 # Kerberos Service Ticket Requested %IpAddress%
-    - 4778 # RDP Session Reconnect %ClientAddress%
-    - 4779 # RDP Session Disconnect %ClientAddress%
-    - 4825 # RDP Logon Failed %ClientAddress%
-    - 5140 # A network share object was accessed %IpAddress%
-    - 5145 # NetShare File Access %IpAddress%
-    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
-  - Microsoft-Windows-Sysmon/Operational: 
-    - 3 # Network Connection %SourceIp%
----FILE_END---
----FILE_START---
-path: provider_abbreviations.txt
----CONTENT---
-Provider,Abbreviation
-Microsoft-Windows-Security-Auditing,Sec
-Microsoft-Windows-Sysmon,Sysmon
-Microsoft-Windows-TaskScheduler,TaskScheduler
-Microsoft-Windows-TerminalServices-LocalSessionManager,RDS-LSM
-Microsoft-Windows-TerminalServices-RemoteConnectionManager,RDS-RCM
-Microsoft-Windows-WMI-Activity,WMI-Activity
-Microsoft-Windows-WinRM,WinRM
-Microsoft-Windows-Windows Defender,Defender
-Microsoft-Windows-Windows Firewall With Advanced Security,Firewall
-Microsoft-Windows-WindowsUpdateClient,WinUpdate
-Service Control Manager,SCM
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
 ---FILE_END---
 ---FILE_START---
 path: channel_eid_info.txt
@@ -1194,487 +1774,6 @@ Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,23,Session lo
 Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,24,Session disconnected
 Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,1149,User authentication
 Microsoft-Windows-TaskScheduler/Operational,106,Task scheduled
----FILE_END---
----FILE_START---
-path: default_details.txt
----CONTENT---
-Provider, EID, Details
-Microsoft-Windows-Bits-Client, 3, JobTitle: %jobTitle% ¦ JobID: %jobId% ¦ JobOwner: %jobOwner% ¦ Proc: %processPath% ¦ PID: %ProcessId%
-PowerShellCore, 4103, Payload: %Payload%
-PowerShellCore, 4104, ScriptBlock: %ScriptBlockText%
-Microsoft-Windows-PowerShell, 4103, Payload: %Payload%
-Microsoft-Windows-PowerShell, 4104, ScriptBlock: %ScriptBlockText%
-Microsoft-Windows-Security-Auditing, 1102, User: %LogFileClearedSubjectUserName%
-Microsoft-Windows-Security-Auditing, 4611, LogonProc: %LogonProcessName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId% ¦ SID: %SubjectUserSid% ¦ Dom: %SubjectDomainName%
-Microsoft-Windows-Security-Auditing, 4624, Type: %LogonType% ¦ TgtUser: %TargetUserName% ¦ SrcComp: %WorkstationName% ¦ SrcIP: %IpAddress% ¦ LID: %TargetLogonId%
-Microsoft-Windows-Security-Auditing, 4625, Type: %LogonType% ¦ TgtUser: %TargetUserName% ¦ SrcComp: %WorkstationName% ¦ SrcIP: %IpAddress% ¦ AuthPkg: %AuthenticationPackageName% ¦ Proc: %ProcessName%
-Microsoft-Windows-Security-Auditing, 4648, TgtUser: %TargetUserName% ¦ SrcUser: %SubjectUserName% ¦ SrcIP: %IpAddress% ¦ Proc: %ProcessName% ¦ TgtSvr: %TargetInfo%
-Microsoft-Windows-Security-Auditing, 4672, TgtUser: %SubjectUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4673, Proc: %ProcessName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4674, Svc: %ObjectName% ¦ User: %SubjectUserName% ¦ AccessMask: %AccessMask% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4688, Cmdline: %CommandLine% ¦ Proc: %NewProcessName% ¦ PID: %NewProcessId% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4698, Name: %TaskName% ¦ Content: %TaskContent% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4699, Name: %TaskName% ¦ User: %SubjectUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4720, TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid%
-Microsoft-Windows-Security-Auditing, 4728, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4732, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4768, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status% ¦ PreAuthType: %PreAuthType%
-Microsoft-Windows-Security-Auditing, 4769, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status%
-Microsoft-Windows-Security-Auditing, 4776, TgtUser: %TargetUserName% ¦ SrcComp: %Workstation% ¦ Status: %Status%
-Microsoft-Windows-Security-Auditing, 4778, SrcUser: %AccountName% ¦ Domain: %AccountDomain% ¦ SrcIP: %ClientAddress% ¦ SrcComp: %ClientName% ¦ LID: %LogonID%
-Microsoft-Windows-Security-Auditing, 4779, SrcUser: %AccountName% ¦ Domain: %AccountDomain% ¦ SrcIP: %ClientAddress% ¦ SrcComp: %ClientName% ¦ LID: %LogonID%
-Microsoft-Windows-Security-Auditing, 5136, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ ObjDN: %ObjectDN% ¦ AttrLDAPName: %AttributeLDAPDisplayName% ¦ OpType: %OperationType% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 5140, SrcUser: %SubjectUserName% ¦ ShareName: %ShareName% ¦ SharePath: %ShareLocalPath% ¦ SrcIP: %IpAddress% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 5145, SrcUser: %SubjectUserName% ¦ ShareName: %ShareName% ¦ SharePath: %ShareLocalPath% ¦ Path: %RelativeTargetName% ¦ SrcIP: %IpAddress% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4616, PrevTime: %PreviousTime% ¦ NewTime: %NewTime% ¦ User: %SubjectUserName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4697, Svc: %ServiceName% ¦ Path: %ServiceFileName% ¦ User: %SubjectUserName% ¦ SvcAcct: %ServiceAccount% ¦ SvcType: %ServiceType% ¦ SvcStartType: %ServiceStartType% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4661, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjType: %ObjectType% ¦ ObjName: %ObjectName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4662, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ OpType: %OperationType% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4663, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ ObjType: %ObjectType% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4656, User: %SubjectUserName% ¦ ObjSvr: %ObjectServer% ¦ ObjName: %ObjectName% ¦ ObjType: %ObjectType% ¦ AccessReason: %AccessReason% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ HID: %HandleId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4738, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ SamUser: %SamAccountName% ¦ DisplayName: %DisplayName% ¦ UAC: %UserAccountControl% ¦ OldUAC: %OldUacValue% ¦ NewUAC: %NewUacValue% ¦ AcctExpires: %AccountExpires% ¦ AllowedToDelegateTo: %AllowedToDelegateTo% ¦ HomeDir: %HomeDirectory% ¦ HomePath: %HomePath% ¦ LogonHours: %LogonHours% ¦  PwLastSet: %PasswordLastSet% ¦ PrimaryGrpID: %PrimaryGroupId% ¦ PrivList: %PrivilegeList% ¦ ProfilePath: %ProfilePath% ¦ ScriptPath: %ScriptPath% ¦ SidHistory: %SidHistory% ¦ UserParams: %UserParameters% ¦ UPN: %UserPrincipalName% ¦ SrcComp: %UserWorkstations% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4825, Domain: %AccountDomain% ¦ User: %AccountName% ¦ SrcIP: %ClientAddress% ¦ LID: %LogonID%
-Microsoft-Windows-Security-Auditing, 4904, AuditSrcName: %AuditSourceName% ¦ EventSrcID: %EventSourceId% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4905, AuditSrcName: %AuditSourceName% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Proc: %ProcessName% ¦ PID: %ProcessId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4719, User: %SubjectUserName% ¦ AuditPolicyChanges: %AuditPolicyChanges% ¦ CategoryId: %CategoryId% ¦ SubcategoryGuid: %SubcategoryGuid% ¦ SubcategoryId: %SubcategoryId% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4742, SPN: %ServicePrincipalNames% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ SamUser: %SamAccountName% ¦ DisplayName: %DisplayName% ¦ UAC: %UserAccountControl% ¦ OldUAC: %OldUacValue% ¦ NewUAC: %NewUacValue% ¦ AcctExpires: %AccountExpires% ¦ AllowedToDelegateTo: %AllowedToDelegateTo% ¦ HomeDir: %HomeDirectory% ¦ HomePath: %HomePath% ¦ LogonHours: %LogonHours% ¦  PwLastSet: %PasswordLastSet% ¦ PrimaryGrpID: %PrimaryGroupId% ¦ PrivList: %PrivilegeList% ¦ ProfilePath: %ProfilePath% ¦ ScriptPath: %ScriptPath% ¦ SidHistory: %SidHistory% ¦ UserParams: %UserParameters% ¦ UPN: %UserPrincipalName% ¦ SrcComp: %UserWorkstations% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4765, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ SrcUser: %SourceUserName% ¦ SrcSID: %SourceSid% ¦ TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ PrivList: %PrivilegeList% ¦ SidList: %SidList% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4781, OldTgtUser: %OldTargetUserName% ¦ NewTgtUser: %NewTargetUserName% ¦ TgtSID: %TargetSid% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ TgtDomain: %TargetDomainName% ¦ PrivList: %PrivilegeList% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 4794, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ Status: %Status% ¦ SrcComp: %Workstation% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 5156, Proc: %Application% ¦ SrcIP: %SourceAddress% ¦ SrcPort: %SourcePort% ¦ TgtIP: %DestAddress% ¦ TgtPort: %DestPort% ¦ Protocol: %Protocol% ¦ TgtMachineID: %RemoteMachineID% ¦ TgtSID: %RemoteUserID% ¦ PID: %ProcessID%
-Microsoft-Windows-Security-Auditing, 5157, Proc: %Application% ¦ SrcIP: %SourceAddress% ¦ SrcPort: %SourcePort% ¦ TgtIP: %DestAddress% ¦ TgtPort: %DestPort% ¦ Protocol: %Protocol% ¦ TgtMachineID: %RemoteMachineID% ¦ TgtSID: %RemoteUserID% ¦ PID: %ProcessID%
-Microsoft-Windows-Security-Auditing, 5379, PID: %ClientProcessId% ¦ SrcUser: %SubjectUserName% ¦ Tgt: %TargetName% ¦ CredsReturned: %CountOfCredentialsReturned% ¦ ReturnCode: %ReturnCode% ¦ LID: %SubjectLogonId% ¦ SrcSID: %SubjectUserSid%
-Microsoft-Windows-Security-Auditing, 6416, DeviceDescrip: %DeviceDescription% ¦ DeviceID: %DeviceId% ¦ LocInfo: %LocationInformation% ¦ CompatibleIDs: %CompatibleIds% ¦ User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 5142, User: %SubjectUserName% ¦ ShareName: %ShareName% ¦ ShareLocalPath: %ShareLocalPath% ¦ LID: %SubjectLogonId%
-Microsoft-Windows-Security-Auditing, 6281, Path: %param1%
-Microsoft-Windows-Security-Auditing, 4692, User: %SubjectUserName% ¦ SID: %SubjectUserSid% ¦ Domain: %SubjectDomainName% ¦ MasterKeyId: %MasterKeyId% ¦ RecoveryServer: %RecoveryServer% ¦ RecoveryKeyId: %RecoveryKeyId% ¦ FailureReason: %FailureReason%
-Microsoft-Windows-Security-Auditing, 5038, Path: %param1%
-Microsoft-Windows-Sysmon, 1, Cmdline: %CommandLine% ¦ Proc: %Image% ¦ User: %User% ¦ ParentCmdline: %ParentCommandLine% ¦ LID: %LogonId% ¦ LGUID: %LogonGuid% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ ParentPID: %ParentProcessId% ¦ ParentPGUID: %ParentProcessGuid% ¦ Description: %Description% ¦ Product: %Product% ¦ Company: %Company% ¦ Hashes: %Hashes%
-Microsoft-Windows-Sysmon, 2, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ CreationTime: %CreationUtcTime% ¦ PreviousTime: %PreviousCreationUtcTime% ¦ PID: %PID% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 3, Initiated: %Initiated% ¦ Proto: %Protocol% ¦ SrcIP: %SourceIp% ¦ SrcPort: %SourcePort% ¦ SrcHost: %SourceHostname% ¦ TgtIP: %DestinationIp% ¦ TgtPort: %DestinationPort% ¦ TgtHost: %DestinationHostname% ¦ User: %User% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 4, State: %State% ¦ SysmonVer: %SysmonVersion% ¦ SchemaVer: %SchemaVersion%
-Microsoft-Windows-Sysmon, 5, Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 6, Path: %ImageLoaded% ¦ Sig: %Signature% ¦ Signed: %Signed% ¦ SigStatus: %SignatureStatus% ¦ Hashes: %Hashes%
-Microsoft-Windows-Sysmon, 7, Image: %ImageLoaded% ¦ Proc: %Image% ¦ Description: %Description% ¦ Product: %Product% ¦ Company: %Company% ¦ Signed: %Signed% ¦ Sig: %SignatureStatus% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ Hash: %Hashes% ¦ OrigFilename: %OriginalFilename%
-Microsoft-Windows-Sysmon, 8, SrcProc: %SourceImage% ¦ TgtProc: %TargetImage% ¦ SrcPID: %SourceProcessId% ¦ SrcPGUID: %SourceProcessGuid% ¦ TgtPID: %TargetProcessId% ¦ TgtPGUID: %TargetProcessGuid%
-Microsoft-Windows-Sysmon, 9, Proc: %Image% ¦ Device: %Device% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 10, SrcProc: %SourceImage% ¦ TgtProc: %TargetImage% ¦ SrcUser: %SourceUser% ¦ TgtUser: %TargetUser% ¦ Access: %GrantedAccess% ¦ SrcPID: %SourceProcessId% ¦ SrcPGUID: %SourceProcessGUID% ¦ TgtPID: %TargetProcessId% ¦ TgtPGUID: %TargetProcessGUID%
-Microsoft-Windows-Sysmon, 11, Path: %TargetFilename% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 12, EventType: %EventType% ¦ TgtObj: %TargetObject% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 13, EventType: %EventType% ¦ RegKey: %TargetObject% ¦ Details: %Details% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ User: %User%
-Microsoft-Windows-Sysmon, 14, EventType: %EventType% ¦ OldName: %TargetObject% ¦ NewName: %NewName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ User: %User%
-Microsoft-Windows-Sysmon, 15, Path: %TargetFilename% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid% ¦ Hash: %Hash%
-Microsoft-Windows-Sysmon, 16, Config: %Configuration%
-Microsoft-Windows-Sysmon, 17, Pipe: %PipeName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 18, Pipe: %PipeName% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 19, Op: %Operation% ¦ Namespace: %EventNamespace% ¦ Name: %Name% ¦ Query: %query% ¦ User: %User%
-Microsoft-Windows-Sysmon, 20, Op: %Operation% ¦ Type: %Type% ¦ Name: %Name% ¦ Tgt: %Destination% ¦ User: %User%
-Microsoft-Windows-Sysmon, 21, Op: %Operation% ¦ Consumer: %Consumer% ¦ Filter: %Filter%
-Microsoft-Windows-Sysmon, 22, Query: %QueryName% ¦ Result: %QueryResults% ¦ Proc: %Image% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 23, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 24, Proc: %Image% ¦ User: %User% ¦ CliInfo: %ClientInfo% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 25, Proc: %Image% ¦ Type: %Type% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 26, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
-Microsoft-Windows-Sysmon, 255, ID: %ID% ¦ Description: %Description%
-Service Control Manager, 7031, Svc: %param1% ¦ CrashCount: %param2% ¦ Action: %param5%
-Service Control Manager, 7045, Svc: %ServiceName% ¦ Path: %ImagePath% ¦ Acct: %AccountName% ¦ StartType: %StartType%
-Microsoft-Windows-Windows Firewall With Advanced Security, 2003, Profile: %Profiles% ¦ Type: %SettingType% ¦ Value: %SettingValueString% ¦ User: %ModifyingUser% ¦ App: %ModifyingApplication%
-Microsoft-Windows-Windows Firewall With Advanced Security, 2004, RuleName: %RuleName% ¦ App: %ApplicationPath% ¦ ModifyingApp: %ModifyingApplication% ¦ User: %ModifyingUser% ¦ Svc: %ServiceName% ¦ Protocol: %Protocol% ¦ LocalAddr: %LocalAddresses% ¦ LocalPort: %LocalPorts% ¦ RemoteAddr: %RemoteAddresses% ¦ RemotePort: %RemotePorts% ¦ Action: %Action%
-Microsoft-Windows-DNS-Server-Service, 150, DLL: %param1%
-Microsoft-Windows-DNS-Server-Service, 770, Path: %param1% ¦ SrcComp: %param2%
-MSExchange CmdletLogs, 6, Data: %Data%
-Microsoft-Windows-Windows Defender, 1013, Time: %Timestamp% ¦ User: %User%
-Microsoft-Windows-Windows Defender, 1116, Threat: %ThreatName% ¦ Severity: %SeverityName% ¦ Type: %CategoryName% ¦ User: %DetectionUser% ¦ Path: %Path% ¦ Proc: %WindowsDefenderProcessName%
-Microsoft-Windows-PrintService, 301, DeletedPrinter: %Param1%
-Microsoft-Windows-PrintService, 302, PrinterDeletionPending: %PrinterDeletionPending%
-Microsoft-Windows-PrintService, 823, OldDefaultPrinter: %OldDefaultPrinter% ¦ NewDefaultPrinter: %NewDefaultPrinter% ¦ Status: %Status% ¦ Module: %Module%
-Microsoft-Windows-PrintService, 848, PrinterName: %PrinterName% ¦ ShareName: %ShareName%
-Microsoft-Windows-PrintService, 849, PrinterName: %PrinterName% ¦ ShareName: %ShareName%
-Microsoft-Windows-PrintService, 354, Printer: %Param1% ¦ DLL: %Param2% ¦ Error: %Param3%
-Microsoft-Windows-PrintService, 300, PrinterCreated: %PrinterCreated%
-Microsoft-Windows-WMI-Activity, 5859, Namespace: %OperationEssStartedNamespaceName% ¦ Query: %UserDataQuery% ¦ SID: %OperationEssStartedUser% ¦ PID: %OperationEssStartedProcessid% ¦ Provider: %OperationEssStartedProvider% ¦ PossibleCause: %OperationEssStartedPossibleCause%
-Microsoft-Windows-DriverFrameworks-UserMode, 2003, Device: %DvrFmwk2003InstanceId%
-Microsoft-Windows-DriverFrameworks-UserMode, 2102, Device: %DvrFmwkInstanceId%
-Microsoft-Windows-DriverFrameworks-UserMode, 2100, Device: %DvrFmwkInstanceId%
-MsiInstaller, 1034, Product: %Data[1]% ¦ Ver: %Data[2]% ¦ Vendor: %Data[5]% ¦ Status: %Data[4]%
-MsiInstaller, 11724, Product: %Data[1]%
-Microsoft-Windows-Ntfs, 98, Drive: %DriveName% ¦ Device: %DeviceName%
----FILE_END---
----FILE_START---
-path: eventkey_alias.txt
----CONTENT---
-Accesses,Event.EventData.Accesses
-AccessList,Event.EventData.AccessList
-AccessMask,Event.EventData.AccessMask
-AccountDomain,Event.EventData.AccountDomain
-AccountName,Event.EventData.AccountName
-Account_Name,Event.EventData.Account_Name
-Action,Event.EventData.Action
-AllowedToDelegateTo,Event.EventData.AllowedToDelegateTo
-ApplicationPath,Event.EventData.ApplicationPath
-AttributeLDAPDisplayName,Event.EventData.AttributeLDAPDisplayName
-AttributeValue,Event.EventData.AttributeValue
-AuditPolicyChanges,Event.EventData.AuditPolicyChanges
-AuditSourceName,Event.EventData.AuditSourceName
-AuthenticationPackageName,Event.EventData.AuthenticationPackageName
-CallerProcessName,Event.EventData.CallerProcessName
-Caller_Process_Name,Event.EventData.Caller_Process_Name
-CallingProcessName,Event.EventData.CallingProcessName
-CallTrace,Event.EventData.CallTrace
-CategoryName,Event.EventData.Category Name
-CertThumbprint,Event.EventData.CertThumbprint
-Channel,Event.System.Channel
-ClassName,Event.EventData.ClassName
-ClientAddress,Event.EventData.ClientAddress
-ClientName,Event.EventData.ClientName
-Client_Address,Event.EventData.Client_Address
-CommandLine,Event.EventData.CommandLine
-Company,Event.EventData.Company
-Computer,Event.System.Computer
-ComputerName,Event.System.Computer
-ContextInfo,Event.EventData.ContextInfo
-CurrentDirectory,Event.EventData.CurrentDirectory
-Description,Event.EventData.Description
-DestAddress,Event.EventData.DestAddress
-Destination,Event.EventData.Destination
-DestinationAddress,Event.EventData.DestinationAddress
-DestinationHostname,Event.EventData.DestinationHostname
-DestinationIp,Event.EventData.DestinationIp
-DestinationIsIpv6,Event.EventData.DestinationIsIpv6
-DestinationPort,Event.EventData.DestinationPort
-DestPort,Event.EventData.DestPort
-Details,Event.EventData.Details
-DetectionSource,Event.EventData.DetectionSource
-DetectionUser,Event.EventData.Detection User
-Device,Event.EventData.Device
-DeviceClassName,Event.EventData.DeviceClassName
-DeviceDescription,Event.EventData.DeviceDescription
-DeviceInstanceID,Event.UserData.InstallDeviceID.DeviceInstanceID
-DeviceName,Event.EventData.DeviceName
-DomainName,Event.EventData.SubjectDomainName
-DriverDescription,Event.UserData.InstallDeviceID.DriverDescription
-DriverProvider,Event.UserData.InstallDeviceID.DriverProvider
-DvrFmwk2003InstanceId,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
-DvrFmwkInstanceId,Event.UserData.UMDFHostDeviceRequest.InstanceId
-EngineVersion,Event.EventData.EngineVersion
-ErrorCode,Event.EventData.ErrorCode
-EventID,Event.System.EventID
-EventType,Event.EventData.EventType
-ExecutionProcessID,Event.System.Execution_attributes.ProcessID
-FailureCode,Event.EventData.FailureCode
-Filename,Event.EventData.Filename
-FilePath,Event.EventData.FilePath
-FileVersion,Event.EventData.FileVersion
-GrantedAccess,Event.EventData.GrantedAccess
-GroupName,Event.EventData.GroupName
-GroupSid,Event.EventData.GroupSid
-Hashes,Event.EventData.Hashes
-HiveName,Event.EventData.HiveName
-HostApplication,Event.EventData.HostApplication
-HostName,Event.EventData.HostName
-HostVersion,Event.EventData.HostVersion
-Image,Event.EventData.Image
-image,Event.EventData.Image
-ImageLoaded,Event.EventData.ImageLoaded
-ImagePath,Event.EventData.ImagePath
-Imphash,Event.EventData.Hashes
-Initiated,Event.EventData.Initiated
-InstallStatus,Event.UserData.InstallDeviceID.InstallStatus
-InstanceID,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
-IntegrityLevel,Event.EventData.IntegrityLevel
-IpAddress,Event.EventData.IpAddress
-IpPort,Event.EventData.IpPort
-JobTitle,Event.EventData.name
-KeyLength,Event.EventData.KeyLength
-Keywords,Event.System.Keywords
-LayerRTID,Event.EventData.LayerRTID
-LDAPDisplayName,Event.EventData.LDAPDisplayName
-Level,Event.System.Level
-LogFileClearedChannel,Event.UserData.LogFileCleared.Channel
-LogFileClearedSubjectUserName,Event.UserData.LogFileCleared.SubjectUserName
-LogonID,Event.EventData.LogonID
-LogonId,Event.EventData.LogonId
-LogonProcessName,Event.EventData.LogonProcessName
-LogonType,Event.EventData.LogonType
-Logon_Account,Event.EventData.Logon_Account
-MachineName,Event.EventData.MachineName
-MemberName,Event.EventData.MemberName
-MemberSid,Event.EventData.MemberSid
-Message,Event.EventData
-ModifyingApplication,Event.EventData.ModifyingApplication
-NewName,Event.EventData.NewName
-NewProcessId,Event.EventData.NewProcessId
-NewProcessName,Event.EventData.NewProcessName
-NewTemplateContent, Event.EventData.NewTemplateContent
-NewUacValue,Event.EventData.NewUacValue
-NewValue,Event.EventData.NewValue
-New_Value,Event.EventData.New Value
-ObjectClass,Event.EventData.ObjectClass
-ObjectName,Event.EventData.ObjectName
-ObjectServer,Event.EventData.ObjectServer
-ObjectType,Event.EventData.ObjectType
-ObjectValueName,Event.EventData.ObjectValueName
-OldUacValue,Event.EventData.OldUacValue
-OperationEssStartedNamespaceName,Event.UserData.Operation_EssStarted.NamespaceName
-OperationEssStartedPossibleCause,Event.UserData.Operation_EssStarted.PossibleCause
-OperationEssStartedProcessid,Event.UserData.Operation_EssStarted.Processid
-OperationEssStartedProvider,Event.UserData.Operation_EssStarted.Provider
-OperationEssStartedQuery,Event.UserData.Operation_EssStarted.Query
-OperationEssStartedUser,Event.UserData.Operation_EssStarted.User
-Origin,Event.EventData.Origin
-OriginalFileName,Event.EventData.OriginalFileName
-OriginalFilename,Event.EventData.OriginalFileName
-param1,Event.EventData.param1
-param2,Event.EventData.param2
-param3,Event.EventData.param3
-param4,Event.EventData.param4
-param5,Event.EventData.param5
-ParentCommandLine,Event.EventData.ParentCommandLine
-ParentImage,Event.EventData.ParentImage
-ParentIntegrityLevel,Event.EventData.ParentIntegrityLevel
-ParentProcessName,Event.EventData.ParentProcessName
-ParentUser,Event.EventData.ParentUser
-PasswordLastSet,Event.EventData.PasswordLastSet
-Path,Event.EventData.Path
-Payload,Event.EventData.Payload
-PipeName,Event.EventData.PipeName
-PossibleCause,Event.UserData.PossibleCause
-PreAuthType,Event.EventData.PreAuthType
-PrivilegeList,Event.EventData.PrivilegeList
-ProcessCommandLine,Event.EventData.ProcessCommandLine
-ProcessGuid,Event.EventData.ProcessGuid
-ProcessId,Event.EventData.ProcessId
-ProcessName,Event.EventData.ProcessName
-Product,Event.EventData.Product
-Properties,Event.EventData.Properties
-Provider,Event.UserData.Provider
-ProviderName,Event.System.Provider_attributes.Name
-Provider_Name,Event.System.Provider_attributes.Name
-QNAME,Event.EventData.QNAME
-query,Event.EventData.Query
-Query,Event.UserData.Query
-QueryName,Event.EventData.QueryName
-QueryResults,Event.EventData.QueryResults
-QueryStatus,Event.EventData.QueryStatus
-RelativeTargetName,Event.EventData.RelativeTargetName
-RuleName,Event.EventData.RuleName
-SAMAccountName,Event.EventData.SamAccountName
-ScriptBlockText,Event.EventData.ScriptBlockText
-SearchFilter,Event.System.SearchFilter
-SecurityUserID,Event.System.Security_attributes.UserID
-ServerName,Event.System.ServerName
-Service,Event.EventData.Service
-service,Event.EventData.Service
-ServiceFileName,Event.EventData.ServiceFileName
-ServiceName,Event.EventData.ServiceName
-ServicePrincipalNames,Event.EventData.ServicePrincipalNames
-ServiceStartType,Event.EventData.ServiceStartType
-ServiceType,Event.EventData.ServiceType
-SeverityID,Event.EventData.Severity ID
-SeverityName,Event.EventData.Severity Name
-sha1,Event.EventData.Hashes_sha1
-ShareLocalPath,Event.EventData.ShareLocalPath
-ShareName,Event.EventData.ShareName
-SidHistory,Event.EventData.SidHistory
-Signature,Event.EventData.Signature
-SignatureStatus,Event.EventData.SignatureStatus
-Signed,Event.EventData.Signed
-Source,Event.System.Provider_Name
-SourceAddress,Event.EventData.SourceAddress
-SourceImage,Event.EventData.SourceImage
-SourceNetworkAddress,Event.EventData.SourceNetworkAddress
-SourcePort,Event.EventData.SourcePort
-Source_Name,Event.EventData.Source Name
-Source_Network_Address,Event.EventData.Source_Network_Address
-Source_WorkStation,Event.EventData.Source_WorkStation
-StartAddress,Event.EventData.StartAddress
-StartFunction,Event.EventData.StartFunction
-StartModule,Event.EventData.StartModule
-StartType,Event.EventData.StartType
-State,Event.EventData.State
-Status,Event.EventData.Status
-SubjectDomainName,Event.EventData.SubjectDomainName
-SubjectLogonId,Event.EventData.SubjectLogonId
-SubjectUserName,Event.EventData.SubjectUserName
-SubjectUserSid,Event.EventData.SubjectUserSid
-SubStatus,Event.EventData.SubStatus
-SysmonVersion,Event.EventData.SysmonVersion
-TargetDomainName,Event.EventData.TargetDomainName
-TargetFilename,Event.EventData.TargetFilename
-TargetImage,Event.EventData.TargetImage
-TargetInfo,Event.EventData.TargetInfo
-TargetLogonId,Event.EventData.TargetLogonId
-TargetObject,Event.EventData.TargetObject
-TargetProcessAddress,Event.EventData.TargetProcessAddress
-TargetServerName,Event.EventData.TargetServerName
-TargetSid,Event.EventData.TargetSid
-TargetUserName,Event.EventData.TargetUserName
-TaskDate,Event.EventData.TaskContent
-TaskName,Event.EventData.TaskName
-TemplateContent,Event.EventData.TemplateContent
-ThreatName,Event.EventData.Threat Name
-TicketEncryptionType,Event.EventData.TicketEncryptionType
-TicketOptions,Event.EventData.TicketOptions
-Url,Event.EventData.url
-User,Event.EventData.User
-UserDataAddress,Event.UserData.EventXML.Address
-UserDataCode,Event.UserData.Operation_StartedOperational.Code
-UserDataConsumer,Event.UserData.Operation_ESStoConsumerBinding.CONSUMER
-UserDataESS,Event.UserData.Operation_ESStoConsumerBinding.ESS
-UserDataHostProcess,Event.UserData.Operation_StartedOperational.HostProcess
-UserDataNamespace,Event.UserData.Operation_ESStoConsumerBinding.Namespace
-UserDataNamespaceName,Event.UserData.Operation_TemporaryEssStarted.NamespaceName
-UserDataParam1,Event.UserData.EventXML.Param1
-UserDataParam2,Event.UserData.EventXML.Param2
-UserDataParam3,Event.UserData.EventXML.Param3
-UserDataPossibleCause,Event.UserData.Operation_ESStoConsumerBinding.PossibleCause
-UserDataProcessID,Event.UserData.Operation_StartedOperational.ProcessID
-UserDataProcessid,Event.UserData.Operation_TemporaryEssStarted.Processid
-UserDataProviderName,Event.UserData.Operation_StartedOperational.ProviderName
-UserDataProviderPath,Event.UserData.Operation_StartedOperational.ProviderPath
-UserDataQuery,Event.UserData.Operation_TemporaryEssStarted.Query
-UserDataSessionID,Event.UserData.EventXML.SessionID
-UserDataUser,Event.UserData.EventXML.User
-UserName,Event.EventData.UserName
-Value,Event.EventData.Value
-Version,Event.System.Version
-WindowsDefenderProcessName,Event.EventData.Process Name
-WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
-Workstation,Event.EventData.Workstation
-WorkstationName,Event.EventData.WorkstationName
-
----FILE_END---
----FILE_START---
-path: exclude_rules.txt
----CONTENT---
-# Replaced by Hayabusa rules:
-6695d6a2-9365-ee87-ccdd-966b0e1cdbd4 # "User Added to Local Administrators".
-5ecd226b-563f-4723-7a1e-d637d81f0a1f # "Local User Creation".
-23013005-3d59-4dbe-dabd-d17a54e6c6cf # "Hidden Local User Creation".
-cb7a40d5-f1de-9dd4-465d-eada7e316d8f # "PsExec Tool Execution" win_tool_psexec.yml Note: rule not working to begin with.
-c063426c-1b9b-025d-71cc-5097a233285d # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
-3ce7b51a-ad12-59bb-6c81-3e9532685c1e # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
-c70d7033-8146-fe73-8430-90b23c296f9d # "Windows Defender Threat Detected"
-23f0b75b-66c0-4895-ae63-4243fa898109 # "Security Event Log Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
-9b14c9d8-6b61-e49f-f8a8-0836d0ad98c9 # "Security Eventlog Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
-30966a3a-2224-0e1a-d28d-c0f7e84cfed3 # "Important Eventlog Cleared" replaced by f481a1f3-969e-4187-b3a5-b47c272bfebd
-8617b59c-812e-c88e-0bd4-5267e0e825f0 # "Eventlog Cleared" replaced by ed90ed4f-0d93-4f1a-99a2-4b9003b750a7
-73f64ce7-a76d-0208-ea75-dd26a09d719b # "User Logoff Event"
-de5d0dd7-b73e-7f18-02b0-6b1acb7e9f52 # "Admin User Remote Logon". Already covered with rule "Logon (Type 10 RemoteInteractive)"
-f508ff7b-4021-6693-0852-ce59ee2d0343 # Sysmon 4,16: Configuration Modification
-0f88cce2-f7ed-3b15-a7fe-27f2d440680c # Sysmon 16: Configuration Change
-17d51ceb-915d-bf28-8699-81e3f51b2a4e # Sysmon 25: Process Hollowing
-5dd9120c-635f-ace4-6acf-d10a14229f19 # Sysmon 27: "Sysmon Blocked Executable" replaced with "Blocked Exe File Creation" (bb35ca48-8e4a-445b-bc6d-0a994a0e9310)
-8a5ee8f3-da35-b174-1d66-ff5ad8125abe # Sysmon 255: Configuration Error
-
-# Disabled because they require placeholders to be set so cannot be used as is:
-f8d98d6c-7a07-4d74-b064-dd4a3c244528 # Pass the Hash Activity (%Workstations%)
-dd7876d8-0f09-11eb-adc1-0242ac120002 # Possible Zerologon (CVE-2020-1472) Exploitation (%DC-MACHINE-NAME%)
-68fcba0d-73a5-475e-a915-e8b4c576827e # Remote Registry Management Using Reg Utility (%Admins_Workstations%)
-3ff152b2-1388-4984-9cd9-a323323fdadf # Interactive Logon to Server Systems (%ServerSystems%, %DomainControllers%, %Workstations%)
-
-# Disabled because they cannot but used as is:
-d85240fc-d5ad-8061-a795-9eaea580fbf0 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
-ab0d6f07-d3a5-dcce-b343-05bfd1a8b000 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
-
-# Replaced by Sigma correlation rules
-35e8a0fc-60c2-46d7-ba39-aafb15b9854e # PW Guessing
-4574194d-e7ca-4356-a95c-21b753a1787e # User Guessing
-ffd622af-d049-449f-af5a-0492fdcc3a58 # PW Spray
-
-# Test Files
-00000000-0000-0000-0000-000000000000 # TestFile
----FILE_END---
----FILE_START---
-path: level_tuning.txt
----CONTENT---
-id,new_level
-570ae5ec-33dc-427c-b815-db86228ad43e,info # 'Application Uninstalled'. Originally low.
-
----FILE_END---
----FILE_START---
-path: generic_abbreviations.txt
----CONTENT---
-Original,GeneralAbbreviation
-Application,App
-Authentication,Auth
-Client,Cli
-Configuration,Config
-Connection,Conn
-Connectivity,Conn
-Deployment,Deploy
-Diagnostics,Diag
-Directory,Dir
-Experience,Exp
-Group,Grp
-Infrastructure,Infra
-Kernel,Kern
-Language,Lang
-Management,Mgmt
-Manager,Mgr
-Microsoft,MS
-Network,Net
-Notification,Notif
-Operational,Op
-Package,Pkg
-Power,Pwr
-Profile,Prof
-Program,Prog
-Provider,Prov
-Provisioning,Provision
-Registration,Reg
-Security,Sec
-Server,Svr
-Service,Svc
-Terminal,Term
-Universal,Univ
-Windows,Win
----FILE_END---
----FILE_START---
-path: windash_characters.txt
----CONTENT---
-/ # forward slash (0x002F)
-- # hyphen (0x002D)
-– # en dash (0x2013)
-— # em dash (0x2014)
-― # horizontal bar (0x2015)
----FILE_END---
----FILE_START---
-path: pivot_keywords.txt
----CONTENT---
-Source Computers.WorkstationName
-Subject Users.SubjectUserName
-Target Users.TargetUserName
-Users.User
-Subject Logon IDs.SubjectLogonId
-Target Logon IDs.TargetLogonId
-Logon IDs.LogonId
-IP Addresses.IpAddress
-Source IP Addresses.SourceIp
-Source IP Addresses.ClientAddress
-Source IP Addresses.SourceAddress
-Target IP Addresses.DestinationIp
-Target IP Addresses.DestAddress
-Processes.Image
-Processes.NewProcessName
-Command Lines.CommandLine
----FILE_END---
----FILE_START---
-path: noisy_rules.txt
----CONTENT---
-#Hayabusa rules
-0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
-8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
-1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
-9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
-3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
-6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
-320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
-a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
-b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
-0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
-84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
-84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
 ---FILE_END---
 ---FILE_START---
 path: proven_rules.txt
@@ -2959,171 +3058,72 @@ ffd622af-d049-449f-af5a-0492fdcc3a58
 
 ---FILE_END---
 ---FILE_START---
-path: target_event_IDs.txt
+path: channel_abbreviations.txt
 ---CONTENT---
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-50
-56
-59
-70
-98
-99
-104
-106
-129
-140
-141
-150
-191
-200
-216
-255
-300
-301
-302
-325
-326
-327
-354
-400
-524
-534
-567
-770
-771
-823
-848
-849
-854
-1013
-1024
-1034
-1040
-1042
-1102
-1116
-1149
-1511
-2002
-2003
-2004
-2005
-2006
-2008
-2100
-2102
-3001
-3002
-3007
-3033
-4100
-4103
-4104
-4616
-4624
-4625
-4634
-4647
-4648
-4649
-4656
-4661
-4662
-4663
-4672
-4673
-4674
-4688
-4689
-4692
-4697
-4698
-4699
-4702
-4706
-4719
-4720
-4728
-4729
-4732
-4738
-4741
-4742
-4743
-4765
-4768
-4769
-4771
-4776
-4778
-4779
-4781
-4794
-4800
-4825
-4904
-4905
-5001
-5010
-5012
-5038
-5136
-5140
-5142
-5145
-5156
-5379
-5805
-5857
-5859
-5860
-5861
-6004
-6005
-6006
-6008
-6038
-6281
-6416
-7023
-7031
-7034
-7036
-7040
-7045
-11724
-15457
-16403
-20001
-28115
-30803
-30804
-30806
-31010
-33205
+Channel,Abbreviation
+Application,App
+DNS Server,DNS-Svr
+Key Management Service,KeyMgtSvc
+Microsoft-ServiceBus-Client,SvcBusCli
+Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
+Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
+Microsoft-Windows-AppLocker/MSI and Script,AppLocker
+Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
+Microsoft-Windows-Bits-Client/Operational,BitsCli
+Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
+Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
+Microsoft-Windows-NTLM/Operational,NTLM
+Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
+Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
+Microsoft-Windows-SmbClient/Security,SmbCliSec
+Microsoft-Windows-Sysmon/Operational,Sysmon
+Microsoft-Windows-TaskScheduler/Operational,TaskSch
+Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Client
+Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
+Microsoft-Windows-PrintService/Admin,PrintAdm
+Microsoft-Windows-PrintService/Operational,PrintOp
+Microsoft-Windows-PowerShell/Operational,PwSh
+Microsoft-Windows-Windows Defender/Operational,Defender
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
+Microsoft-Windows-WinRM/Operational,WinRM
+Microsoft-Windows-WMI-Activity/Operational,WMI
+MSExchange Management,Exchange
+OpenSSH/Operational,OpenSSH
+Security,Sec
+System,Sys
+Windows PowerShell,PwShClassic
+Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
+Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-Forwarding/Operational,Forwarding
+Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
+Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
+Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
+Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
+PowerShellCore,PwShCore
+---FILE_END---
+---FILE_START---
+path: pivot_keywords.txt
+---CONTENT---
+Source Computers.WorkstationName
+Subject Users.SubjectUserName
+Target Users.TargetUserName
+Users.User
+Subject Logon IDs.SubjectLogonId
+Target Logon IDs.TargetLogonId
+Logon IDs.LogonId
+IP Addresses.IpAddress
+Source IP Addresses.SourceIp
+Source IP Addresses.ClientAddress
+Source IP Addresses.SourceAddress
+Target IP Addresses.DestinationIp
+Target IP Addresses.DestAddress
+Processes.Image
+Processes.NewProcessName
+Command Lines.CommandLine
 ---FILE_END---
