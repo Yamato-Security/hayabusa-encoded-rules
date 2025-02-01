@@ -29,14 +29,14 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
     }
     let mut out_str = String::new();
     for (i, (file, docs)) in merged_yaml.iter().enumerate() {
-        if i > 0 {
-            out_str.push_str("\nrulefile: ");
-            let re = Regex::new(r".*/").unwrap();
-            out_str.push_str(&re.replace(file, ""));
+        out_str.push_str(docs);
+        out_str.push_str("\nrulefile: ");
+        let re = Regex::new(r".*/").unwrap();
+        out_str.push_str(&re.replace(file, ""));
+        if i < merged_yaml.len() - 1 {
             out_str.push('\n');
             out_str.push_str("---\n");
         }
-        out_str.push_str(docs)
     }
     Ok(out_str)
 }
