@@ -28,13 +28,15 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
         merged_yaml.push((file, content));
     }
     let mut out_str = String::new();
-    for (file, docs) in merged_yaml.iter() {
+    for (i, (file, docs)) in merged_yaml.iter().enumerate() {
         out_str.push_str(docs);
         out_str.push_str("\nrulefile: ");
         let re = Regex::new(r".*/").unwrap();
         out_str.push_str(&re.replace(file, ""));
-        out_str.push('\n');
-        out_str.push_str("---\n");
+        if i < merged_yaml.len() - 1 {
+            out_str.push('\n');
+            out_str.push_str("---\n");
+        }
     }
     Ok(out_str)
 }
