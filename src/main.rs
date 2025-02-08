@@ -31,7 +31,7 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
     for (i, (file, docs)) in merged_yaml.iter().enumerate() {
         out_str.push_str(docs);
         out_str.push_str("\nrulefile: ");
-        let re = Regex::new(r".*/").unwrap();
+        let re = Regex::new(r".*hayabusa-rules/").unwrap();
         out_str.push_str(&re.replace(file, ""));
         if i < merged_yaml.len() - 1 {
             out_str.push('\n');
