@@ -1,3 +1,5 @@
+[2025/02/10] - Bug fix - Number of rules enabled after channel filtering differed between live response and standard hayabusa. (hayabusa#1557) (@fukusuket)
+
 [2025/02/01] - Bug fix - Rule file names were off by one. (hayabusa#1555) (@fukusuket)
 
 [2024/10/29] - Fixed a panic bug due to multiple YAML files being contained in a single file. (#4) (@fukusuket)
