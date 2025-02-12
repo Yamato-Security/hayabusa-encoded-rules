@@ -1,57 +1,56 @@
 ---FILE_START---
-path: exclude_rules.txt
+path: closing_messages.txt
 ---CONTENT---
-# Replaced by Hayabusa rules:
-6695d6a2-9365-ee87-ccdd-966b0e1cdbd4 # "User Added to Local Administrators".
-5ecd226b-563f-4723-7a1e-d637d81f0a1f # "Local User Creation".
-23013005-3d59-4dbe-dabd-d17a54e6c6cf # "Hidden Local User Creation".
-cb7a40d5-f1de-9dd4-465d-eada7e316d8f # "PsExec Tool Execution" win_tool_psexec.yml Note: rule not working to begin with.
-c063426c-1b9b-025d-71cc-5097a233285d # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
-3ce7b51a-ad12-59bb-6c81-3e9532685c1e # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
-c70d7033-8146-fe73-8430-90b23c296f9d # "Windows Defender Threat Detected"
-23f0b75b-66c0-4895-ae63-4243fa898109 # "Security Event Log Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
-9b14c9d8-6b61-e49f-f8a8-0836d0ad98c9 # "Security Eventlog Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
-30966a3a-2224-0e1a-d28d-c0f7e84cfed3 # "Important Eventlog Cleared" replaced by f481a1f3-969e-4187-b3a5-b47c272bfebd
-8617b59c-812e-c88e-0bd4-5267e0e825f0 # "Eventlog Cleared" replaced by ed90ed4f-0d93-4f1a-99a2-4b9003b750a7
-73f64ce7-a76d-0208-ea75-dd26a09d719b # "User Logoff Event"
-de5d0dd7-b73e-7f18-02b0-6b1acb7e9f52 # "Admin User Remote Logon". Already covered with rule "Logon (Type 10 RemoteInteractive)"
-f508ff7b-4021-6693-0852-ce59ee2d0343 # Sysmon 4,16: Configuration Modification
-0f88cce2-f7ed-3b15-a7fe-27f2d440680c # Sysmon 16: Configuration Change
-17d51ceb-915d-bf28-8699-81e3f51b2a4e # Sysmon 25: Process Hollowing
-5dd9120c-635f-ace4-6acf-d10a14229f19 # Sysmon 27: "Sysmon Blocked Executable" replaced with "Blocked Exe File Creation" (bb35ca48-8e4a-445b-bc6d-0a994a0e9310)
-8a5ee8f3-da35-b174-1d66-ff5ad8125abe # Sysmon 255: Configuration Error
-
-# Disabled because they require placeholders to be set so cannot be used as is:
-f8d98d6c-7a07-4d74-b064-dd4a3c244528 # Pass the Hash Activity (%Workstations%)
-dd7876d8-0f09-11eb-adc1-0242ac120002 # Possible Zerologon (CVE-2020-1472) Exploitation (%DC-MACHINE-NAME%)
-68fcba0d-73a5-475e-a915-e8b4c576827e # Remote Registry Management Using Reg Utility (%Admins_Workstations%)
-3ff152b2-1388-4984-9cd9-a323323fdadf # Interactive Logon to Server Systems (%ServerSystems%, %DomainControllers%, %Workstations%)
-
-# Disabled because they cannot but used as is:
-d85240fc-d5ad-8061-a795-9eaea580fbf0 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
-ab0d6f07-d3a5-dcce-b343-05bfd1a8b000 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
-
-# Replaced by Sigma correlation rules
-35e8a0fc-60c2-46d7-ba39-aafb15b9854e # PW Guessing
-4574194d-e7ca-4356-a95c-21b753a1787e # User Guessing
-ffd622af-d049-449f-af5a-0492fdcc3a58 # PW Spray
-
-# FPs
-a4504cb2-23f6-6d94-5ae6-d6013cf1d995 # Suspicious Multiple File Rename Or Delete Occurred
-9f8b3bda-88a1-a216-2897-950cc5ca4aa4 # Quick Execution of a Series of Suspicious Commands (Sysmon 1)
-53facd0f-d88d-bab7-469e-a36211463245 # Quick Execution of a Series of Suspicious Commands (Sec 4688)
-
-# Test Files
-00000000-0000-0000-0000-000000000000 # TestFile
----FILE_END---
----FILE_START---
-path: windash_characters.txt
----CONTENT---
-/ # forward slash (0x002F)
-- # hyphen (0x002D)
-– # en dash (0x2013)
-— # em dash (0x2014)
-― # horizontal bar (0x2015)
+知行合一 - Chi Kou Gou Itsu - Knowledge and action must be inseparable.
+初心忘るべからず - Shoshin Wasuru Bekarazu - Never forget the beginner's mind.
+無事是貴人 - Buji Kore Kinin - Once you free yourself from attachment and aversion, you will be truly a noble person.
+急がば回れ - Isogaba Maware - If you are in a hurry, take the long way.
+一瞬一瞬を大切に - Isshun Isshun O Taisetsu Ni - Treasure each moment.
+無念無想 - Munen Musou - No assumptions, no preconceptions.
+臨機応変 - Rin Ki Ou Hen - Adapt to the situation.
+日々是好日 - Nichinichi Kore Koujitsu - Everyday is a good day.
+風林火山 - Fuu Rin Ka Zan - Swift as the wind, silent as the forest, fierce as fire, immovable as a mountain.
+不動心 - Fudoushin - Immovable mind.
+守破離 - Shu Ha Ri - Follow, break, transcend.
+平常心是道 - Heijoushin Kore Dou - An ordinary mind is the way.
+水滴石穿 - Suiteki Sekisen - Dripping water wears through stone.
+塞翁が馬 - Saiou Ga Uma - Misfortune becomes a blessing.
+無我 - Muga - Collective effort outweigh individual accomplishment.
+柔よく剛を制す - Juu Yoku Gou O Seisu - Softness overcomes hardness.
+空即是色 - Kuu Soku Ze Shiki - Form is emptiness, emptiness is form.
+侘び寂び - Wabi Sabi - Beauty in imperfection and impermanence.
+見切り発車 - Mikiri Hassha - Starting a journey with no clear path.
+臨終行 - Rin Juu Gyou - Act as if it is your last task.
+知足 - Chisoku - Know when things are sufficient.
+漸進 - Zenshin - Gradual progress.
+不言実行 - Fugen Jikkou - Actions speak louder than words.
+無為自然 - Mui Shizen - Effortless and natural.
+一念通天 - Ichinen Tsuuten - Single-mindedness will take you to the heavens.
+臨戦態勢 - Rinsen Taisei - Always ready for battle.
+一事が万事 - Ichiji Ga Banji - One thing leads to everything.
+難行苦行 - Nangyou Kugyou - Arduous and rigorous practice.
+塞翁失馬 - Sai Ou Shitsu Ba - The old man lost his horse. (A blessing in disguise.)
+時来たり - Toki Kitari - The time has come.
+失敗は成功のもと - Shippai Wa Seikou No Moto - Failure is the root of success.
+天の時、地の利、人の和 - Ten No Toki, Chi No Ri, Hito No Wa - Heavenly timing, earthly advantage, personal harmony
+大器晩成 - Taiki Bansei - Great talents take time to mature.
+千里の道も一歩から - Senri No Michi Mo Ippo Kara - A journey of a thousand miles begins with a single step.
+残心 - Zanshin - Stay vigilant even after your task is complete.
+疾風勁草 - Shippuu Keisou - Strong grass withstands strong wind. 
+風流韻事 - Fuuryuu Injin - The art of refinement and elegance.
+知彼知己 - Chi Hi Chi Ki - Know thy enemy, know thyself.
+百聞は一見に如かず - Hyakubun Wa Ikken Ni Shikazu - Seeing once is better than hearing a hundred times.
+一難去ってまた一難 - Ichinan Satte Mata Ichinan - One difficulty after another.
+居安思危 - Kyo An Shi Ki - In times of peace, think of danger.
+苦あれば楽あり - Ku Areba Raku Ari - Positive outcomes come from enduring hardships.
+禍福は糾える縄の如し - Kafuku Wa Azanaeru Nawa No Gotoshi - Good and bad fortune are intertwined like a rope.
+頑張ってや〜 - Gambatte Ya~ - Do your best!
+笑う門には福来たる - Warau Kado Ni Wa Fuku Kitaru - Fortune comes to the house of those who laugh.
+一笑一若 - Isshou Ichijaku - One laugh, one youthful spirit.
+笑いは心の薬 - Warai Wa Kokoro No Kusuri - Laughter is medicine for the soul.
+苦は楽の種 - Ku Wa Raku No Tane - Suffering is the seed of joy.
+災い転じて福となす - Wazawai Tenjite Fuku To Nasu - Turn misfortune into fortune.
+困難に道あり - Konnan Ni Michi Ari - The obstacle is the way.
 ---FILE_END---
 ---FILE_START---
 path: channel_eid_info.txt
@@ -563,657 +562,6 @@ Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,23,Session lo
 Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,24,Session disconnected
 Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,1149,User authentication
 Microsoft-Windows-TaskScheduler/Operational,106,Task scheduled
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5145_NetShareFileAccess.yaml
----CONTENT---
-Title: 'NetShare File Access'
-Channel: Security
-EventID: 5145
-RewriteFieldData:
-    AccessList:
-        - '%%1537': 'DELETE'
-        - '%%1538': 'READ_CONTROL'
-        - '%%1539': 'WRITE_DAC'
-        - '%%1540': 'WRITE_OWNER'
-        - '%%1541': 'SYNCHRONIZE'
-        - '%%1542': 'ACCESS_SYS_SEC'
-        - '%%4416': 'READ_DATA'
-        - '%%4417': 'WRITE_DATA'
-        - '%%4418': 'APPEND_DATA'
-        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
-        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
-        - '%%4421': 'EXECUTE/TRAVERSE'
-        - '%%4422': 'DELETE_CHILD'
-        - '%%4423': 'READ_ATTRIBUTES'
-        - '%%4424': 'WRITE_ATTRIBUTES'
-
-sample-evtx:
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4625_FailedLogon.yaml
----CONTENT---
-Title: 'Failed Logon'
-Channel: Security
-EventID: 4625
-RewriteFieldData:
-    LogonType:
-        - '0': '0 - SYSTEM'
-        - '2': '2 - INTERACTIVE'
-        - '3': '3 - NETWORK'
-        - '4': '4 - BATCH'
-        - '5': '5 - SERVICE'
-        - '7': '7 - UNLOCK'
-        - '8': '8 - NETWORK CLEARTEXT'
-        - '9': '9 - NEW CREDENTIALS'
-        - '10': '10 - REMOTE INTERACTIVE'
-        - '11': '11 - CACHED INTERACTIVE'
-        - '12': '12 - CACHED REMOTE INTERACTIVE'
-        - '13': '13 - CACHED UNLOCK'
-    FailureReason:
-        - '%%2304': 'ERROR'
-        - '%%2305': 'ACCOUNT EXPIRED'
-        - '%%2306': 'NETLOGON NOT ACTIVE'
-        - '%%2307': 'ACCOUNT LOCKOUT'
-        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
-        - '%%2309': 'PW EXPIRED'
-        - '%%2310': 'ACCOUNT DISABLED'
-        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
-        - '%%2312': 'UNAUTHORIZED COMPUTER'
-        - '%%2313': 'BAD USER OR PW'
-        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
-        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
-    Status:
-        - '0x0': 'SUCCESS'
-        - '0xc000005e': 'NO LOGON SERVER'
-        - '0xc000006d': 'BAD USER OR PW'
-        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
-        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
-        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
-        - '0xc0000071': 'PW EXPIRED'
-        - '0xc0000072': 'ACCOUNT DISABLED'
-        - '0xc00000dc': 'SERVER IN WRONG STATE'
-        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
-        - '0xc000015b': 'NO LOGON RIGHT'
-        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
-        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
-        - '0xc0000193': 'ACCOUNT EXPIRED'
-        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
-        - '0xc0000225': 'WINDOWS BUG'
-        - '0xc0000234': 'ACCOUNT LOCKED'
-        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
-        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
-    SubStatus:
-        - '0x0': 'SUCCESS'
-        - '0xc0000064': 'UNKNOWN USER'
-        - '0xc000006a': 'WRONG PW'
-        - '0xc0000073': 'NO TRANSLATIONS'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-            <EventID>4625</EventID>
-            <Version>0</Version>
-            <Level>0</Level>
-            <Task>12544</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8010000000000000</Keywords>
-            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
-            <EventRecordID>1861989</EventRecordID>
-            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
-            <Execution ProcessID="576" ThreadID="5164"/>
-            <Channel>Security</Channel>
-            <Computer>fs01.offsec.lan</Computer>
-            <Security/>
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data>
-            <Data Name="SubjectUserName">FS01$</Data>
-            <Data Name="SubjectDomainName">OFFSEC</Data>
-            <Data Name="SubjectLogonId">0x3e7</Data>
-            <Data Name="TargetUserSid">S-1-0-0</Data>
-            <Data Name="TargetUserName">NOUSER</Data>
-            <Data Name="TargetDomainName">FS01</Data>
-            <Data Name="Status">0xc000006d</Data>
-            <Data Name="FailureReason">%%2313</Data>
-            <Data Name="SubStatus">0xc0000064</Data>
-            <Data Name="LogonType">8</Data>
-            <Data Name="LogonProcessName">Advapi</Data>
-            <Data Name="AuthenticationPackageName">Negotiate</Data>
-            <Data Name="WorkstationName">FS01</Data>
-            <Data Name="TransmittedServices">-</Data>
-            <Data Name="LmPackageName">-</Data>
-            <Data Name="KeyLength">0</Data>
-            <Data Name="ProcessId">0x16d8</Data>
-            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
-            <Data Name="IpAddress">-</Data>
-            <Data Name="IpPort">-</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4624_SuccessfulLogon.yaml
----CONTENT---
-Title: 'Logon'
-Channel: Security
-EventID: 4624
-RewriteFieldData:
-    ElevatedToken:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-    ImpersonationLevel:
-        - '%%1832': 'IDENTIFICATION'
-        - '%%1833': 'IMPERSONATION'
-        - '%%1840': 'DELEGATION'
-        - '%%1841': 'DENIED BY PROCESS TRUST LABEL ACE'
-        - '%%1842': 'YES'
-        - '%%1844': 'SYSTEM'
-        - '%%1845': 'NOT AVAILABLE'
-        - '%%1846': 'DEFAULT'
-        - '%%1847': 'DISALLOW MM CONFIG'
-        - '%%1848': 'OFF'
-        - '%%1849': 'AUTO'
-    LogonType:
-        - '0': '0 - SYSTEM'
-        - '2': '2 - INTERACTIVE'
-        - '3': '3 - NETWORK'
-        - '4': '4 - BATCH'
-        - '5': '5 - SERVICE'
-        - '7': '7 - UNLOCK'
-        - '8': '8 - NETWORK CLEARTEXT'
-        - '9': '9 - NEW CREDENTIALS'
-        - '10': '10 - REMOTE INTERACTIVE'
-        - '11': '11 - CACHED INTERACTIVE'
-        - '12': '12 - CACHED REMOTE INTERACTIVE'
-        - '13': '13 - CACHED UNLOCK'
-    RestrictedAdminMode:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-    VirtualAccount:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
-            <EventID>4624</EventID>
-            <Version>3</Version>
-            <Level>0</Level>
-            <Task>12544</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8020000000000000</Keywords>
-            <TimeCreated SystemTime="2023-06-05T07:43:11.8338899Z" />
-            <EventRecordID>98438</EventRecordID>
-            <Correlation ActivityID="{8227fe63-9780-0003-07ff-27828097d901}" />
-            <Execution ProcessID="884" ThreadID="940" />
-            <Channel>Security</Channel>
-            <Computer>memanalysis</Computer>
-            <Security />
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data>
-            <Data Name="SubjectUserName">MEMANALYSIS$</Data>
-            <Data Name="SubjectDomainName">WORKGROUP</Data>
-            <Data Name="SubjectLogonId">0x3e7</Data>
-            <Data Name="TargetUserSid">S-1-5-18</Data>
-            <Data Name="TargetUserName">SYSTEM</Data>
-            <Data Name="TargetDomainName">NT AUTHORITY</Data>
-            <Data Name="TargetLogonId">0x3e7</Data>
-            <Data Name="LogonType">5</Data>
-            <Data Name="LogonProcessName">Advapi</Data>
-            <Data Name="AuthenticationPackageName">Negotiate</Data>
-            <Data Name="WorkstationName">-</Data>
-            <Data Name="LogonGuid">{00000000-0000-0000-0000-000000000000}</Data>
-            <Data Name="TransmittedServices">-</Data>
-            <Data Name="LmPackageName">-</Data>
-            <Data Name="KeyLength">0</Data>
-            <Data Name="ProcessId">0x30c</Data>
-            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
-            <Data Name="IpAddress">-</Data>
-            <Data Name="IpPort">-</Data>
-            <Data Name="ImpersonationLevel">%%1833</Data>
-            <Data Name="RestrictedAdminMode">-</Data>
-            <Data Name="RemoteCredentialGuard">-</Data>
-            <Data Name="TargetOutboundUserName">-</Data>
-            <Data Name="TargetOutboundDomainName">-</Data>
-            <Data Name="VirtualAccount">%%1843</Data>
-            <Data Name="TargetLinkedLogonId">0x0</Data>
-            <Data Name="ElevatedToken">%%1842</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4674_ObjectAccessAttempt.yaml
----CONTENT---
-Title: 'Object Access Attempt'
-Channel: Security
-EventID: 4674
-RewriteFieldData:
-    AccessMask:
-        - '%%1537': 'DELETE'
-        - '%%1538': 'READ_CONTROL'
-        - '%%1539': 'WRITE_DAC'
-        - '%%1540': 'WRITE_OWNER'
-        - '%%1541': 'SYNCHRONIZE'
-        - '%%1542': 'ACCESS_SYS_SEC'
-        - '%%4416': 'READ_DATA'
-        - '%%4417': 'WRITE_DATA'
-        - '%%4418': 'APPEND_DATA'
-        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
-        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
-        - '%%4421': 'EXECUTE/TRAVERSE'
-        - '%%4422': 'DELETE_CHILD'
-        - '%%4423': 'READ_ATTRIBUTES'
-        - '%%4424': 'WRITE_ATTRIBUTES'
-        - '%%4432': 'QUERY_KEY_VALUE'
-        - '%%4433': 'SET_KEY_VALUE'
-        - '%%4434': 'CREATE_SUBKEY'
-        - '%%4435': 'ENUMERATE_SUBKEYS'
-        - '%%4436': 'KEY_CHANGES_NOTIFICATION'
-        - '%%4437': 'CREATE_LINK'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-            <EventID>4674</EventID>
-            <Version>0</Version>
-            <Level>0</Level>
-            <Task>13056</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8020000000000000</Keywords>
-            <TimeCreated SystemTime="2020-09-14T14:48:28.683048400Z"/>
-            <EventRecordID>39406</EventRecordID>
-            <Correlation/>
-            <Execution ProcessID="4" ThreadID="5756"/>
-            <Channel>Security</Channel>
-            <Computer>Sec504Student</Computer>
-            <Security/>
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-21-2977773840-2930198165-1551093962-1000</Data>
-            <Data Name="SubjectUserName">Sec504</Data>
-            <Data Name="SubjectDomainName">SEC504STUDENT</Data>
-            <Data Name="SubjectLogonId">0x99e3d</Data>
-            <Data Name="ObjectServer">SC Manager</Data>
-            <Data Name="ObjectType">SERVICE OBJECT</Data>
-            <Data Name="ObjectName">nginx</Data>
-            <Data Name="HandleId">0xffff820cb1d95928</Data>
-            <Data Name="AccessMask">%%1539</Data>
-            <Data Name="PrivilegeList">SeSecurityPrivilege</Data>
-            <Data Name="ProcessId">0x21c</Data>
-            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5140_NetShareAccess.yaml
----CONTENT---
-Title: 'NetShare Access'
-Channel: Security
-EventID: 5140
-RewriteFieldData:
-    AccessList:
-        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
-
-sample-evtx:
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4688_ProcessCreation.yaml
----CONTENT---
-Title: 'Process Creation'
-Channel: Security
-EventID: 4688
-RewriteFieldData:
-    MandatoryLabel:
-        - 'S-1-16-0': 'UNTRUSTED'
-        - 'S-1-16-4096': 'LOW_INTEGRITY'
-        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
-        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
-        - 'S-1-16-12288': 'HIGH_INTEGRITY'
-        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
-        - 'S-1-16-20480': 'PROTECTED_PROCESS'
-    TokenElevationType:
-        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
-        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
-        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
-HexToDecimal:
-    - 'NewProcessId'
-    - 'ProcessId'
-
-sample-evtx: |
-  <?xml version="1.0"?>
-  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-    <System>
-      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-      <EventID>4688</EventID>
-      <Version>2</Version>
-      <Level>0</Level>
-      <Task>13312</Task>
-      <Opcode>0</Opcode>
-      <Keywords>0x8020000000000000</Keywords>
-      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
-      <EventRecordID>284391</EventRecordID>
-      <Correlation/>
-      <Execution ProcessID="4" ThreadID="6292"/>
-      <Channel>Security</Channel>
-      <Computer>wef.windomain.local</Computer>
-      <Security/>
-    </System>
-    <EventData>
-      <Data Name="SubjectUserSid">S-1-5-18</Data>
-      <Data Name="SubjectUserName">WEF$</Data>
-      <Data Name="SubjectDomainName">WINDOMAIN</Data>
-      <Data Name="SubjectLogonId">0x3e7</Data>
-      <Data Name="NewProcessId">0x1980</Data>
-      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
-      <Data Name="TokenElevationType">%%1936</Data>
-      <Data Name="ProcessId">0x24c</Data>
-      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
-      <Data Name="TargetUserSid">S-1-0-0</Data>
-      <Data Name="TargetUserName">-</Data>
-      <Data Name="TargetDomainName">-</Data>
-      <Data Name="TargetLogonId">0x0</Data>
-      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
-      <Data Name="MandatoryLabel">S-1-16-16384</Data>
-    </EventData>
-  </Event>
-
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
----FILE_END---
----FILE_START---
-path: data_mapping/Application_1022-1033_MSI-Install.yaml
----CONTENT---
-Title: 'MSI Install'
-Channel: Application
-EventID: 1033
-Provider_Name: MsiInstaller
-RewriteFieldData:
-    Data[3]:
-        - '1025': "Arabic (Saudi Arabia)"
-        - '1026': "Bulgarian"
-        - '1027': "Catalan"
-        - '1028': "Chinese (Traditional)"
-        - '1029': "Czech"
-        - '1030': "Danish"
-        - '1031': "German (Germany)"
-        - '1032': "Greek"
-        - '1033': "English (US)"
-        - '1034': "Spanish (Traditional Sort)"
-        - '1035': "Finnish"
-        - '1036': "French (France)"
-        - '1037': "Hebrew"
-        - '1038': "Hungarian"
-        - '1039': "Icelandic"
-        - '1040': "Italian (Italy)"
-        - '1041': "Japanese"
-        - '1042': "Korean"
-        - '1043': "Dutch (Netherlands)"
-        - '1044': "Norwegian (Bokmål)"
-        - '1045': "Polish"
-        - '1046': "Portuguese (Brazil)"
-        - '1047': "Portuguese (Portugal)"
-        - '1048': "Romanian"
-        - '1049': "Russian"
-        - '1050': "Croatian"
-        - '1051': "Slovak"
-        - '1052': "Albanian"
-        - '1053': "Swedish"
-        - '1054': "Thai"
-        - '1055': "Turkish"
-        - '1056': "Urdu"
-        - '1057': "Indonesian"
-        - '1058': "Ukrainian"
-        - '1059': "Belarusian"
-        - '1060': "Slovenian"
-        - '1061': "Estonian"
-        - '1062': "Latvian"
-        - '1063': "Lithuanian"
-        - '1064': "Tajik (Cyrillic)"
-        - '1065': "Persian"
-        - '1066': "Vietnamese"
-        - '1067': "Armenian"
-        - '1068': "Azerbaijani (Latin)"
-        - '1069': "Basque"
-        - '1070': "Upper Sorbian"
-        - '1071': "Macedonian (FYROM)"
-        - '1072': "Sesotho"
-        - '1073': "Tsonga"
-        - '1074': "Tswana"
-        - '1075': "Venda"
-        - '1076': "Xhosa"
-        - '1077': "Zulu"
-        - '1078': "Afrikaans"
-        - '1079': "Georgian"
-        - '1080': "Faroese"
-        - '1081': "Hindi"
-        - '1082': "Maltese"
-        - '1083': "Sami (Northern)"
-        - '1084': "Gaelic (Scotland)"
-        - '1085': "Yiddish"
-        - '1086': "Malay (Malaysia)"
-        - '1087': "Kazakh"
-        - '1088': "Kyrgyz (Cyrillic)"
-        - '1089': "Swahili"
-        - '1090': "Turkmen"
-        - '1091': "Uzbek (Latin)"
-        - '1092': "Tatar"
-        - '1093': "Bengali (India)"
-        - '1094': "Punjabi (India)"
-        - '1095': "Gujarati"
-        - '1096': "Oriya"
-        - '1097': "Tamil"
-        - '1098': "Telugu"
-        - '1099': "Kannada"
-        - '1100': "Malayalam"
-        - '1101': "Assamese"
-        - '1102': "Marathi"
-        - '1103': "Sanskrit"
-        - '1104': "Mongolian (Cyrillic)"
-        - '1105': "Tibetan"
-        - '1106': "Welsh"
-        - '1107': "Khmer"
-        - '1108': "Lao"
-        - '1109': "Burmese"
-        - '1110': "Galician"
-        - '1111': "Konkani"
-        - '1112': "Manipuri"
-        - '1113': "Sindhi (India)"
-        - '1114': "Syriac"
-        - '1115': "Sinhalese"
-        - '1116': "Cherokee"
-        - '1117': "Inuktitut (Syllabics)"
-        - '1118': "Amharic"
-        - '1119': "Tamazight (Latin)"
-        - '1120': "Kashmiri"
-        - '1121': "Nepali"
-        - '1122': "Frisian"
-        - '1123': "Pashto"
-        - '1124': "Filipino"
-        - '1125': "Divehi"
-        - '1126': "Edo"
-        - '1127': "Fulfulde"
-        - '1128': "Hausa"
-        - '1129': "Ibibio"
-        - '1130': "Yoruba"
-        - '1131': "Quechua"
-        - '1132': "Sesotho sa Leboa"
-        - '1133': "Bashkir"
-        - '1134': "Luxembourgish"
-        - '1135': "Greenlandic"
-        - '1136': "Igbo"
-        - '1137': "Kanuri"
-        - '1138': "Oromo"
-        - '1139': "Tigrigna (Ethiopia)"
-        - '1140': "Tigrigna (Eritrea)"
-        - '1141': "Ganda"
-        - '1142': "Hawaiian"
-        - '1143': "Latin"
-        - '1144': "Somali"
-        - '1145': "Yi"
-        - '1146': "N'ko"
-        - '1147': "Dari"
-        - '1148': "Scottish Gaelic"
-        - '1150': "Central Atlas Tamazight (Latin)"
-        - '1151': "Nepal Bhasa"
-        - '1152': "Rhaeto-Romance"
-        - '1153': "Mapudungun"
-        - '1154': "Mongolian (Traditional)"
-        - '1155': "Sakha"
-        - '1156': "K'iche"
-        - '1157': "Kinyarwanda"
-        - '1158': "Wolof"
-        - '1159': "Duala"
-        - '1160': "Jola-Fonyi"
-        - '1161': "Ewe"
-        - '1162': "Wari"
-        - '1163': "Sesotho sa Leboa"
-        - '1164': "Kalenjin"
-        - '1165': "Iban"
-        - '1166': "Quechua (Ecuador)"
-        - '1167': "Garifuna"
-        - '1168': "Twi"
-        - '1169': "Pedi"
-        - '1170': "Hausa (Nigeria)"
-        - '1171': "Kikuyu"
-        - '1172': "Zulu (South Africa)"
-        - '1173': "Yoruba (Nigeria)"
-        - '1174': "Twi (Ghana)"
-        - '1175': "Kalenjin (Kenya)"
-        - '1176': "Iban (Malaysia)"
-        - '1177': "Zulu (South Africa)"
-        - '1178': "Afrikaans (South Africa)"
-        - '1179': "Somali (Somalia)"
-        - '1180': "Swahili (Kenya)"
-        - '1181': "Zulu (South Africa)"
-        - '1182': "Igbo (Nigeria)"
-        - '1183': "Cree (Canada)"
-        - '1184': "Inuktitut (Canada)"
-        - '1185': "Inuktitut (Latin)"
-        - '1186': "Ojibwe"
-        - '1187': "Dene"
-        - '1188': "Naskapi"
-        - '1189': "Danish (Denmark)"
-        - '1190': "Sami (Inari)"
-        - '1191': "Sami (Skolt)"
-        - '1192': "Sami (Southern)"
-        - '1193': "Sami (Lule)"
-        - '1194': "Sami (Ume)"
-        - '1195': "Sami (Pite)"
-        - '1196': "Sami (Enontekiö)"
-        - '1197': "Sami (Kildin)"
-        - '1198': "Sami (Ter)"
-        - '1199': "Sami (Akkala)"
-
-
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="MsiInstaller" /> 
-            <EventID Qualifiers="0">1033</EventID> 
-            <Version>0</Version> 
-            <Level>4</Level> 
-            <Task>0</Task> 
-            <Opcode>0</Opcode> 
-            <Keywords>0x80000000000000</Keywords> 
-            <TimeCreated SystemTime="2021-01-15T02:14:12.8708371Z" /> 
-            <EventRecordID>9294</EventRecordID> 
-            <Correlation /> 
-            <Execution ProcessID="0" ThreadID="0" /> 
-            <Channel>Application</Channel> 
-            <Computer>computer</Computer> 
-            <Security UserID="S-1-5-21-3619236619-1337548381-1329840446-1001" /> 
-        </System>
-        <EventData>
-            <Data>Epson Photo+</Data> 
-            <Data>3.3.0.0</Data> 
-            <Data>1033</Data> 
-            <Data>0</Data> 
-            <Data>Seiko Epson Corporation</Data> 
-            <Data>(NULL)</Data> 
-            <Data /> 
-            <Binary>7B41423937314134452D463636392D344538322D414646302D3343333444463736383535337D3030303061373633363232333031663565653439613432333666343761363438663639643030303030393034</Binary> 
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: channel_abbreviations.txt
----CONTENT---
-Channel,Abbreviation
-Application,App
-DNS Server,DNS-Svr
-Key Management Service,KeyMgtSvc
-Microsoft-ServiceBus-Client,SvcBusCli
-Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
-Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
-Microsoft-Windows-AppLocker/MSI and Script,AppLocker
-Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
-Microsoft-Windows-Bits-Client/Operational,BitsCli
-Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
-Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
-Microsoft-Windows-NTLM/Operational,NTLM
-Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
-Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
-Microsoft-Windows-SmbClient/Security,SmbCliSec
-Microsoft-Windows-Sysmon/Operational,Sysmon
-Microsoft-Windows-TaskScheduler/Operational,TaskSch
-Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Client
-Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
-Microsoft-Windows-PrintService/Admin,PrintAdm
-Microsoft-Windows-PrintService/Operational,PrintOp
-Microsoft-Windows-PowerShell/Operational,PwSh
-Microsoft-Windows-Windows Defender/Operational,Defender
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
-Microsoft-Windows-WinRM/Operational,WinRM
-Microsoft-Windows-WMI-Activity/Operational,WMI
-MSExchange Management,Exchange
-OpenSSH/Operational,OpenSSH
-Security,Sec
-System,Sys
-Windows PowerShell,PwShClassic
-Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
-Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-Forwarding/Operational,Forwarding
-Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
-Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
-Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
-Microsoft-Windows-TerminalServices-Gateway/Operational,RDS-GTW
-Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
-PowerShellCore,PwShCore
----FILE_END---
----FILE_START---
-path: noisy_rules.txt
----CONTENT---
-#Hayabusa rules
-0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
-8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
-1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
-9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
-3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
-6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
-320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
-a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
-b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
-0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
-84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
-84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
 ---FILE_END---
 ---FILE_START---
 path: proven_rules.txt
@@ -2498,303 +1846,6 @@ ffd622af-d049-449f-af5a-0492fdcc3a58
 
 ---FILE_END---
 ---FILE_START---
-path: eventkey_alias.txt
----CONTENT---
-Accesses,Event.EventData.Accesses
-AccessList,Event.EventData.AccessList
-AccessMask,Event.EventData.AccessMask
-AccountDomain,Event.EventData.AccountDomain
-AccountName,Event.EventData.AccountName
-Account_Name,Event.EventData.Account_Name
-Action,Event.EventData.Action
-AllowedToDelegateTo,Event.EventData.AllowedToDelegateTo
-ApplicationPath,Event.EventData.ApplicationPath
-AttributeLDAPDisplayName,Event.EventData.AttributeLDAPDisplayName
-AttributeValue,Event.EventData.AttributeValue
-AuditPolicyChanges,Event.EventData.AuditPolicyChanges
-AuditSourceName,Event.EventData.AuditSourceName
-AuthenticationPackageName,Event.EventData.AuthenticationPackageName
-CallerProcessName,Event.EventData.CallerProcessName
-Caller_Process_Name,Event.EventData.Caller_Process_Name
-CallingProcessName,Event.EventData.CallingProcessName
-CallTrace,Event.EventData.CallTrace
-CategoryName,Event.EventData.Category Name
-CertThumbprint,Event.EventData.CertThumbprint
-Channel,Event.System.Channel
-ClassName,Event.EventData.ClassName
-ClientAddress,Event.EventData.ClientAddress
-ClientName,Event.EventData.ClientName
-Client_Address,Event.EventData.Client_Address
-CommandLine,Event.EventData.CommandLine
-Company,Event.EventData.Company
-Computer,Event.System.Computer
-ComputerName,Event.System.Computer
-ContextInfo,Event.EventData.ContextInfo
-CurrentDirectory,Event.EventData.CurrentDirectory
-Description,Event.EventData.Description
-DestAddress,Event.EventData.DestAddress
-Destination,Event.EventData.Destination
-DestinationAddress,Event.EventData.DestinationAddress
-DestinationHostname,Event.EventData.DestinationHostname
-DestinationIp,Event.EventData.DestinationIp
-DestinationIsIpv6,Event.EventData.DestinationIsIpv6
-DestinationPort,Event.EventData.DestinationPort
-DestPort,Event.EventData.DestPort
-Details,Event.EventData.Details
-DetectionSource,Event.EventData.DetectionSource
-DetectionUser,Event.EventData.Detection User
-Device,Event.EventData.Device
-DeviceClassName,Event.EventData.DeviceClassName
-DeviceDescription,Event.EventData.DeviceDescription
-DeviceInstanceID,Event.UserData.InstallDeviceID.DeviceInstanceID
-DeviceName,Event.EventData.DeviceName
-DomainName,Event.EventData.SubjectDomainName
-DriverDescription,Event.UserData.InstallDeviceID.DriverDescription
-DriverProvider,Event.UserData.InstallDeviceID.DriverProvider
-DvrFmwk2003InstanceId,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
-DvrFmwkInstanceId,Event.UserData.UMDFHostDeviceRequest.InstanceId
-EngineVersion,Event.EventData.EngineVersion
-ErrorCode,Event.EventData.ErrorCode
-EventID,Event.System.EventID
-EventType,Event.EventData.EventType
-ExecutionProcessID,Event.System.Execution_attributes.ProcessID
-FailureCode,Event.EventData.FailureCode
-Filename,Event.EventData.Filename
-FilePath,Event.EventData.FilePath
-FileVersion,Event.EventData.FileVersion
-GrantedAccess,Event.EventData.GrantedAccess
-GroupName,Event.EventData.GroupName
-GroupSid,Event.EventData.GroupSid
-Hashes,Event.EventData.Hashes
-HiveName,Event.EventData.HiveName
-HostApplication,Event.EventData.HostApplication
-HostName,Event.EventData.HostName
-HostVersion,Event.EventData.HostVersion
-Image,Event.EventData.Image
-image,Event.EventData.Image
-ImageLoaded,Event.EventData.ImageLoaded
-ImagePath,Event.EventData.ImagePath
-Imphash,Event.EventData.Hashes
-Initiated,Event.EventData.Initiated
-InstallStatus,Event.UserData.InstallDeviceID.InstallStatus
-InstanceID,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
-IntegrityLevel,Event.EventData.IntegrityLevel
-IpAddress,Event.EventData.IpAddress
-IpPort,Event.EventData.IpPort
-JobTitle,Event.EventData.name
-KeyLength,Event.EventData.KeyLength
-Keywords,Event.System.Keywords
-LayerRTID,Event.EventData.LayerRTID
-LDAPDisplayName,Event.EventData.LDAPDisplayName
-Level,Event.System.Level
-LogFileClearedChannel,Event.UserData.LogFileCleared.Channel
-LogFileClearedSubjectUserName,Event.UserData.LogFileCleared.SubjectUserName
-LogonID,Event.EventData.LogonID
-LogonId,Event.EventData.LogonId
-LogonProcessName,Event.EventData.LogonProcessName
-LogonType,Event.EventData.LogonType
-Logon_Account,Event.EventData.Logon_Account
-MachineName,Event.EventData.MachineName
-MemberName,Event.EventData.MemberName
-MemberSid,Event.EventData.MemberSid
-Message,Event.EventData
-ModifyingApplication,Event.EventData.ModifyingApplication
-NewName,Event.EventData.NewName
-NewProcessId,Event.EventData.NewProcessId
-NewProcessName,Event.EventData.NewProcessName
-NewTemplateContent, Event.EventData.NewTemplateContent
-NewUacValue,Event.EventData.NewUacValue
-NewValue,Event.EventData.NewValue
-New_Value,Event.EventData.New Value
-ObjectClass,Event.EventData.ObjectClass
-ObjectName,Event.EventData.ObjectName
-ObjectServer,Event.EventData.ObjectServer
-ObjectType,Event.EventData.ObjectType
-ObjectValueName,Event.EventData.ObjectValueName
-OldUacValue,Event.EventData.OldUacValue
-OperationEssStartedNamespaceName,Event.UserData.Operation_EssStarted.NamespaceName
-OperationEssStartedPossibleCause,Event.UserData.Operation_EssStarted.PossibleCause
-OperationEssStartedProcessid,Event.UserData.Operation_EssStarted.Processid
-OperationEssStartedProvider,Event.UserData.Operation_EssStarted.Provider
-OperationEssStartedQuery,Event.UserData.Operation_EssStarted.Query
-OperationEssStartedUser,Event.UserData.Operation_EssStarted.User
-Origin,Event.EventData.Origin
-OriginalFileName,Event.EventData.OriginalFileName
-OriginalFilename,Event.EventData.OriginalFileName
-param1,Event.EventData.param1
-param2,Event.EventData.param2
-param3,Event.EventData.param3
-param4,Event.EventData.param4
-param5,Event.EventData.param5
-ParentCommandLine,Event.EventData.ParentCommandLine
-ParentImage,Event.EventData.ParentImage
-ParentIntegrityLevel,Event.EventData.ParentIntegrityLevel
-ParentProcessName,Event.EventData.ParentProcessName
-ParentUser,Event.EventData.ParentUser
-PasswordLastSet,Event.EventData.PasswordLastSet
-Path,Event.EventData.Path
-Payload,Event.EventData.Payload
-PipeName,Event.EventData.PipeName
-PossibleCause,Event.UserData.PossibleCause
-PreAuthType,Event.EventData.PreAuthType
-PrivilegeList,Event.EventData.PrivilegeList
-ProcessCommandLine,Event.EventData.ProcessCommandLine
-ProcessGuid,Event.EventData.ProcessGuid
-ProcessId,Event.EventData.ProcessId
-ProcessName,Event.EventData.ProcessName
-Product,Event.EventData.Product
-Properties,Event.EventData.Properties
-Provider,Event.UserData.Provider
-ProviderName,Event.System.Provider_attributes.Name
-Provider_Name,Event.System.Provider_attributes.Name
-QNAME,Event.EventData.QNAME
-query,Event.EventData.Query
-Query,Event.UserData.Query
-QueryName,Event.EventData.QueryName
-QueryResults,Event.EventData.QueryResults
-QueryStatus,Event.EventData.QueryStatus
-RdsGtwErrorCode,Event.UserData.EventInfo.ErrorCode
-RdsGtwUsername,Event.UserData.EventInfo.Username
-RdsGtwIpAddress,Event.UserData.EventInfo.IpAddress
-RdsGtwAuthType,Event.UserData.EventInfo.AuthType
-RdsGtwResource,Event.UserData.EventInfo.Resource
-RdsGtwConnectionProtocol,Event.UserData.EventInfo.ConnectionProtocol
-RdsGtwBytesReceived,Event.UserData.EventInfo.BytesReceived
-RdsGtwBytesTransfered,Event.UserData.EventInfo.BytesTransfered
-RdsGtwSessionDuration,Event.UserData.EventInfo.SessionDuration
-RelativeTargetName,Event.EventData.RelativeTargetName
-RuleName,Event.EventData.RuleName
-SAMAccountName,Event.EventData.SamAccountName
-ScriptBlockText,Event.EventData.ScriptBlockText
-SearchFilter,Event.System.SearchFilter
-SecurityUserID,Event.System.Security_attributes.UserID
-ServerName,Event.System.ServerName
-Service,Event.EventData.Service
-service,Event.EventData.Service
-ServiceFileName,Event.EventData.ServiceFileName
-ServiceName,Event.EventData.ServiceName
-ServicePrincipalNames,Event.EventData.ServicePrincipalNames
-ServiceStartType,Event.EventData.ServiceStartType
-ServiceType,Event.EventData.ServiceType
-SeverityID,Event.EventData.Severity ID
-SeverityName,Event.EventData.Severity Name
-sha1,Event.EventData.Hashes_sha1
-ShareLocalPath,Event.EventData.ShareLocalPath
-ShareName,Event.EventData.ShareName
-SidHistory,Event.EventData.SidHistory
-Signature,Event.EventData.Signature
-SignatureStatus,Event.EventData.SignatureStatus
-Signed,Event.EventData.Signed
-Source,Event.System.Provider_Name
-SourceAddress,Event.EventData.SourceAddress
-SourceImage,Event.EventData.SourceImage
-SourceNetworkAddress,Event.EventData.SourceNetworkAddress
-SourcePort,Event.EventData.SourcePort
-Source_Name,Event.EventData.Source Name
-Source_Network_Address,Event.EventData.Source_Network_Address
-Source_WorkStation,Event.EventData.Source_WorkStation
-StartAddress,Event.EventData.StartAddress
-StartFunction,Event.EventData.StartFunction
-StartModule,Event.EventData.StartModule
-StartType,Event.EventData.StartType
-State,Event.EventData.State
-Status,Event.EventData.Status
-SubjectDomainName,Event.EventData.SubjectDomainName
-SubjectLogonId,Event.EventData.SubjectLogonId
-SubjectUserName,Event.EventData.SubjectUserName
-SubjectUserSid,Event.EventData.SubjectUserSid
-SubStatus,Event.EventData.SubStatus
-SysmonVersion,Event.EventData.SysmonVersion
-TargetDomainName,Event.EventData.TargetDomainName
-TargetFilename,Event.EventData.TargetFilename
-TargetImage,Event.EventData.TargetImage
-TargetInfo,Event.EventData.TargetInfo
-TargetLogonId,Event.EventData.TargetLogonId
-TargetObject,Event.EventData.TargetObject
-TargetProcessAddress,Event.EventData.TargetProcessAddress
-TargetServerName,Event.EventData.TargetServerName
-TargetSid,Event.EventData.TargetSid
-TargetUserName,Event.EventData.TargetUserName
-TaskDate,Event.EventData.TaskContent
-TaskName,Event.EventData.TaskName
-TemplateContent,Event.EventData.TemplateContent
-ThreatName,Event.EventData.Threat Name
-TicketEncryptionType,Event.EventData.TicketEncryptionType
-TicketOptions,Event.EventData.TicketOptions
-Url,Event.EventData.url
-User,Event.EventData.User
-UserDataAddress,Event.UserData.EventXML.Address
-UserDataCode,Event.UserData.Operation_StartedOperational.Code
-UserDataConsumer,Event.UserData.Operation_ESStoConsumerBinding.CONSUMER
-UserDataESS,Event.UserData.Operation_ESStoConsumerBinding.ESS
-UserDataHostProcess,Event.UserData.Operation_StartedOperational.HostProcess
-UserDataNamespace,Event.UserData.Operation_ESStoConsumerBinding.Namespace
-UserDataNamespaceName,Event.UserData.Operation_TemporaryEssStarted.NamespaceName
-UserDataParam1,Event.UserData.EventXML.Param1
-UserDataParam2,Event.UserData.EventXML.Param2
-UserDataParam3,Event.UserData.EventXML.Param3
-UserDataPossibleCause,Event.UserData.Operation_ESStoConsumerBinding.PossibleCause
-UserDataProcessID,Event.UserData.Operation_StartedOperational.ProcessID
-UserDataProcessid,Event.UserData.Operation_TemporaryEssStarted.Processid
-UserDataProviderName,Event.UserData.Operation_StartedOperational.ProviderName
-UserDataProviderPath,Event.UserData.Operation_StartedOperational.ProviderPath
-UserDataQuery,Event.UserData.Operation_TemporaryEssStarted.Query
-UserDataSessionID,Event.UserData.EventXML.SessionID
-UserDataUser,Event.UserData.EventXML.User
-UserName,Event.EventData.UserName
-Value,Event.EventData.Value
-Version,Event.System.Version
-WindowsDefenderProcessName,Event.EventData.Process Name
-WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
-Workstation,Event.EventData.Workstation
-WorkstationName,Event.EventData.WorkstationName
-
----FILE_END---
----FILE_START---
-path: level_tuning.txt
----CONTENT---
-id,new_level
-570ae5ec-33dc-427c-b815-db86228ad43e,info # 'Application Uninstalled'. Originally low.
-
----FILE_END---
----FILE_START---
-path: geoip_field_mapping.yaml
----CONTENT---
-SrcIP:
-  - '%IpAddress%'
-  - '%ClientAddress%'
-  - '%SourceAddress%'
-  - '%SourceIp%'
-  - '%UserDataAddress%'
-  - '%UserDataParam3%'
-
-TgtIP:
-  - '%DestinationIp%'
-  - '%DestAddress%'
-
-Filter:
-  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
-    - 21 # RDS Sess Logon %UserDataAddress%
-    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
-    - 24 # RDS Sess Disconnect %UserDataAddress%
-  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
-    - 1149 # RDS Logon %UserDataParam3%
-  - Security:
-    - 4624 # Logon Success %IpAddress%
-    - 4625 # Logon Failure %IpAddress%
-    - 4648 # Explicit Logon %IpAddress%
-    - 4768 # Kerberos TGT Requested %IpAddress%
-    - 4769 # Kerberos Service Ticket Requested %IpAddress%
-    - 4778 # RDP Session Reconnect %ClientAddress%
-    - 4779 # RDP Session Disconnect %ClientAddress%
-    - 4825 # RDP Logon Failed %ClientAddress%
-    - 5140 # A network share object was accessed %IpAddress%
-    - 5145 # NetShare File Access %IpAddress%
-    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
-  - Microsoft-Windows-Sysmon/Operational: 
-    - 3 # Network Connection %SourceIp%
----FILE_END---
----FILE_START---
 path: opening_messages.txt
 ---CONTENT---
 Elevating Windows DFIR to new heights~
@@ -2817,6 +1868,44 @@ Collecting the gold specks in the desert~
 Since 2021~
 ---FILE_END---
 ---FILE_START---
+path: generic_abbreviations.txt
+---CONTENT---
+Original,GeneralAbbreviation
+Application,App
+Authentication,Auth
+Client,Cli
+Configuration,Config
+Connection,Conn
+Connectivity,Conn
+Deployment,Deploy
+Diagnostics,Diag
+Directory,Dir
+Experience,Exp
+Group,Grp
+Infrastructure,Infra
+Kernel,Kern
+Language,Lang
+Management,Mgmt
+Manager,Mgr
+Microsoft,MS
+Network,Net
+Notification,Notif
+Operational,Op
+Package,Pkg
+Power,Pwr
+Profile,Prof
+Program,Prog
+Provider,Prov
+Provisioning,Provision
+Registration,Reg
+Security,Sec
+Server,Svr
+Service,Svc
+Terminal,Term
+Universal,Univ
+Windows,Win
+---FILE_END---
+---FILE_START---
 path: provider_abbreviations.txt
 ---CONTENT---
 Provider,Abbreviation
@@ -2832,6 +1921,609 @@ Microsoft-Windows-Windows Defender,Defender
 Microsoft-Windows-Windows Firewall With Advanced Security,Firewall
 Microsoft-Windows-WindowsUpdateClient,WinUpdate
 Service Control Manager,SCM
+---FILE_END---
+---FILE_START---
+path: pivot_keywords.txt
+---CONTENT---
+Source Computers.WorkstationName
+Subject Users.SubjectUserName
+Target Users.TargetUserName
+Users.User
+Subject Logon IDs.SubjectLogonId
+Target Logon IDs.TargetLogonId
+Logon IDs.LogonId
+IP Addresses.IpAddress
+Source IP Addresses.SourceIp
+Source IP Addresses.ClientAddress
+Source IP Addresses.SourceAddress
+Target IP Addresses.DestinationIp
+Target IP Addresses.DestAddress
+Processes.Image
+Processes.NewProcessName
+Command Lines.CommandLine
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4625_FailedLogon.yaml
+---CONTENT---
+Title: 'Failed Logon'
+Channel: Security
+EventID: 4625
+RewriteFieldData:
+    LogonType:
+        - '0': '0 - SYSTEM'
+        - '2': '2 - INTERACTIVE'
+        - '3': '3 - NETWORK'
+        - '4': '4 - BATCH'
+        - '5': '5 - SERVICE'
+        - '7': '7 - UNLOCK'
+        - '8': '8 - NETWORK CLEARTEXT'
+        - '9': '9 - NEW CREDENTIALS'
+        - '10': '10 - REMOTE INTERACTIVE'
+        - '11': '11 - CACHED INTERACTIVE'
+        - '12': '12 - CACHED REMOTE INTERACTIVE'
+        - '13': '13 - CACHED UNLOCK'
+    FailureReason:
+        - '%%2304': 'ERROR'
+        - '%%2305': 'ACCOUNT EXPIRED'
+        - '%%2306': 'NETLOGON NOT ACTIVE'
+        - '%%2307': 'ACCOUNT LOCKOUT'
+        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
+        - '%%2309': 'PW EXPIRED'
+        - '%%2310': 'ACCOUNT DISABLED'
+        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
+        - '%%2312': 'UNAUTHORIZED COMPUTER'
+        - '%%2313': 'BAD USER OR PW'
+        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
+        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
+    Status:
+        - '0x0': 'SUCCESS'
+        - '0xc000005e': 'NO LOGON SERVER'
+        - '0xc000006d': 'BAD USER OR PW'
+        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
+        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
+        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
+        - '0xc0000071': 'PW EXPIRED'
+        - '0xc0000072': 'ACCOUNT DISABLED'
+        - '0xc00000dc': 'SERVER IN WRONG STATE'
+        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
+        - '0xc000015b': 'NO LOGON RIGHT'
+        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
+        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
+        - '0xc0000193': 'ACCOUNT EXPIRED'
+        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
+        - '0xc0000225': 'WINDOWS BUG'
+        - '0xc0000234': 'ACCOUNT LOCKED'
+        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
+        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
+    SubStatus:
+        - '0x0': 'SUCCESS'
+        - '0xc0000064': 'UNKNOWN USER'
+        - '0xc000006a': 'WRONG PW'
+        - '0xc0000073': 'NO TRANSLATIONS'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+            <EventID>4625</EventID>
+            <Version>0</Version>
+            <Level>0</Level>
+            <Task>12544</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8010000000000000</Keywords>
+            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
+            <EventRecordID>1861989</EventRecordID>
+            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
+            <Execution ProcessID="576" ThreadID="5164"/>
+            <Channel>Security</Channel>
+            <Computer>fs01.offsec.lan</Computer>
+            <Security/>
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data>
+            <Data Name="SubjectUserName">FS01$</Data>
+            <Data Name="SubjectDomainName">OFFSEC</Data>
+            <Data Name="SubjectLogonId">0x3e7</Data>
+            <Data Name="TargetUserSid">S-1-0-0</Data>
+            <Data Name="TargetUserName">NOUSER</Data>
+            <Data Name="TargetDomainName">FS01</Data>
+            <Data Name="Status">0xc000006d</Data>
+            <Data Name="FailureReason">%%2313</Data>
+            <Data Name="SubStatus">0xc0000064</Data>
+            <Data Name="LogonType">8</Data>
+            <Data Name="LogonProcessName">Advapi</Data>
+            <Data Name="AuthenticationPackageName">Negotiate</Data>
+            <Data Name="WorkstationName">FS01</Data>
+            <Data Name="TransmittedServices">-</Data>
+            <Data Name="LmPackageName">-</Data>
+            <Data Name="KeyLength">0</Data>
+            <Data Name="ProcessId">0x16d8</Data>
+            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
+            <Data Name="IpAddress">-</Data>
+            <Data Name="IpPort">-</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4674_ObjectAccessAttempt.yaml
+---CONTENT---
+Title: 'Object Access Attempt'
+Channel: Security
+EventID: 4674
+RewriteFieldData:
+    AccessMask:
+        - '%%1537': 'DELETE'
+        - '%%1538': 'READ_CONTROL'
+        - '%%1539': 'WRITE_DAC'
+        - '%%1540': 'WRITE_OWNER'
+        - '%%1541': 'SYNCHRONIZE'
+        - '%%1542': 'ACCESS_SYS_SEC'
+        - '%%4416': 'READ_DATA'
+        - '%%4417': 'WRITE_DATA'
+        - '%%4418': 'APPEND_DATA'
+        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
+        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
+        - '%%4421': 'EXECUTE/TRAVERSE'
+        - '%%4422': 'DELETE_CHILD'
+        - '%%4423': 'READ_ATTRIBUTES'
+        - '%%4424': 'WRITE_ATTRIBUTES'
+        - '%%4432': 'QUERY_KEY_VALUE'
+        - '%%4433': 'SET_KEY_VALUE'
+        - '%%4434': 'CREATE_SUBKEY'
+        - '%%4435': 'ENUMERATE_SUBKEYS'
+        - '%%4436': 'KEY_CHANGES_NOTIFICATION'
+        - '%%4437': 'CREATE_LINK'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+            <EventID>4674</EventID>
+            <Version>0</Version>
+            <Level>0</Level>
+            <Task>13056</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8020000000000000</Keywords>
+            <TimeCreated SystemTime="2020-09-14T14:48:28.683048400Z"/>
+            <EventRecordID>39406</EventRecordID>
+            <Correlation/>
+            <Execution ProcessID="4" ThreadID="5756"/>
+            <Channel>Security</Channel>
+            <Computer>Sec504Student</Computer>
+            <Security/>
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-21-2977773840-2930198165-1551093962-1000</Data>
+            <Data Name="SubjectUserName">Sec504</Data>
+            <Data Name="SubjectDomainName">SEC504STUDENT</Data>
+            <Data Name="SubjectLogonId">0x99e3d</Data>
+            <Data Name="ObjectServer">SC Manager</Data>
+            <Data Name="ObjectType">SERVICE OBJECT</Data>
+            <Data Name="ObjectName">nginx</Data>
+            <Data Name="HandleId">0xffff820cb1d95928</Data>
+            <Data Name="AccessMask">%%1539</Data>
+            <Data Name="PrivilegeList">SeSecurityPrivilege</Data>
+            <Data Name="ProcessId">0x21c</Data>
+            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Application_1022-1033_MSI-Install.yaml
+---CONTENT---
+Title: 'MSI Install'
+Channel: Application
+EventID: 1033
+Provider_Name: MsiInstaller
+RewriteFieldData:
+    Data[3]:
+        - '1025': "Arabic (Saudi Arabia)"
+        - '1026': "Bulgarian"
+        - '1027': "Catalan"
+        - '1028': "Chinese (Traditional)"
+        - '1029': "Czech"
+        - '1030': "Danish"
+        - '1031': "German (Germany)"
+        - '1032': "Greek"
+        - '1033': "English (US)"
+        - '1034': "Spanish (Traditional Sort)"
+        - '1035': "Finnish"
+        - '1036': "French (France)"
+        - '1037': "Hebrew"
+        - '1038': "Hungarian"
+        - '1039': "Icelandic"
+        - '1040': "Italian (Italy)"
+        - '1041': "Japanese"
+        - '1042': "Korean"
+        - '1043': "Dutch (Netherlands)"
+        - '1044': "Norwegian (Bokmål)"
+        - '1045': "Polish"
+        - '1046': "Portuguese (Brazil)"
+        - '1047': "Portuguese (Portugal)"
+        - '1048': "Romanian"
+        - '1049': "Russian"
+        - '1050': "Croatian"
+        - '1051': "Slovak"
+        - '1052': "Albanian"
+        - '1053': "Swedish"
+        - '1054': "Thai"
+        - '1055': "Turkish"
+        - '1056': "Urdu"
+        - '1057': "Indonesian"
+        - '1058': "Ukrainian"
+        - '1059': "Belarusian"
+        - '1060': "Slovenian"
+        - '1061': "Estonian"
+        - '1062': "Latvian"
+        - '1063': "Lithuanian"
+        - '1064': "Tajik (Cyrillic)"
+        - '1065': "Persian"
+        - '1066': "Vietnamese"
+        - '1067': "Armenian"
+        - '1068': "Azerbaijani (Latin)"
+        - '1069': "Basque"
+        - '1070': "Upper Sorbian"
+        - '1071': "Macedonian (FYROM)"
+        - '1072': "Sesotho"
+        - '1073': "Tsonga"
+        - '1074': "Tswana"
+        - '1075': "Venda"
+        - '1076': "Xhosa"
+        - '1077': "Zulu"
+        - '1078': "Afrikaans"
+        - '1079': "Georgian"
+        - '1080': "Faroese"
+        - '1081': "Hindi"
+        - '1082': "Maltese"
+        - '1083': "Sami (Northern)"
+        - '1084': "Gaelic (Scotland)"
+        - '1085': "Yiddish"
+        - '1086': "Malay (Malaysia)"
+        - '1087': "Kazakh"
+        - '1088': "Kyrgyz (Cyrillic)"
+        - '1089': "Swahili"
+        - '1090': "Turkmen"
+        - '1091': "Uzbek (Latin)"
+        - '1092': "Tatar"
+        - '1093': "Bengali (India)"
+        - '1094': "Punjabi (India)"
+        - '1095': "Gujarati"
+        - '1096': "Oriya"
+        - '1097': "Tamil"
+        - '1098': "Telugu"
+        - '1099': "Kannada"
+        - '1100': "Malayalam"
+        - '1101': "Assamese"
+        - '1102': "Marathi"
+        - '1103': "Sanskrit"
+        - '1104': "Mongolian (Cyrillic)"
+        - '1105': "Tibetan"
+        - '1106': "Welsh"
+        - '1107': "Khmer"
+        - '1108': "Lao"
+        - '1109': "Burmese"
+        - '1110': "Galician"
+        - '1111': "Konkani"
+        - '1112': "Manipuri"
+        - '1113': "Sindhi (India)"
+        - '1114': "Syriac"
+        - '1115': "Sinhalese"
+        - '1116': "Cherokee"
+        - '1117': "Inuktitut (Syllabics)"
+        - '1118': "Amharic"
+        - '1119': "Tamazight (Latin)"
+        - '1120': "Kashmiri"
+        - '1121': "Nepali"
+        - '1122': "Frisian"
+        - '1123': "Pashto"
+        - '1124': "Filipino"
+        - '1125': "Divehi"
+        - '1126': "Edo"
+        - '1127': "Fulfulde"
+        - '1128': "Hausa"
+        - '1129': "Ibibio"
+        - '1130': "Yoruba"
+        - '1131': "Quechua"
+        - '1132': "Sesotho sa Leboa"
+        - '1133': "Bashkir"
+        - '1134': "Luxembourgish"
+        - '1135': "Greenlandic"
+        - '1136': "Igbo"
+        - '1137': "Kanuri"
+        - '1138': "Oromo"
+        - '1139': "Tigrigna (Ethiopia)"
+        - '1140': "Tigrigna (Eritrea)"
+        - '1141': "Ganda"
+        - '1142': "Hawaiian"
+        - '1143': "Latin"
+        - '1144': "Somali"
+        - '1145': "Yi"
+        - '1146': "N'ko"
+        - '1147': "Dari"
+        - '1148': "Scottish Gaelic"
+        - '1150': "Central Atlas Tamazight (Latin)"
+        - '1151': "Nepal Bhasa"
+        - '1152': "Rhaeto-Romance"
+        - '1153': "Mapudungun"
+        - '1154': "Mongolian (Traditional)"
+        - '1155': "Sakha"
+        - '1156': "K'iche"
+        - '1157': "Kinyarwanda"
+        - '1158': "Wolof"
+        - '1159': "Duala"
+        - '1160': "Jola-Fonyi"
+        - '1161': "Ewe"
+        - '1162': "Wari"
+        - '1163': "Sesotho sa Leboa"
+        - '1164': "Kalenjin"
+        - '1165': "Iban"
+        - '1166': "Quechua (Ecuador)"
+        - '1167': "Garifuna"
+        - '1168': "Twi"
+        - '1169': "Pedi"
+        - '1170': "Hausa (Nigeria)"
+        - '1171': "Kikuyu"
+        - '1172': "Zulu (South Africa)"
+        - '1173': "Yoruba (Nigeria)"
+        - '1174': "Twi (Ghana)"
+        - '1175': "Kalenjin (Kenya)"
+        - '1176': "Iban (Malaysia)"
+        - '1177': "Zulu (South Africa)"
+        - '1178': "Afrikaans (South Africa)"
+        - '1179': "Somali (Somalia)"
+        - '1180': "Swahili (Kenya)"
+        - '1181': "Zulu (South Africa)"
+        - '1182': "Igbo (Nigeria)"
+        - '1183': "Cree (Canada)"
+        - '1184': "Inuktitut (Canada)"
+        - '1185': "Inuktitut (Latin)"
+        - '1186': "Ojibwe"
+        - '1187': "Dene"
+        - '1188': "Naskapi"
+        - '1189': "Danish (Denmark)"
+        - '1190': "Sami (Inari)"
+        - '1191': "Sami (Skolt)"
+        - '1192': "Sami (Southern)"
+        - '1193': "Sami (Lule)"
+        - '1194': "Sami (Ume)"
+        - '1195': "Sami (Pite)"
+        - '1196': "Sami (Enontekiö)"
+        - '1197': "Sami (Kildin)"
+        - '1198': "Sami (Ter)"
+        - '1199': "Sami (Akkala)"
+
+
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="MsiInstaller" /> 
+            <EventID Qualifiers="0">1033</EventID> 
+            <Version>0</Version> 
+            <Level>4</Level> 
+            <Task>0</Task> 
+            <Opcode>0</Opcode> 
+            <Keywords>0x80000000000000</Keywords> 
+            <TimeCreated SystemTime="2021-01-15T02:14:12.8708371Z" /> 
+            <EventRecordID>9294</EventRecordID> 
+            <Correlation /> 
+            <Execution ProcessID="0" ThreadID="0" /> 
+            <Channel>Application</Channel> 
+            <Computer>computer</Computer> 
+            <Security UserID="S-1-5-21-3619236619-1337548381-1329840446-1001" /> 
+        </System>
+        <EventData>
+            <Data>Epson Photo+</Data> 
+            <Data>3.3.0.0</Data> 
+            <Data>1033</Data> 
+            <Data>0</Data> 
+            <Data>Seiko Epson Corporation</Data> 
+            <Data>(NULL)</Data> 
+            <Data /> 
+            <Binary>7B41423937314134452D463636392D344538322D414646302D3343333444463736383535337D3030303061373633363232333031663565653439613432333666343761363438663639643030303030393034</Binary> 
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4624_SuccessfulLogon.yaml
+---CONTENT---
+Title: 'Logon'
+Channel: Security
+EventID: 4624
+RewriteFieldData:
+    ElevatedToken:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+    ImpersonationLevel:
+        - '%%1832': 'IDENTIFICATION'
+        - '%%1833': 'IMPERSONATION'
+        - '%%1840': 'DELEGATION'
+        - '%%1841': 'DENIED BY PROCESS TRUST LABEL ACE'
+        - '%%1842': 'YES'
+        - '%%1844': 'SYSTEM'
+        - '%%1845': 'NOT AVAILABLE'
+        - '%%1846': 'DEFAULT'
+        - '%%1847': 'DISALLOW MM CONFIG'
+        - '%%1848': 'OFF'
+        - '%%1849': 'AUTO'
+    LogonType:
+        - '0': '0 - SYSTEM'
+        - '2': '2 - INTERACTIVE'
+        - '3': '3 - NETWORK'
+        - '4': '4 - BATCH'
+        - '5': '5 - SERVICE'
+        - '7': '7 - UNLOCK'
+        - '8': '8 - NETWORK CLEARTEXT'
+        - '9': '9 - NEW CREDENTIALS'
+        - '10': '10 - REMOTE INTERACTIVE'
+        - '11': '11 - CACHED INTERACTIVE'
+        - '12': '12 - CACHED REMOTE INTERACTIVE'
+        - '13': '13 - CACHED UNLOCK'
+    RestrictedAdminMode:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+    VirtualAccount:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
+            <EventID>4624</EventID>
+            <Version>3</Version>
+            <Level>0</Level>
+            <Task>12544</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8020000000000000</Keywords>
+            <TimeCreated SystemTime="2023-06-05T07:43:11.8338899Z" />
+            <EventRecordID>98438</EventRecordID>
+            <Correlation ActivityID="{8227fe63-9780-0003-07ff-27828097d901}" />
+            <Execution ProcessID="884" ThreadID="940" />
+            <Channel>Security</Channel>
+            <Computer>memanalysis</Computer>
+            <Security />
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data>
+            <Data Name="SubjectUserName">MEMANALYSIS$</Data>
+            <Data Name="SubjectDomainName">WORKGROUP</Data>
+            <Data Name="SubjectLogonId">0x3e7</Data>
+            <Data Name="TargetUserSid">S-1-5-18</Data>
+            <Data Name="TargetUserName">SYSTEM</Data>
+            <Data Name="TargetDomainName">NT AUTHORITY</Data>
+            <Data Name="TargetLogonId">0x3e7</Data>
+            <Data Name="LogonType">5</Data>
+            <Data Name="LogonProcessName">Advapi</Data>
+            <Data Name="AuthenticationPackageName">Negotiate</Data>
+            <Data Name="WorkstationName">-</Data>
+            <Data Name="LogonGuid">{00000000-0000-0000-0000-000000000000}</Data>
+            <Data Name="TransmittedServices">-</Data>
+            <Data Name="LmPackageName">-</Data>
+            <Data Name="KeyLength">0</Data>
+            <Data Name="ProcessId">0x30c</Data>
+            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+            <Data Name="IpAddress">-</Data>
+            <Data Name="IpPort">-</Data>
+            <Data Name="ImpersonationLevel">%%1833</Data>
+            <Data Name="RestrictedAdminMode">-</Data>
+            <Data Name="RemoteCredentialGuard">-</Data>
+            <Data Name="TargetOutboundUserName">-</Data>
+            <Data Name="TargetOutboundDomainName">-</Data>
+            <Data Name="VirtualAccount">%%1843</Data>
+            <Data Name="TargetLinkedLogonId">0x0</Data>
+            <Data Name="ElevatedToken">%%1842</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5140_NetShareAccess.yaml
+---CONTENT---
+Title: 'NetShare Access'
+Channel: Security
+EventID: 5140
+RewriteFieldData:
+    AccessList:
+        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
+
+sample-evtx:
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4688_ProcessCreation.yaml
+---CONTENT---
+Title: 'Process Creation'
+Channel: Security
+EventID: 4688
+RewriteFieldData:
+    MandatoryLabel:
+        - 'S-1-16-0': 'UNTRUSTED'
+        - 'S-1-16-4096': 'LOW_INTEGRITY'
+        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
+        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
+        - 'S-1-16-12288': 'HIGH_INTEGRITY'
+        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
+        - 'S-1-16-20480': 'PROTECTED_PROCESS'
+    TokenElevationType:
+        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
+        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
+        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
+HexToDecimal:
+    - 'NewProcessId'
+    - 'ProcessId'
+
+sample-evtx: |
+  <?xml version="1.0"?>
+  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+    <System>
+      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+      <EventID>4688</EventID>
+      <Version>2</Version>
+      <Level>0</Level>
+      <Task>13312</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8020000000000000</Keywords>
+      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
+      <EventRecordID>284391</EventRecordID>
+      <Correlation/>
+      <Execution ProcessID="4" ThreadID="6292"/>
+      <Channel>Security</Channel>
+      <Computer>wef.windomain.local</Computer>
+      <Security/>
+    </System>
+    <EventData>
+      <Data Name="SubjectUserSid">S-1-5-18</Data>
+      <Data Name="SubjectUserName">WEF$</Data>
+      <Data Name="SubjectDomainName">WINDOMAIN</Data>
+      <Data Name="SubjectLogonId">0x3e7</Data>
+      <Data Name="NewProcessId">0x1980</Data>
+      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
+      <Data Name="TokenElevationType">%%1936</Data>
+      <Data Name="ProcessId">0x24c</Data>
+      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
+      <Data Name="TargetUserSid">S-1-0-0</Data>
+      <Data Name="TargetUserName">-</Data>
+      <Data Name="TargetDomainName">-</Data>
+      <Data Name="TargetLogonId">0x0</Data>
+      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
+      <Data Name="MandatoryLabel">S-1-16-16384</Data>
+    </EventData>
+  </Event>
+
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5145_NetShareFileAccess.yaml
+---CONTENT---
+Title: 'NetShare File Access'
+Channel: Security
+EventID: 5145
+RewriteFieldData:
+    AccessList:
+        - '%%1537': 'DELETE'
+        - '%%1538': 'READ_CONTROL'
+        - '%%1539': 'WRITE_DAC'
+        - '%%1540': 'WRITE_OWNER'
+        - '%%1541': 'SYNCHRONIZE'
+        - '%%1542': 'ACCESS_SYS_SEC'
+        - '%%4416': 'READ_DATA'
+        - '%%4417': 'WRITE_DATA'
+        - '%%4418': 'APPEND_DATA'
+        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
+        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
+        - '%%4421': 'EXECUTE/TRAVERSE'
+        - '%%4422': 'DELETE_CHILD'
+        - '%%4423': 'READ_ATTRIBUTES'
+        - '%%4424': 'WRITE_ATTRIBUTES'
+
+sample-evtx:
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
 ---FILE_END---
 ---FILE_START---
 path: default_details.txt
@@ -3111,114 +2803,422 @@ path: target_event_IDs.txt
 
 ---FILE_END---
 ---FILE_START---
-path: closing_messages.txt
+path: noisy_rules.txt
 ---CONTENT---
-知行合一 - Chi Kou Gou Itsu - Knowledge and action must be inseparable.
-初心忘るべからず - Shoshin Wasuru Bekarazu - Never forget the beginner's mind.
-無事是貴人 - Buji Kore Kinin - Once you free yourself from attachment and aversion, you will be truly a noble person.
-急がば回れ - Isogaba Maware - If you are in a hurry, take the long way.
-一瞬一瞬を大切に - Isshun Isshun O Taisetsu Ni - Treasure each moment.
-無念無想 - Munen Musou - No assumptions, no preconceptions.
-臨機応変 - Rin Ki Ou Hen - Adapt to the situation.
-日々是好日 - Nichinichi Kore Koujitsu - Everyday is a good day.
-風林火山 - Fuu Rin Ka Zan - Swift as the wind, silent as the forest, fierce as fire, immovable as a mountain.
-不動心 - Fudoushin - Immovable mind.
-守破離 - Shu Ha Ri - Follow, break, transcend.
-平常心是道 - Heijoushin Kore Dou - An ordinary mind is the way.
-水滴石穿 - Suiteki Sekisen - Dripping water wears through stone.
-塞翁が馬 - Saiou Ga Uma - Misfortune becomes a blessing.
-無我 - Muga - Collective effort outweigh individual accomplishment.
-柔よく剛を制す - Juu Yoku Gou O Seisu - Softness overcomes hardness.
-空即是色 - Kuu Soku Ze Shiki - Form is emptiness, emptiness is form.
-侘び寂び - Wabi Sabi - Beauty in imperfection and impermanence.
-見切り発車 - Mikiri Hassha - Starting a journey with no clear path.
-臨終行 - Rin Juu Gyou - Act as if it is your last task.
-知足 - Chisoku - Know when things are sufficient.
-漸進 - Zenshin - Gradual progress.
-不言実行 - Fugen Jikkou - Actions speak louder than words.
-無為自然 - Mui Shizen - Effortless and natural.
-一念通天 - Ichinen Tsuuten - Single-mindedness will take you to the heavens.
-臨戦態勢 - Rinsen Taisei - Always ready for battle.
-一事が万事 - Ichiji Ga Banji - One thing leads to everything.
-難行苦行 - Nangyou Kugyou - Arduous and rigorous practice.
-塞翁失馬 - Sai Ou Shitsu Ba - The old man lost his horse. (A blessing in disguise.)
-時来たり - Toki Kitari - The time has come.
-失敗は成功のもと - Shippai Wa Seikou No Moto - Failure is the root of success.
-天の時、地の利、人の和 - Ten No Toki, Chi No Ri, Hito No Wa - Heavenly timing, earthly advantage, personal harmony
-大器晩成 - Taiki Bansei - Great talents take time to mature.
-千里の道も一歩から - Senri No Michi Mo Ippo Kara - A journey of a thousand miles begins with a single step.
-残心 - Zanshin - Stay vigilant even after your task is complete.
-疾風勁草 - Shippuu Keisou - Strong grass withstands strong wind. 
-風流韻事 - Fuuryuu Injin - The art of refinement and elegance.
-知彼知己 - Chi Hi Chi Ki - Know thy enemy, know thyself.
-百聞は一見に如かず - Hyakubun Wa Ikken Ni Shikazu - Seeing once is better than hearing a hundred times.
-一難去ってまた一難 - Ichinan Satte Mata Ichinan - One difficulty after another.
-居安思危 - Kyo An Shi Ki - In times of peace, think of danger.
-苦あれば楽あり - Ku Areba Raku Ari - Positive outcomes come from enduring hardships.
-禍福は糾える縄の如し - Kafuku Wa Azanaeru Nawa No Gotoshi - Good and bad fortune are intertwined like a rope.
-頑張ってや〜 - Gambatte Ya~ - Do your best!
-笑う門には福来たる - Warau Kado Ni Wa Fuku Kitaru - Fortune comes to the house of those who laugh.
-一笑一若 - Isshou Ichijaku - One laugh, one youthful spirit.
-笑いは心の薬 - Warai Wa Kokoro No Kusuri - Laughter is medicine for the soul.
-苦は楽の種 - Ku Wa Raku No Tane - Suffering is the seed of joy.
-災い転じて福となす - Wazawai Tenjite Fuku To Nasu - Turn misfortune into fortune.
-困難に道あり - Konnan Ni Michi Ari - The obstacle is the way.
+#Hayabusa rules
+0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
+8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
+1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
+9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
+3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
+6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
+320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
+a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
+b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
+0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
+84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
+84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
 ---FILE_END---
 ---FILE_START---
-path: pivot_keywords.txt
+path: geoip_field_mapping.yaml
 ---CONTENT---
-Source Computers.WorkstationName
-Subject Users.SubjectUserName
-Target Users.TargetUserName
-Users.User
-Subject Logon IDs.SubjectLogonId
-Target Logon IDs.TargetLogonId
-Logon IDs.LogonId
-IP Addresses.IpAddress
-Source IP Addresses.SourceIp
-Source IP Addresses.ClientAddress
-Source IP Addresses.SourceAddress
-Target IP Addresses.DestinationIp
-Target IP Addresses.DestAddress
-Processes.Image
-Processes.NewProcessName
-Command Lines.CommandLine
+SrcIP:
+  - '%IpAddress%'
+  - '%ClientAddress%'
+  - '%SourceAddress%'
+  - '%SourceIp%'
+  - '%UserDataAddress%'
+  - '%UserDataParam3%'
+
+TgtIP:
+  - '%DestinationIp%'
+  - '%DestAddress%'
+
+Filter:
+  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
+    - 21 # RDS Sess Logon %UserDataAddress%
+    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
+    - 24 # RDS Sess Disconnect %UserDataAddress%
+  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
+    - 1149 # RDS Logon %UserDataParam3%
+  - Security:
+    - 4624 # Logon Success %IpAddress%
+    - 4625 # Logon Failure %IpAddress%
+    - 4648 # Explicit Logon %IpAddress%
+    - 4768 # Kerberos TGT Requested %IpAddress%
+    - 4769 # Kerberos Service Ticket Requested %IpAddress%
+    - 4778 # RDP Session Reconnect %ClientAddress%
+    - 4779 # RDP Session Disconnect %ClientAddress%
+    - 4825 # RDP Logon Failed %ClientAddress%
+    - 5140 # A network share object was accessed %IpAddress%
+    - 5145 # NetShare File Access %IpAddress%
+    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
+  - Microsoft-Windows-Sysmon/Operational: 
+    - 3 # Network Connection %SourceIp%
 ---FILE_END---
 ---FILE_START---
-path: generic_abbreviations.txt
+path: exclude_rules.txt
 ---CONTENT---
-Original,GeneralAbbreviation
+# Replaced by Hayabusa rules:
+6695d6a2-9365-ee87-ccdd-966b0e1cdbd4 # "User Added to Local Administrators".
+5ecd226b-563f-4723-7a1e-d637d81f0a1f # "Local User Creation".
+23013005-3d59-4dbe-dabd-d17a54e6c6cf # "Hidden Local User Creation".
+cb7a40d5-f1de-9dd4-465d-eada7e316d8f # "PsExec Tool Execution" win_tool_psexec.yml Note: rule not working to begin with.
+c063426c-1b9b-025d-71cc-5097a233285d # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
+3ce7b51a-ad12-59bb-6c81-3e9532685c1e # "Execution Of Other File Type Than .exe". Hayabusa rule: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
+c70d7033-8146-fe73-8430-90b23c296f9d # "Windows Defender Threat Detected"
+23f0b75b-66c0-4895-ae63-4243fa898109 # "Security Event Log Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
+9b14c9d8-6b61-e49f-f8a8-0836d0ad98c9 # "Security Eventlog Cleared" c2f690ac-53f8-4745-8cfe-7127dda28c74
+30966a3a-2224-0e1a-d28d-c0f7e84cfed3 # "Important Eventlog Cleared" replaced by f481a1f3-969e-4187-b3a5-b47c272bfebd
+8617b59c-812e-c88e-0bd4-5267e0e825f0 # "Eventlog Cleared" replaced by ed90ed4f-0d93-4f1a-99a2-4b9003b750a7
+73f64ce7-a76d-0208-ea75-dd26a09d719b # "User Logoff Event"
+de5d0dd7-b73e-7f18-02b0-6b1acb7e9f52 # "Admin User Remote Logon". Already covered with rule "Logon (Type 10 RemoteInteractive)"
+f508ff7b-4021-6693-0852-ce59ee2d0343 # Sysmon 4,16: Configuration Modification
+0f88cce2-f7ed-3b15-a7fe-27f2d440680c # Sysmon 16: Configuration Change
+17d51ceb-915d-bf28-8699-81e3f51b2a4e # Sysmon 25: Process Hollowing
+5dd9120c-635f-ace4-6acf-d10a14229f19 # Sysmon 27: "Sysmon Blocked Executable" replaced with "Blocked Exe File Creation" (bb35ca48-8e4a-445b-bc6d-0a994a0e9310)
+8a5ee8f3-da35-b174-1d66-ff5ad8125abe # Sysmon 255: Configuration Error
+
+# Disabled because they require placeholders to be set so cannot be used as is:
+f8d98d6c-7a07-4d74-b064-dd4a3c244528 # Pass the Hash Activity (%Workstations%)
+dd7876d8-0f09-11eb-adc1-0242ac120002 # Possible Zerologon (CVE-2020-1472) Exploitation (%DC-MACHINE-NAME%)
+68fcba0d-73a5-475e-a915-e8b4c576827e # Remote Registry Management Using Reg Utility (%Admins_Workstations%)
+3ff152b2-1388-4984-9cd9-a323323fdadf # Interactive Logon to Server Systems (%ServerSystems%, %DomainControllers%, %Workstations%)
+
+# Disabled because they cannot but used as is:
+d85240fc-d5ad-8061-a795-9eaea580fbf0 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
+ab0d6f07-d3a5-dcce-b343-05bfd1a8b000 # "Windows Kernel and 3rd-Party Drivers Exploits Token Stealing" because it requires a ParentIntegrityLevel field that does not exist.
+
+# Replaced by Sigma correlation rules
+35e8a0fc-60c2-46d7-ba39-aafb15b9854e # PW Guessing
+4574194d-e7ca-4356-a95c-21b753a1787e # User Guessing
+ffd622af-d049-449f-af5a-0492fdcc3a58 # PW Spray
+
+# FPs
+a4504cb2-23f6-6d94-5ae6-d6013cf1d995 # Suspicious Multiple File Rename Or Delete Occurred
+9f8b3bda-88a1-a216-2897-950cc5ca4aa4 # Quick Execution of a Series of Suspicious Commands (Sysmon 1)
+53facd0f-d88d-bab7-469e-a36211463245 # Quick Execution of a Series of Suspicious Commands (Sec 4688)
+
+# Test Files
+00000000-0000-0000-0000-000000000000 # TestFile
+---FILE_END---
+---FILE_START---
+path: windash_characters.txt
+---CONTENT---
+/ # forward slash (0x002F)
+- # hyphen (0x002D)
+– # en dash (0x2013)
+— # em dash (0x2014)
+― # horizontal bar (0x2015)
+---FILE_END---
+---FILE_START---
+path: eventkey_alias.txt
+---CONTENT---
+Accesses,Event.EventData.Accesses
+AccessList,Event.EventData.AccessList
+AccessMask,Event.EventData.AccessMask
+AccountDomain,Event.EventData.AccountDomain
+AccountName,Event.EventData.AccountName
+Account_Name,Event.EventData.Account_Name
+Action,Event.EventData.Action
+AllowedToDelegateTo,Event.EventData.AllowedToDelegateTo
+ApplicationPath,Event.EventData.ApplicationPath
+AttributeLDAPDisplayName,Event.EventData.AttributeLDAPDisplayName
+AttributeValue,Event.EventData.AttributeValue
+AuditPolicyChanges,Event.EventData.AuditPolicyChanges
+AuditSourceName,Event.EventData.AuditSourceName
+AuthenticationPackageName,Event.EventData.AuthenticationPackageName
+CallerProcessName,Event.EventData.CallerProcessName
+Caller_Process_Name,Event.EventData.Caller_Process_Name
+CallingProcessName,Event.EventData.CallingProcessName
+CallTrace,Event.EventData.CallTrace
+CategoryName,Event.EventData.Category Name
+CertThumbprint,Event.EventData.CertThumbprint
+Channel,Event.System.Channel
+ClassName,Event.EventData.ClassName
+ClientAddress,Event.EventData.ClientAddress
+ClientName,Event.EventData.ClientName
+Client_Address,Event.EventData.Client_Address
+CommandLine,Event.EventData.CommandLine
+Company,Event.EventData.Company
+Computer,Event.System.Computer
+ComputerName,Event.System.Computer
+ContextInfo,Event.EventData.ContextInfo
+CurrentDirectory,Event.EventData.CurrentDirectory
+Description,Event.EventData.Description
+DestAddress,Event.EventData.DestAddress
+Destination,Event.EventData.Destination
+DestinationAddress,Event.EventData.DestinationAddress
+DestinationHostname,Event.EventData.DestinationHostname
+DestinationIp,Event.EventData.DestinationIp
+DestinationIsIpv6,Event.EventData.DestinationIsIpv6
+DestinationPort,Event.EventData.DestinationPort
+DestPort,Event.EventData.DestPort
+Details,Event.EventData.Details
+DetectionSource,Event.EventData.DetectionSource
+DetectionUser,Event.EventData.Detection User
+Device,Event.EventData.Device
+DeviceClassName,Event.EventData.DeviceClassName
+DeviceDescription,Event.EventData.DeviceDescription
+DeviceInstanceID,Event.UserData.InstallDeviceID.DeviceInstanceID
+DeviceName,Event.EventData.DeviceName
+DomainName,Event.EventData.SubjectDomainName
+DriverDescription,Event.UserData.InstallDeviceID.DriverDescription
+DriverProvider,Event.UserData.InstallDeviceID.DriverProvider
+DvrFmwk2003InstanceId,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
+DvrFmwkInstanceId,Event.UserData.UMDFHostDeviceRequest.InstanceId
+EngineVersion,Event.EventData.EngineVersion
+ErrorCode,Event.EventData.ErrorCode
+EventID,Event.System.EventID
+EventType,Event.EventData.EventType
+ExecutionProcessID,Event.System.Execution_attributes.ProcessID
+FailureCode,Event.EventData.FailureCode
+Filename,Event.EventData.Filename
+FilePath,Event.EventData.FilePath
+FileVersion,Event.EventData.FileVersion
+GrantedAccess,Event.EventData.GrantedAccess
+GroupName,Event.EventData.GroupName
+GroupSid,Event.EventData.GroupSid
+Hashes,Event.EventData.Hashes
+HiveName,Event.EventData.HiveName
+HostApplication,Event.EventData.HostApplication
+HostName,Event.EventData.HostName
+HostVersion,Event.EventData.HostVersion
+Image,Event.EventData.Image
+image,Event.EventData.Image
+ImageLoaded,Event.EventData.ImageLoaded
+ImagePath,Event.EventData.ImagePath
+Imphash,Event.EventData.Hashes
+Initiated,Event.EventData.Initiated
+InstallStatus,Event.UserData.InstallDeviceID.InstallStatus
+InstanceID,Event.UserData.UMDFHostDeviceArrivalBegin.InstanceId
+IntegrityLevel,Event.EventData.IntegrityLevel
+IpAddress,Event.EventData.IpAddress
+IpPort,Event.EventData.IpPort
+JobTitle,Event.EventData.name
+KeyLength,Event.EventData.KeyLength
+Keywords,Event.System.Keywords
+LayerRTID,Event.EventData.LayerRTID
+LDAPDisplayName,Event.EventData.LDAPDisplayName
+Level,Event.System.Level
+LogFileClearedChannel,Event.UserData.LogFileCleared.Channel
+LogFileClearedSubjectUserName,Event.UserData.LogFileCleared.SubjectUserName
+LogonID,Event.EventData.LogonID
+LogonId,Event.EventData.LogonId
+LogonProcessName,Event.EventData.LogonProcessName
+LogonType,Event.EventData.LogonType
+Logon_Account,Event.EventData.Logon_Account
+MachineName,Event.EventData.MachineName
+MemberName,Event.EventData.MemberName
+MemberSid,Event.EventData.MemberSid
+Message,Event.EventData
+ModifyingApplication,Event.EventData.ModifyingApplication
+NewName,Event.EventData.NewName
+NewProcessId,Event.EventData.NewProcessId
+NewProcessName,Event.EventData.NewProcessName
+NewTemplateContent, Event.EventData.NewTemplateContent
+NewUacValue,Event.EventData.NewUacValue
+NewValue,Event.EventData.NewValue
+New_Value,Event.EventData.New Value
+ObjectClass,Event.EventData.ObjectClass
+ObjectName,Event.EventData.ObjectName
+ObjectServer,Event.EventData.ObjectServer
+ObjectType,Event.EventData.ObjectType
+ObjectValueName,Event.EventData.ObjectValueName
+OldUacValue,Event.EventData.OldUacValue
+OperationEssStartedNamespaceName,Event.UserData.Operation_EssStarted.NamespaceName
+OperationEssStartedPossibleCause,Event.UserData.Operation_EssStarted.PossibleCause
+OperationEssStartedProcessid,Event.UserData.Operation_EssStarted.Processid
+OperationEssStartedProvider,Event.UserData.Operation_EssStarted.Provider
+OperationEssStartedQuery,Event.UserData.Operation_EssStarted.Query
+OperationEssStartedUser,Event.UserData.Operation_EssStarted.User
+Origin,Event.EventData.Origin
+OriginalFileName,Event.EventData.OriginalFileName
+OriginalFilename,Event.EventData.OriginalFileName
+param1,Event.EventData.param1
+param2,Event.EventData.param2
+param3,Event.EventData.param3
+param4,Event.EventData.param4
+param5,Event.EventData.param5
+ParentCommandLine,Event.EventData.ParentCommandLine
+ParentImage,Event.EventData.ParentImage
+ParentIntegrityLevel,Event.EventData.ParentIntegrityLevel
+ParentProcessName,Event.EventData.ParentProcessName
+ParentUser,Event.EventData.ParentUser
+PasswordLastSet,Event.EventData.PasswordLastSet
+Path,Event.EventData.Path
+Payload,Event.EventData.Payload
+PipeName,Event.EventData.PipeName
+PossibleCause,Event.UserData.PossibleCause
+PreAuthType,Event.EventData.PreAuthType
+PrivilegeList,Event.EventData.PrivilegeList
+ProcessCommandLine,Event.EventData.ProcessCommandLine
+ProcessGuid,Event.EventData.ProcessGuid
+ProcessId,Event.EventData.ProcessId
+ProcessName,Event.EventData.ProcessName
+Product,Event.EventData.Product
+Properties,Event.EventData.Properties
+Provider,Event.UserData.Provider
+ProviderName,Event.System.Provider_attributes.Name
+Provider_Name,Event.System.Provider_attributes.Name
+QNAME,Event.EventData.QNAME
+query,Event.EventData.Query
+Query,Event.UserData.Query
+QueryName,Event.EventData.QueryName
+QueryResults,Event.EventData.QueryResults
+QueryStatus,Event.EventData.QueryStatus
+RdsGtwErrorCode,Event.UserData.EventInfo.ErrorCode
+RdsGtwUsername,Event.UserData.EventInfo.Username
+RdsGtwIpAddress,Event.UserData.EventInfo.IpAddress
+RdsGtwAuthType,Event.UserData.EventInfo.AuthType
+RdsGtwResource,Event.UserData.EventInfo.Resource
+RdsGtwConnectionProtocol,Event.UserData.EventInfo.ConnectionProtocol
+RdsGtwBytesReceived,Event.UserData.EventInfo.BytesReceived
+RdsGtwBytesTransfered,Event.UserData.EventInfo.BytesTransfered
+RdsGtwSessionDuration,Event.UserData.EventInfo.SessionDuration
+RelativeTargetName,Event.EventData.RelativeTargetName
+RuleName,Event.EventData.RuleName
+SAMAccountName,Event.EventData.SamAccountName
+ScriptBlockText,Event.EventData.ScriptBlockText
+SearchFilter,Event.System.SearchFilter
+SecurityUserID,Event.System.Security_attributes.UserID
+ServerName,Event.System.ServerName
+Service,Event.EventData.Service
+service,Event.EventData.Service
+ServiceFileName,Event.EventData.ServiceFileName
+ServiceName,Event.EventData.ServiceName
+ServicePrincipalNames,Event.EventData.ServicePrincipalNames
+ServiceStartType,Event.EventData.ServiceStartType
+ServiceType,Event.EventData.ServiceType
+SeverityID,Event.EventData.Severity ID
+SeverityName,Event.EventData.Severity Name
+sha1,Event.EventData.Hashes_sha1
+ShareLocalPath,Event.EventData.ShareLocalPath
+ShareName,Event.EventData.ShareName
+SidHistory,Event.EventData.SidHistory
+Signature,Event.EventData.Signature
+SignatureStatus,Event.EventData.SignatureStatus
+Signed,Event.EventData.Signed
+Source,Event.System.Provider_Name
+SourceAddress,Event.EventData.SourceAddress
+SourceImage,Event.EventData.SourceImage
+SourceNetworkAddress,Event.EventData.SourceNetworkAddress
+SourcePort,Event.EventData.SourcePort
+Source_Name,Event.EventData.Source Name
+Source_Network_Address,Event.EventData.Source_Network_Address
+Source_WorkStation,Event.EventData.Source_WorkStation
+StartAddress,Event.EventData.StartAddress
+StartFunction,Event.EventData.StartFunction
+StartModule,Event.EventData.StartModule
+StartType,Event.EventData.StartType
+State,Event.EventData.State
+Status,Event.EventData.Status
+SubjectDomainName,Event.EventData.SubjectDomainName
+SubjectLogonId,Event.EventData.SubjectLogonId
+SubjectUserName,Event.EventData.SubjectUserName
+SubjectUserSid,Event.EventData.SubjectUserSid
+SubStatus,Event.EventData.SubStatus
+SysmonVersion,Event.EventData.SysmonVersion
+TargetDomainName,Event.EventData.TargetDomainName
+TargetFilename,Event.EventData.TargetFilename
+TargetImage,Event.EventData.TargetImage
+TargetInfo,Event.EventData.TargetInfo
+TargetLogonId,Event.EventData.TargetLogonId
+TargetObject,Event.EventData.TargetObject
+TargetProcessAddress,Event.EventData.TargetProcessAddress
+TargetServerName,Event.EventData.TargetServerName
+TargetSid,Event.EventData.TargetSid
+TargetUserName,Event.EventData.TargetUserName
+TaskDate,Event.EventData.TaskContent
+TaskName,Event.EventData.TaskName
+TemplateContent,Event.EventData.TemplateContent
+ThreatName,Event.EventData.Threat Name
+TicketEncryptionType,Event.EventData.TicketEncryptionType
+TicketOptions,Event.EventData.TicketOptions
+Url,Event.EventData.url
+User,Event.EventData.User
+UserDataAddress,Event.UserData.EventXML.Address
+UserDataCode,Event.UserData.Operation_StartedOperational.Code
+UserDataConsumer,Event.UserData.Operation_ESStoConsumerBinding.CONSUMER
+UserDataESS,Event.UserData.Operation_ESStoConsumerBinding.ESS
+UserDataHostProcess,Event.UserData.Operation_StartedOperational.HostProcess
+UserDataNamespace,Event.UserData.Operation_ESStoConsumerBinding.Namespace
+UserDataNamespaceName,Event.UserData.Operation_TemporaryEssStarted.NamespaceName
+UserDataParam1,Event.UserData.EventXML.Param1
+UserDataParam2,Event.UserData.EventXML.Param2
+UserDataParam3,Event.UserData.EventXML.Param3
+UserDataPossibleCause,Event.UserData.Operation_ESStoConsumerBinding.PossibleCause
+UserDataProcessID,Event.UserData.Operation_StartedOperational.ProcessID
+UserDataProcessid,Event.UserData.Operation_TemporaryEssStarted.Processid
+UserDataProviderName,Event.UserData.Operation_StartedOperational.ProviderName
+UserDataProviderPath,Event.UserData.Operation_StartedOperational.ProviderPath
+UserDataQuery,Event.UserData.Operation_TemporaryEssStarted.Query
+UserDataSessionID,Event.UserData.EventXML.SessionID
+UserDataUser,Event.UserData.EventXML.User
+UserName,Event.EventData.UserName
+Value,Event.EventData.Value
+Version,Event.System.Version
+WindowsDefenderProcessName,Event.EventData.Process Name
+WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
+Workstation,Event.EventData.Workstation
+WorkstationName,Event.EventData.WorkstationName
+
+---FILE_END---
+---FILE_START---
+path: channel_abbreviations.txt
+---CONTENT---
+Channel,Abbreviation
 Application,App
-Authentication,Auth
-Client,Cli
-Configuration,Config
-Connection,Conn
-Connectivity,Conn
-Deployment,Deploy
-Diagnostics,Diag
-Directory,Dir
-Experience,Exp
-Group,Grp
-Infrastructure,Infra
-Kernel,Kern
-Language,Lang
-Management,Mgmt
-Manager,Mgr
-Microsoft,MS
-Network,Net
-Notification,Notif
-Operational,Op
-Package,Pkg
-Power,Pwr
-Profile,Prof
-Program,Prog
-Provider,Prov
-Provisioning,Provision
-Registration,Reg
+DNS Server,DNS-Svr
+Key Management Service,KeyMgtSvc
+Microsoft-ServiceBus-Client,SvcBusCli
+Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
+Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
+Microsoft-Windows-AppLocker/MSI and Script,AppLocker
+Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
+Microsoft-Windows-Bits-Client/Operational,BitsCli
+Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
+Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
+Microsoft-Windows-NTLM/Operational,NTLM
+Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
+Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
+Microsoft-Windows-SmbClient/Security,SmbCliSec
+Microsoft-Windows-Sysmon/Operational,Sysmon
+Microsoft-Windows-TaskScheduler/Operational,TaskSch
+Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Client
+Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
+Microsoft-Windows-PrintService/Admin,PrintAdm
+Microsoft-Windows-PrintService/Operational,PrintOp
+Microsoft-Windows-PowerShell/Operational,PwSh
+Microsoft-Windows-Windows Defender/Operational,Defender
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
+Microsoft-Windows-WinRM/Operational,WinRM
+Microsoft-Windows-WMI-Activity/Operational,WMI
+MSExchange Management,Exchange
+OpenSSH/Operational,OpenSSH
 Security,Sec
-Server,Svr
-Service,Svc
-Terminal,Term
-Universal,Univ
-Windows,Win
+System,Sys
+Windows PowerShell,PwShClassic
+Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
+Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-Forwarding/Operational,Forwarding
+Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
+Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
+Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
+Microsoft-Windows-TerminalServices-Gateway/Operational,RDS-GTW
+Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
+PowerShellCore,PwShCore
+---FILE_END---
+---FILE_START---
+path: level_tuning.txt
+---CONTENT---
+id,new_level
+570ae5ec-33dc-427c-b815-db86228ad43e,info # 'Application Uninstalled'. Originally low.
+
 ---FILE_END---
