@@ -1,3 +1,5 @@
+[2025/02/14] - Bug fix - The `RulePath` was blank in the encoded rules when there were multiple rules in a single file. (hayabusa#1572) (@fukusuket)
+
 [2025/02/10] - Bug fix - Number of rules enabled after channel filtering differed between live response and standard hayabusa. (hayabusa#1557) (@fukusuket)
 
 [2025/02/01] - Bug fix - Rule file names were off by one. (hayabusa#1555) (@fukusuket)
