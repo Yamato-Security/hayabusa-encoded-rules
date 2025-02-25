@@ -26,6 +26,9 @@ fn merge_yaml_files(files: Vec<String>) -> Result<String, Box<dyn std::error::Er
         let mut content = String::new();
         File::open(file)?.read_to_string(&mut content)?;
         let s = content.to_string();
+        if s.contains("|expand: ") {
+            continue;
+        }
         for c in s.split("---\n") {
             merged_yaml.push((file, c.to_string()));
         }
