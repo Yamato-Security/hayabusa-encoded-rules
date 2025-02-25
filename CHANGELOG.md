@@ -1,3 +1,5 @@
+[2025/02/26] - `expand` rules are not being filtered out as they cannot be used for live response and require manual configuration beforehand. (hayabusa#1596) (@fukusuket)
+
 [2025/02/14] - Bug fix - The `RulePath` was blank in the encoded rules when there were multiple rules in a single file. (hayabusa#1572) (@fukusuket)
 
 [2025/02/10] - Bug fix - Number of rules enabled after channel filtering differed between live response and standard hayabusa. (hayabusa#1557) (@fukusuket)
