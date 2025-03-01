@@ -1,3 +1,5 @@
+[2025/03/01] - Bug fix - The encoded rules file included rules that are supposed to be ignored by `ignore-uuid-list.txt`. (hayabusa#1596) (@fukusuket)
+
 [2025/02/26] - `expand` rules are not being filtered out as they cannot be used for live response and require manual configuration beforehand. (hayabusa#1596) (@fukusuket)
 
 [2025/02/14] - Bug fix - The `RulePath` was blank in the encoded rules when there were multiple rules in a single file. (hayabusa#1572) (@fukusuket)
