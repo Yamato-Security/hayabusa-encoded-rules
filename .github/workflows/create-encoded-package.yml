@@ -46,7 +46,6 @@ jobs:
         run: |
           cd sigma-to-hayabusa-converter
           poetry install --no-root
-          sed -i.bak '/^[^#]/d' ignore-uuid-list.txt
           poetry run python sigma-to-hayabusa-converter.py -r ../sigma-repo -o converted_rules
           cd -
           rm -rf hayabusa-rules/sigma/
