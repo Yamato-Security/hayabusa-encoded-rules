@@ -737,6 +737,7 @@ Microsoft-Windows-Security-Auditing, 4699, Name: %TaskName% ¦ User: %SubjectUse
 Microsoft-Windows-Security-Auditing, 4720, TgtUser: %TargetUserName% ¦ TgtSID: %TargetSid%
 Microsoft-Windows-Security-Auditing, 4728, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
 Microsoft-Windows-Security-Auditing, 4732, SrcSID: %MemberSid% ¦ TgtGrp: %TargetUserName% ¦ LID: %SubjectLogonId%
+Microsoft-Windows-Security-Auditing, 4741, Comp: %TargetUserName% ¦ CompSID: %TargetSid% ¦ SrcUser: %SubjectUserName% ¦ UserSID: %SubjectUserSid% ¦ LID: %SubjectLogonId%
 Microsoft-Windows-Security-Auditing, 4768, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status% ¦ PreAuthType: %PreAuthType%
 Microsoft-Windows-Security-Auditing, 4769, TgtUser: %TargetUserName% ¦ Svc: %ServiceName% ¦ SrcIP: %IpAddress% ¦ Status: %Status%
 Microsoft-Windows-Security-Auditing, 4776, TgtUser: %TargetUserName% ¦ SrcComp: %Workstation% ¦ Status: %Status%
@@ -795,6 +796,7 @@ Microsoft-Windows-Sysmon, 24, Proc: %Image% ¦ User: %User% ¦ CliInfo: %ClientI
 Microsoft-Windows-Sysmon, 25, Proc: %Image% ¦ Type: %Type% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
 Microsoft-Windows-Sysmon, 26, Path: %TargetFilename% ¦ Proc: %Image% ¦ User: %User% ¦ PID: %ProcessId% ¦ PGUID: %ProcessGuid%
 Microsoft-Windows-Sysmon, 255, ID: %ID% ¦ Description: %Description%
+Service Control Manager, 7023, Svc: %param1% ¦ Error: %param2%
 Service Control Manager, 7031, Svc: %param1% ¦ CrashCount: %param2% ¦ Action: %param5%
 Service Control Manager, 7045, Svc: %ServiceName% ¦ Path: %ImagePath% ¦ Acct: %AccountName% ¦ StartType: %StartType%
 Microsoft-Windows-Windows Firewall With Advanced Security, 2003, Profile: %Profiles% ¦ Type: %SettingType% ¦ Value: %SettingValueString% ¦ User: %ModifyingUser% ¦ App: %ModifyingApplication%
@@ -1034,6 +1036,12 @@ RewriteFieldData:
         - '%%4435': 'ENUMERATE_SUBKEYS'
         - '%%4436': 'KEY_CHANGES_NOTIFICATION'
         - '%%4437': 'CREATE_LINK'
+        - '%%7168': 'CONNECT_TO_SERVICE_CONTROLLER'
+        - '%%7169': 'CREATE_NEW_SERVICE'
+        - '%%7170': 'ENUM_SERVICES'
+        - '%%7171': 'LOCK_SERVICE_DB_FOR_EXCLUSIVE_ACCESS'
+        - '%%7172': 'QUERY_SERVICE_DB_LOCK_STATE'
+        - '%%7173': 'SET_LAST_KNOWN_GOOD_STATE_OF_SERVICE_DB'
         - '%%7184': 'SeImpersonatePrivilege'
         - '%%7185': 'SeCreateGlobalPrivilege'
         - '%%7186': 'SeTrustedCredManAccessPrivilege'
@@ -1195,10 +1203,110 @@ RewriteFieldData:
         - '%%4422': 'DELETE_CHILD'
         - '%%4423': 'READ_ATTRIBUTES'
         - '%%4424': 'WRITE_ATTRIBUTES'
-
 sample-evtx:
 references:
     - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4720_UserAccountCreated.yaml
+---CONTENT---
+Title: 'Local User Account Created'
+Channel: Security
+EventID: 4720
+RewriteFieldData:
+    PasswordLastSet:
+        - '%%1794': '<never>'
+    AccountExpires:
+        - '%%1794': '<never>'
+    UserAccountControl:
+        - '%%2080': 'AccountDisabled'
+        - '%%2082': 'PasswordNotRequired-Enabled'
+        - '%%2084': 'NormalAccount-Enabled'
+    LogonHours:
+        - '%%1793': '<value not set>'
+        - '%%1797': 'All'
+    DisplayName:
+        - '%%1793': '<value not set>'
+    HomeDirectory:
+        - '%%1793': '<value not set>'
+    HomePath:
+        - '%%1793': '<value not set>'
+    ScriptPath:
+        - '%%1793': '<value not set>'
+    ProfilePath:
+        - '%%1793': '<value not set>'
+    UserWorkstations:  
+        - '%%1793': '<value not set>'
+    UserParameters:
+        - '%%1793': '<value not set>'
+sample-message: |
+    A user account was created.
+
+    Subject:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1111
+        Account Name:		admmig
+        Account Domain:		OFFSEC
+        Logon ID:		0x58D874
+
+    New Account:
+        Security ID:		S-1-5-21-1470532092-3758209836-3742276719-1001
+        Account Name:		hacking-local-acct
+        Account Domain:		JUMP01
+
+    Attributes:
+        SAM Account Name:	hacking-local-acct
+        Display Name:		<value not set>
+        User Principal Name:	-
+        Home Directory:		<value not set>
+        Home Drive:		<value not set>
+        Script Path:		<value not set>
+        Profile Path:		<value not set>
+        User Workstations:	<value not set>
+        Password Last Set:	<never>
+        Account Expires:		<never>
+        Primary Group ID:	513
+        Allowed To Delegate To:	-
+        Old UAC Value:		0x0
+        New UAC Value:		0x15
+        User Account Control:	
+            Account Disabled
+            'Password Not Required' - Enabled
+            'Normal Account' - Enabled
+        User Parameters:	<value not set>
+        SID History:		-
+        Logon Hours:		All
+
+    Additional Information:
+        Privileges		-
+sample-evtx: |
+    <EventData>
+        <Data Name="TargetUserName">hacking-local-acct</Data> 
+        <Data Name="TargetDomainName">JUMP01</Data> 
+        <Data Name="TargetSid">S-1-5-21-1470532092-3758209836-3742276719-1001</Data> 
+        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1111</Data> 
+        <Data Name="SubjectUserName">admmig</Data> 
+        <Data Name="SubjectDomainName">OFFSEC</Data> 
+        <Data Name="SubjectLogonId">0x58d874</Data> 
+        <Data Name="PrivilegeList">-</Data> 
+        <Data Name="SamAccountName">hacking-local-acct</Data> 
+        <Data Name="DisplayName">%%1793</Data> 
+        <Data Name="UserPrincipalName">-</Data> 
+        <Data Name="HomeDirectory">%%1793</Data> 
+        <Data Name="HomePath">%%1793</Data> 
+        <Data Name="ScriptPath">%%1793</Data> 
+        <Data Name="ProfilePath">%%1793</Data> 
+        <Data Name="UserWorkstations">%%1793</Data> 
+        <Data Name="PasswordLastSet">%%1794</Data> 
+        <Data Name="AccountExpires">%%1794</Data> 
+        <Data Name="PrimaryGroupId">513</Data> 
+        <Data Name="AllowedToDelegateTo">-</Data> 
+        <Data Name="OldUacValue">0x0</Data> 
+        <Data Name="NewUacValue">0x15</Data> 
+        <Data Name="UserAccountControl">%%2080 %%2082 %%2084</Data> 
+        <Data Name="UserParameters">%%1793</Data> 
+        <Data Name="SidHistory">-</Data> 
+        <Data Name="LogonHours">%%1797</Data> 
+    </EventData>
 ---FILE_END---
 ---FILE_START---
 path: data_mapping/Application_1022-1033_MSI-Install.yaml
@@ -1417,6 +1525,108 @@ sample-evtx: |
     </Event>
 ---FILE_END---
 ---FILE_START---
+path: data_mapping/Security_4741_ComputerAccountCreated.yaml
+---CONTENT---
+Title: 'Computer Account Created'
+Channel: Security
+EventID: 4741
+RewriteFieldData:
+    DisplayName:
+        - '%%1793': '<value not set>'
+    HomeDirectory:
+        - '%%1793': '<value not set>'
+    HomePath:
+        - '%%1793': '<value not set>'
+    ScriptPath:
+        - '%%1793': '<value not set>'
+    ProfilePath:
+        - '%%1793': '<value not set>'    
+    UserWorkstations:
+        - '%%1793': '<value not set>' 
+    PasswordLastSet:
+        - '%%1794': '<never>'
+    AccountExpires:
+        - '%%1794': '<never>'
+    UserAccountControl:
+        - '%%2082': 'PasswordNotRequired-Enabled'
+        - '%%2087': 'WorkstationTrustAccount-Enabled'
+    UserParameters:
+        - '%%1792': '<value changed, but not displayed>'
+    LogonHours:
+        - '%%1793': '<value not set>'
+sample-message: |
+    A computer account was created.
+
+    Subject:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1234
+        Account Name:		hack1
+        Account Domain:		OFFSEC
+        Logon ID:		0x308FB82AD
+
+    New Computer Account:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1296
+        Account Name:		compnay-88$
+        Account Domain:		OFFSEC
+
+    Attributes:
+        SAM Account Name:	compnay-88$
+        Display Name:		<value not set>
+        User Principal Name:	-
+        Home Directory:		<value not set>
+        Home Drive:		<value not set>
+        Script Path:		<value not set>
+        Profile Path:		<value not set>
+        User Workstations:	<value not set>
+        Password Last Set:	<never>
+        Account Expires:		<never>
+        Primary Group ID:	515
+        AllowedToDelegateTo:	-
+        Old UAC Value:		0x0
+        New UAC Value:		0x84
+        User Account Control:	
+            'Password Not Required' - Enabled
+            'Workstation Trust Account' - Enabled
+        User Parameters:	<value changed, but not displayed>
+        SID History:		-
+        Logon Hours:		<value not set>
+        DNS Host Name:		-
+        Service Principal Names:	-
+
+    Additional Information:
+        Privileges		SeMachineAccountPrivilege
+sample-evtx: |
+    <EventData>
+        <Data Name="TargetUserName">compnay-88$</Data> 
+        <Data Name="TargetDomainName">OFFSEC</Data> 
+        <Data Name="TargetSid">S-1-5-21-4230534742-2542757381-3142984815-1296</Data> 
+        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1234</Data> 
+        <Data Name="SubjectUserName">hack1</Data> 
+        <Data Name="SubjectDomainName">OFFSEC</Data> 
+        <Data Name="SubjectLogonId">0x308fb82ad</Data> 
+        <Data Name="PrivilegeList">SeMachineAccountPrivilege</Data> 
+        <Data Name="SamAccountName">compnay-88$</Data> 
+        <Data Name="DisplayName">%%1793</Data> 
+        <Data Name="UserPrincipalName">-</Data> 
+        <Data Name="HomeDirectory">%%1793</Data> 
+        <Data Name="HomePath">%%1793</Data> 
+        <Data Name="ScriptPath">%%1793</Data> 
+        <Data Name="ProfilePath">%%1793</Data> 
+        <Data Name="UserWorkstations">%%1793</Data> 
+        <Data Name="PasswordLastSet">%%1794</Data> 
+        <Data Name="AccountExpires">%%1794</Data> 
+        <Data Name="PrimaryGroupId">515</Data> 
+        <Data Name="AllowedToDelegateTo">-</Data> 
+        <Data Name="OldUacValue">0x0</Data> 
+        <Data Name="NewUacValue">0x84</Data> 
+        <Data Name="UserAccountControl">%%2082 %%2087</Data> 
+        <Data Name="UserParameters">%%1792</Data> 
+        <Data Name="SidHistory">-</Data> 
+        <Data Name="LogonHours">%%1793</Data> 
+        <Data Name="DnsHostName">-</Data> 
+        <Data Name="ServicePrincipalNames">-</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
 path: data_mapping/Security_4719_AuditPolicyChanged.yaml
 ---CONTENT---
 Title: 'Audit Policy Changed'
@@ -1605,6 +1815,74 @@ RewriteFieldData:
 sample-evtx:
 references:
     - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5157_NetConnBlocked.yaml
+---CONTENT---
+Title: 'Network Connection Blocked'
+Channel: Security
+EventID: 5157
+RewriteFieldData:
+    Direction:
+        - '%%14592': 'Inbound'
+        - '%%14593': 'Outbound'
+    LayerName:
+        - '%%14610': 'Receive/Accept'
+sample-message: |
+    The Windows Filtering Platform has blocked a connection.
+
+    Application Information:
+        Process ID:		784
+        Application Name:	\device\harddiskvolume1\windows\system32\svchost.exe
+
+    Network Information:
+        Direction:		Inbound
+        Source Address:		172.17.11.209
+        Source Port:		53594
+        Destination Address:	172.29.42.10
+        Destination Port:		53
+        Protocol:		0
+
+    Filter Information:
+        Filter Run-Time ID:	66037
+        Layer Name:		Receive/Accept
+        Layer Run-Time ID:	44
+sample-evtx:
+    <EventData>
+        <Data Name="ProcessID">784</Data> 
+        <Data Name="Application">\device\harddiskvolume1\windows\system32\svchost.exe</Data> 
+        <Data Name="Direction">%%14592</Data> 
+        <Data Name="SourceAddress">172.17.11.209</Data> 
+        <Data Name="SourcePort">53594</Data> 
+        <Data Name="DestAddress">172.29.42.10</Data> 
+        <Data Name="DestPort">53</Data> 
+        <Data Name="Protocol">0</Data> 
+        <Data Name="FilterRTID">66037</Data> 
+        <Data Name="LayerName">%%14610</Data> 
+        <Data Name="LayerRTID">44</Data> 
+        <Data Name="RemoteUserID">S-1-0-0</Data> 
+        <Data Name="RemoteMachineID">S-1-0-0</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
+path: data_mapping/System_7023_ServiceTerminated.yaml
+---CONTENT---
+Title: 'Service Terminated'
+Channel: System
+Provider_Name: 'Service Control Manager'
+EventID: 7023
+RewriteFieldData:
+    param2:
+        - '%%1062': 'The service has not been started.'
+        - '%%1792': 'An attempt was made to logon, but the network logon service was not started.'
+sample-message: |
+    The Windows Time service terminated with the following error: 
+    An attempt was made to logon, but the network logon service was not started.
+sample-evtx:
+    <EventData>
+        <Data Name="param1">Windows Time</Data> 
+        <Data Name="param2">%%1792</Data> 
+    </EventData>
 ---FILE_END---
 ---FILE_START---
 path: pivot_keywords.txt
