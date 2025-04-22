@@ -95,7 +95,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     output_file.write_all(&decoded_content)?;
 
     let config_dir = dir.join("config");
-    let txt_yml_files = list_files_with_extensions(&config_dir, &["yaml", "txt"])?;
+    let txt_yml_files = list_files_with_extensions(&config_dir, &["yaml", "txt", "csv"])?;
     let formatted_content = read_and_format_files(txt_yml_files)?;
     let mut output_file = File::create(&args[3])?;
     output_file.write_all(formatted_content.as_bytes())?;

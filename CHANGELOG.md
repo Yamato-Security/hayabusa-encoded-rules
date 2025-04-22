@@ -1,3 +1,5 @@
+[2025/04/22] - Bug fix - `rules_config_files.txt` did not include `windows_version.csv` needed for the `computer-metrics` command with the live response package. (#11) (@fukusuket)
+
 [2025/03/01] - Bug fix - The encoded rules file included rules that are supposed to be ignored by `ignore-uuid-list.txt`. (hayabusa#1596) (@fukusuket)
 
 [2025/02/26] - `expand` rules are not being filtered out as they cannot be used for live response and require manual configuration beforehand. (hayabusa#1596) (@fukusuket)
