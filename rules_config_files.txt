@@ -87,7 +87,7 @@ Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
 Microsoft-Windows-SmbClient/Security,SmbCliSec
 Microsoft-Windows-Sysmon/Operational,Sysmon
 Microsoft-Windows-TaskScheduler/Operational,TaskSch
-Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Client
+Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Cli
 Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
 Microsoft-Windows-PrintService/Admin,PrintAdm
 Microsoft-Windows-PrintService/Operational,PrintOp
@@ -114,6 +114,7 @@ Microsoft-Windows-TerminalServices-Gateway/Operational,RDS-GTW
 Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
 Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
 PowerShellCore,PwShCore
+
 ---FILE_END---
 ---FILE_START---
 path: target_event_IDs.txt
