@@ -1,4 +1,1030 @@
 ---FILE_START---
+path: data_mapping/System_7023_ServiceTerminated.yaml
+---CONTENT---
+Title: 'Service Terminated'
+Channel: System
+Provider_Name: 'Service Control Manager'
+EventID: 7023
+RewriteFieldData:
+    param2:
+        - '%%1062': 'The service has not been started.'
+        - '%%1792': 'An attempt was made to logon, but the network logon service was not started.'
+sample-message: |
+    The Windows Time service terminated with the following error: 
+    An attempt was made to logon, but the network logon service was not started.
+sample-evtx:
+    <EventData>
+        <Data Name="param1">Windows Time</Data> 
+        <Data Name="param2">%%1792</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4741_ComputerAccountCreated.yaml
+---CONTENT---
+Title: 'Computer Account Created'
+Channel: Security
+EventID: 4741
+RewriteFieldData:
+    DisplayName:
+        - '%%1793': '<value not set>'
+    HomeDirectory:
+        - '%%1793': '<value not set>'
+    HomePath:
+        - '%%1793': '<value not set>'
+    ScriptPath:
+        - '%%1793': '<value not set>'
+    ProfilePath:
+        - '%%1793': '<value not set>'    
+    UserWorkstations:
+        - '%%1793': '<value not set>' 
+    PasswordLastSet:
+        - '%%1794': '<never>'
+    AccountExpires:
+        - '%%1794': '<never>'
+    UserAccountControl:
+        - '%%2082': 'PasswordNotRequired-Enabled'
+        - '%%2087': 'WorkstationTrustAccount-Enabled'
+    UserParameters:
+        - '%%1792': '<value changed, but not displayed>'
+    LogonHours:
+        - '%%1793': '<value not set>'
+sample-message: |
+    A computer account was created.
+
+    Subject:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1234
+        Account Name:		hack1
+        Account Domain:		OFFSEC
+        Logon ID:		0x308FB82AD
+
+    New Computer Account:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1296
+        Account Name:		compnay-88$
+        Account Domain:		OFFSEC
+
+    Attributes:
+        SAM Account Name:	compnay-88$
+        Display Name:		<value not set>
+        User Principal Name:	-
+        Home Directory:		<value not set>
+        Home Drive:		<value not set>
+        Script Path:		<value not set>
+        Profile Path:		<value not set>
+        User Workstations:	<value not set>
+        Password Last Set:	<never>
+        Account Expires:		<never>
+        Primary Group ID:	515
+        AllowedToDelegateTo:	-
+        Old UAC Value:		0x0
+        New UAC Value:		0x84
+        User Account Control:	
+            'Password Not Required' - Enabled
+            'Workstation Trust Account' - Enabled
+        User Parameters:	<value changed, but not displayed>
+        SID History:		-
+        Logon Hours:		<value not set>
+        DNS Host Name:		-
+        Service Principal Names:	-
+
+    Additional Information:
+        Privileges		SeMachineAccountPrivilege
+sample-evtx: |
+    <EventData>
+        <Data Name="TargetUserName">compnay-88$</Data> 
+        <Data Name="TargetDomainName">OFFSEC</Data> 
+        <Data Name="TargetSid">S-1-5-21-4230534742-2542757381-3142984815-1296</Data> 
+        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1234</Data> 
+        <Data Name="SubjectUserName">hack1</Data> 
+        <Data Name="SubjectDomainName">OFFSEC</Data> 
+        <Data Name="SubjectLogonId">0x308fb82ad</Data> 
+        <Data Name="PrivilegeList">SeMachineAccountPrivilege</Data> 
+        <Data Name="SamAccountName">compnay-88$</Data> 
+        <Data Name="DisplayName">%%1793</Data> 
+        <Data Name="UserPrincipalName">-</Data> 
+        <Data Name="HomeDirectory">%%1793</Data> 
+        <Data Name="HomePath">%%1793</Data> 
+        <Data Name="ScriptPath">%%1793</Data> 
+        <Data Name="ProfilePath">%%1793</Data> 
+        <Data Name="UserWorkstations">%%1793</Data> 
+        <Data Name="PasswordLastSet">%%1794</Data> 
+        <Data Name="AccountExpires">%%1794</Data> 
+        <Data Name="PrimaryGroupId">515</Data> 
+        <Data Name="AllowedToDelegateTo">-</Data> 
+        <Data Name="OldUacValue">0x0</Data> 
+        <Data Name="NewUacValue">0x84</Data> 
+        <Data Name="UserAccountControl">%%2082 %%2087</Data> 
+        <Data Name="UserParameters">%%1792</Data> 
+        <Data Name="SidHistory">-</Data> 
+        <Data Name="LogonHours">%%1793</Data> 
+        <Data Name="DnsHostName">-</Data> 
+        <Data Name="ServicePrincipalNames">-</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4674_ObjectAccessAttempt.yaml
+---CONTENT---
+Title: 'Object Access Attempt'
+Channel: Security
+EventID: 4674
+RewriteFieldData:
+    AccessMask:
+        - '%%1537': 'DELETE'
+        - '%%1538': 'READ_CONTROL'
+        - '%%1539': 'WRITE_DAC'
+        - '%%1540': 'WRITE_OWNER'
+        - '%%1541': 'SYNCHRONIZE'
+        - '%%1542': 'ACCESS_SYS_SEC'
+        - '%%4416': 'READ_DATA'
+        - '%%4417': 'WRITE_DATA'
+        - '%%4418': 'APPEND_DATA'
+        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
+        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
+        - '%%4421': 'EXECUTE/TRAVERSE'
+        - '%%4422': 'DELETE_CHILD'
+        - '%%4423': 'READ_ATTRIBUTES'
+        - '%%4424': 'WRITE_ATTRIBUTES'
+        - '%%4432': 'QUERY_KEY_VALUE'
+        - '%%4433': 'SET_KEY_VALUE'
+        - '%%4434': 'CREATE_SUBKEY'
+        - '%%4435': 'ENUMERATE_SUBKEYS'
+        - '%%4436': 'KEY_CHANGES_NOTIFICATION'
+        - '%%4437': 'CREATE_LINK'
+        - '%%7168': 'CONNECT_TO_SERVICE_CONTROLLER'
+        - '%%7169': 'CREATE_NEW_SERVICE'
+        - '%%7170': 'ENUM_SERVICES'
+        - '%%7171': 'LOCK_SERVICE_DB_FOR_EXCLUSIVE_ACCESS'
+        - '%%7172': 'QUERY_SERVICE_DB_LOCK_STATE'
+        - '%%7173': 'SET_LAST_KNOWN_GOOD_STATE_OF_SERVICE_DB'
+        - '%%7184': 'SeImpersonatePrivilege'
+        - '%%7185': 'SeCreateGlobalPrivilege'
+        - '%%7186': 'SeTrustedCredManAccessPrivilege'
+        - '%%7187': 'SeRelabelPrivilege'
+        - '%%7188': 'SeIncreaseWorkingSetPrivilege'
+        - '%%7189': 'SeTimeZonePrivilege'
+        - '%%7190': 'SeCreateSymbolicLinkPrivilege'
+        - '%%7191': 'SeDelegateSessionUserImpersonatePrivilege'
+        - '%%7192': 'SeManageVolumePrivilege'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+            <EventID>4674</EventID>
+            <Version>0</Version>
+            <Level>0</Level>
+            <Task>13056</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8020000000000000</Keywords>
+            <TimeCreated SystemTime="2020-09-14T14:48:28.683048400Z"/>
+            <EventRecordID>39406</EventRecordID>
+            <Correlation/>
+            <Execution ProcessID="4" ThreadID="5756"/>
+            <Channel>Security</Channel>
+            <Computer>Sec504Student</Computer>
+            <Security/>
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-21-2977773840-2930198165-1551093962-1000</Data>
+            <Data Name="SubjectUserName">Sec504</Data>
+            <Data Name="SubjectDomainName">SEC504STUDENT</Data>
+            <Data Name="SubjectLogonId">0x99e3d</Data>
+            <Data Name="ObjectServer">SC Manager</Data>
+            <Data Name="ObjectType">SERVICE OBJECT</Data>
+            <Data Name="ObjectName">nginx</Data>
+            <Data Name="HandleId">0xffff820cb1d95928</Data>
+            <Data Name="AccessMask">%%1539</Data>
+            <Data Name="PrivilegeList">SeSecurityPrivilege</Data>
+            <Data Name="ProcessId">0x21c</Data>
+            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4720_UserAccountCreated.yaml
+---CONTENT---
+Title: 'Local User Account Created'
+Channel: Security
+EventID: 4720
+RewriteFieldData:
+    PasswordLastSet:
+        - '%%1794': '<never>'
+    AccountExpires:
+        - '%%1794': '<never>'
+    UserAccountControl:
+        - '%%2080': 'AccountDisabled'
+        - '%%2082': 'PasswordNotRequired-Enabled'
+        - '%%2084': 'NormalAccount-Enabled'
+    LogonHours:
+        - '%%1793': '<value not set>'
+        - '%%1797': 'All'
+    DisplayName:
+        - '%%1793': '<value not set>'
+    HomeDirectory:
+        - '%%1793': '<value not set>'
+    HomePath:
+        - '%%1793': '<value not set>'
+    ScriptPath:
+        - '%%1793': '<value not set>'
+    ProfilePath:
+        - '%%1793': '<value not set>'
+    UserWorkstations:  
+        - '%%1793': '<value not set>'
+    UserParameters:
+        - '%%1793': '<value not set>'
+sample-message: |
+    A user account was created.
+
+    Subject:
+        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1111
+        Account Name:		admmig
+        Account Domain:		OFFSEC
+        Logon ID:		0x58D874
+
+    New Account:
+        Security ID:		S-1-5-21-1470532092-3758209836-3742276719-1001
+        Account Name:		hacking-local-acct
+        Account Domain:		JUMP01
+
+    Attributes:
+        SAM Account Name:	hacking-local-acct
+        Display Name:		<value not set>
+        User Principal Name:	-
+        Home Directory:		<value not set>
+        Home Drive:		<value not set>
+        Script Path:		<value not set>
+        Profile Path:		<value not set>
+        User Workstations:	<value not set>
+        Password Last Set:	<never>
+        Account Expires:		<never>
+        Primary Group ID:	513
+        Allowed To Delegate To:	-
+        Old UAC Value:		0x0
+        New UAC Value:		0x15
+        User Account Control:	
+            Account Disabled
+            'Password Not Required' - Enabled
+            'Normal Account' - Enabled
+        User Parameters:	<value not set>
+        SID History:		-
+        Logon Hours:		All
+
+    Additional Information:
+        Privileges		-
+sample-evtx: |
+    <EventData>
+        <Data Name="TargetUserName">hacking-local-acct</Data> 
+        <Data Name="TargetDomainName">JUMP01</Data> 
+        <Data Name="TargetSid">S-1-5-21-1470532092-3758209836-3742276719-1001</Data> 
+        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1111</Data> 
+        <Data Name="SubjectUserName">admmig</Data> 
+        <Data Name="SubjectDomainName">OFFSEC</Data> 
+        <Data Name="SubjectLogonId">0x58d874</Data> 
+        <Data Name="PrivilegeList">-</Data> 
+        <Data Name="SamAccountName">hacking-local-acct</Data> 
+        <Data Name="DisplayName">%%1793</Data> 
+        <Data Name="UserPrincipalName">-</Data> 
+        <Data Name="HomeDirectory">%%1793</Data> 
+        <Data Name="HomePath">%%1793</Data> 
+        <Data Name="ScriptPath">%%1793</Data> 
+        <Data Name="ProfilePath">%%1793</Data> 
+        <Data Name="UserWorkstations">%%1793</Data> 
+        <Data Name="PasswordLastSet">%%1794</Data> 
+        <Data Name="AccountExpires">%%1794</Data> 
+        <Data Name="PrimaryGroupId">513</Data> 
+        <Data Name="AllowedToDelegateTo">-</Data> 
+        <Data Name="OldUacValue">0x0</Data> 
+        <Data Name="NewUacValue">0x15</Data> 
+        <Data Name="UserAccountControl">%%2080 %%2082 %%2084</Data> 
+        <Data Name="UserParameters">%%1793</Data> 
+        <Data Name="SidHistory">-</Data> 
+        <Data Name="LogonHours">%%1797</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4625_FailedLogon.yaml
+---CONTENT---
+Title: 'Failed Logon'
+Channel: Security
+EventID: 4625
+RewriteFieldData:
+    LogonType:
+        - '0': '0 - SYSTEM'
+        - '2': '2 - INTERACTIVE'
+        - '3': '3 - NETWORK'
+        - '4': '4 - BATCH'
+        - '5': '5 - SERVICE'
+        - '7': '7 - UNLOCK'
+        - '8': '8 - NETWORK CLEARTEXT'
+        - '9': '9 - NEW CREDENTIALS'
+        - '10': '10 - REMOTE INTERACTIVE'
+        - '11': '11 - CACHED INTERACTIVE'
+        - '12': '12 - CACHED REMOTE INTERACTIVE'
+        - '13': '13 - CACHED UNLOCK'
+    FailureReason:
+        - '%%2304': 'ERROR'
+        - '%%2305': 'ACCOUNT EXPIRED'
+        - '%%2306': 'NETLOGON NOT ACTIVE'
+        - '%%2307': 'ACCOUNT LOCKOUT'
+        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
+        - '%%2309': 'PW EXPIRED'
+        - '%%2310': 'ACCOUNT DISABLED'
+        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
+        - '%%2312': 'UNAUTHORIZED COMPUTER'
+        - '%%2313': 'BAD USER OR PW'
+        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
+        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
+    Status:
+        - '0x0': 'SUCCESS'
+        - '0xc000005e': 'NO LOGON SERVER'
+        - '0xc000006d': 'BAD USER OR PW'
+        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
+        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
+        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
+        - '0xc0000071': 'PW EXPIRED'
+        - '0xc0000072': 'ACCOUNT DISABLED'
+        - '0xc00000dc': 'SERVER IN WRONG STATE'
+        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
+        - '0xc000015b': 'NO LOGON RIGHT'
+        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
+        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
+        - '0xc0000193': 'ACCOUNT EXPIRED'
+        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
+        - '0xc0000225': 'WINDOWS BUG'
+        - '0xc0000234': 'ACCOUNT LOCKED'
+        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
+        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
+    SubStatus:
+        - '0x0': 'SUCCESS'
+        - '0xc0000064': 'UNKNOWN USER'
+        - '0xc000006a': 'WRONG PW'
+        - '0xc0000073': 'NO TRANSLATIONS'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+            <EventID>4625</EventID>
+            <Version>0</Version>
+            <Level>0</Level>
+            <Task>12544</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8010000000000000</Keywords>
+            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
+            <EventRecordID>1861989</EventRecordID>
+            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
+            <Execution ProcessID="576" ThreadID="5164"/>
+            <Channel>Security</Channel>
+            <Computer>fs01.offsec.lan</Computer>
+            <Security/>
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data>
+            <Data Name="SubjectUserName">FS01$</Data>
+            <Data Name="SubjectDomainName">OFFSEC</Data>
+            <Data Name="SubjectLogonId">0x3e7</Data>
+            <Data Name="TargetUserSid">S-1-0-0</Data>
+            <Data Name="TargetUserName">NOUSER</Data>
+            <Data Name="TargetDomainName">FS01</Data>
+            <Data Name="Status">0xc000006d</Data>
+            <Data Name="FailureReason">%%2313</Data>
+            <Data Name="SubStatus">0xc0000064</Data>
+            <Data Name="LogonType">8</Data>
+            <Data Name="LogonProcessName">Advapi</Data>
+            <Data Name="AuthenticationPackageName">Negotiate</Data>
+            <Data Name="WorkstationName">FS01</Data>
+            <Data Name="TransmittedServices">-</Data>
+            <Data Name="LmPackageName">-</Data>
+            <Data Name="KeyLength">0</Data>
+            <Data Name="ProcessId">0x16d8</Data>
+            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
+            <Data Name="IpAddress">-</Data>
+            <Data Name="IpPort">-</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5157_NetConnBlocked.yaml
+---CONTENT---
+Title: 'Network Connection Blocked'
+Channel: Security
+EventID: 5157
+RewriteFieldData:
+    Direction:
+        - '%%14592': 'Inbound'
+        - '%%14593': 'Outbound'
+    LayerName:
+        - '%%14610': 'Receive/Accept'
+sample-message: |
+    The Windows Filtering Platform has blocked a connection.
+
+    Application Information:
+        Process ID:		784
+        Application Name:	\device\harddiskvolume1\windows\system32\svchost.exe
+
+    Network Information:
+        Direction:		Inbound
+        Source Address:		172.17.11.209
+        Source Port:		53594
+        Destination Address:	172.29.42.10
+        Destination Port:		53
+        Protocol:		0
+
+    Filter Information:
+        Filter Run-Time ID:	66037
+        Layer Name:		Receive/Accept
+        Layer Run-Time ID:	44
+sample-evtx:
+    <EventData>
+        <Data Name="ProcessID">784</Data> 
+        <Data Name="Application">\device\harddiskvolume1\windows\system32\svchost.exe</Data> 
+        <Data Name="Direction">%%14592</Data> 
+        <Data Name="SourceAddress">172.17.11.209</Data> 
+        <Data Name="SourcePort">53594</Data> 
+        <Data Name="DestAddress">172.29.42.10</Data> 
+        <Data Name="DestPort">53</Data> 
+        <Data Name="Protocol">0</Data> 
+        <Data Name="FilterRTID">66037</Data> 
+        <Data Name="LayerName">%%14610</Data> 
+        <Data Name="LayerRTID">44</Data> 
+        <Data Name="RemoteUserID">S-1-0-0</Data> 
+        <Data Name="RemoteMachineID">S-1-0-0</Data> 
+    </EventData>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5140_NetShareAccess.yaml
+---CONTENT---
+Title: 'NetShare Access'
+Channel: Security
+EventID: 5140
+RewriteFieldData:
+    AccessList:
+        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
+
+sample-evtx:
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Application_1022-1033_MSI-Install.yaml
+---CONTENT---
+Title: 'MSI Install'
+Channel: Application
+EventID: 1033
+Provider_Name: MsiInstaller
+RewriteFieldData:
+    Data[3]:
+        - '1025': "Arabic (Saudi Arabia)"
+        - '1026': "Bulgarian"
+        - '1027': "Catalan"
+        - '1028': "Chinese (Traditional)"
+        - '1029': "Czech"
+        - '1030': "Danish"
+        - '1031': "German (Germany)"
+        - '1032': "Greek"
+        - '1033': "English (US)"
+        - '1034': "Spanish (Traditional Sort)"
+        - '1035': "Finnish"
+        - '1036': "French (France)"
+        - '1037': "Hebrew"
+        - '1038': "Hungarian"
+        - '1039': "Icelandic"
+        - '1040': "Italian (Italy)"
+        - '1041': "Japanese"
+        - '1042': "Korean"
+        - '1043': "Dutch (Netherlands)"
+        - '1044': "Norwegian (Bokmål)"
+        - '1045': "Polish"
+        - '1046': "Portuguese (Brazil)"
+        - '1047': "Portuguese (Portugal)"
+        - '1048': "Romanian"
+        - '1049': "Russian"
+        - '1050': "Croatian"
+        - '1051': "Slovak"
+        - '1052': "Albanian"
+        - '1053': "Swedish"
+        - '1054': "Thai"
+        - '1055': "Turkish"
+        - '1056': "Urdu"
+        - '1057': "Indonesian"
+        - '1058': "Ukrainian"
+        - '1059': "Belarusian"
+        - '1060': "Slovenian"
+        - '1061': "Estonian"
+        - '1062': "Latvian"
+        - '1063': "Lithuanian"
+        - '1064': "Tajik (Cyrillic)"
+        - '1065': "Persian"
+        - '1066': "Vietnamese"
+        - '1067': "Armenian"
+        - '1068': "Azerbaijani (Latin)"
+        - '1069': "Basque"
+        - '1070': "Upper Sorbian"
+        - '1071': "Macedonian (FYROM)"
+        - '1072': "Sesotho"
+        - '1073': "Tsonga"
+        - '1074': "Tswana"
+        - '1075': "Venda"
+        - '1076': "Xhosa"
+        - '1077': "Zulu"
+        - '1078': "Afrikaans"
+        - '1079': "Georgian"
+        - '1080': "Faroese"
+        - '1081': "Hindi"
+        - '1082': "Maltese"
+        - '1083': "Sami (Northern)"
+        - '1084': "Gaelic (Scotland)"
+        - '1085': "Yiddish"
+        - '1086': "Malay (Malaysia)"
+        - '1087': "Kazakh"
+        - '1088': "Kyrgyz (Cyrillic)"
+        - '1089': "Swahili"
+        - '1090': "Turkmen"
+        - '1091': "Uzbek (Latin)"
+        - '1092': "Tatar"
+        - '1093': "Bengali (India)"
+        - '1094': "Punjabi (India)"
+        - '1095': "Gujarati"
+        - '1096': "Oriya"
+        - '1097': "Tamil"
+        - '1098': "Telugu"
+        - '1099': "Kannada"
+        - '1100': "Malayalam"
+        - '1101': "Assamese"
+        - '1102': "Marathi"
+        - '1103': "Sanskrit"
+        - '1104': "Mongolian (Cyrillic)"
+        - '1105': "Tibetan"
+        - '1106': "Welsh"
+        - '1107': "Khmer"
+        - '1108': "Lao"
+        - '1109': "Burmese"
+        - '1110': "Galician"
+        - '1111': "Konkani"
+        - '1112': "Manipuri"
+        - '1113': "Sindhi (India)"
+        - '1114': "Syriac"
+        - '1115': "Sinhalese"
+        - '1116': "Cherokee"
+        - '1117': "Inuktitut (Syllabics)"
+        - '1118': "Amharic"
+        - '1119': "Tamazight (Latin)"
+        - '1120': "Kashmiri"
+        - '1121': "Nepali"
+        - '1122': "Frisian"
+        - '1123': "Pashto"
+        - '1124': "Filipino"
+        - '1125': "Divehi"
+        - '1126': "Edo"
+        - '1127': "Fulfulde"
+        - '1128': "Hausa"
+        - '1129': "Ibibio"
+        - '1130': "Yoruba"
+        - '1131': "Quechua"
+        - '1132': "Sesotho sa Leboa"
+        - '1133': "Bashkir"
+        - '1134': "Luxembourgish"
+        - '1135': "Greenlandic"
+        - '1136': "Igbo"
+        - '1137': "Kanuri"
+        - '1138': "Oromo"
+        - '1139': "Tigrigna (Ethiopia)"
+        - '1140': "Tigrigna (Eritrea)"
+        - '1141': "Ganda"
+        - '1142': "Hawaiian"
+        - '1143': "Latin"
+        - '1144': "Somali"
+        - '1145': "Yi"
+        - '1146': "N'ko"
+        - '1147': "Dari"
+        - '1148': "Scottish Gaelic"
+        - '1150': "Central Atlas Tamazight (Latin)"
+        - '1151': "Nepal Bhasa"
+        - '1152': "Rhaeto-Romance"
+        - '1153': "Mapudungun"
+        - '1154': "Mongolian (Traditional)"
+        - '1155': "Sakha"
+        - '1156': "K'iche"
+        - '1157': "Kinyarwanda"
+        - '1158': "Wolof"
+        - '1159': "Duala"
+        - '1160': "Jola-Fonyi"
+        - '1161': "Ewe"
+        - '1162': "Wari"
+        - '1163': "Sesotho sa Leboa"
+        - '1164': "Kalenjin"
+        - '1165': "Iban"
+        - '1166': "Quechua (Ecuador)"
+        - '1167': "Garifuna"
+        - '1168': "Twi"
+        - '1169': "Pedi"
+        - '1170': "Hausa (Nigeria)"
+        - '1171': "Kikuyu"
+        - '1172': "Zulu (South Africa)"
+        - '1173': "Yoruba (Nigeria)"
+        - '1174': "Twi (Ghana)"
+        - '1175': "Kalenjin (Kenya)"
+        - '1176': "Iban (Malaysia)"
+        - '1177': "Zulu (South Africa)"
+        - '1178': "Afrikaans (South Africa)"
+        - '1179': "Somali (Somalia)"
+        - '1180': "Swahili (Kenya)"
+        - '1181': "Zulu (South Africa)"
+        - '1182': "Igbo (Nigeria)"
+        - '1183': "Cree (Canada)"
+        - '1184': "Inuktitut (Canada)"
+        - '1185': "Inuktitut (Latin)"
+        - '1186': "Ojibwe"
+        - '1187': "Dene"
+        - '1188': "Naskapi"
+        - '1189': "Danish (Denmark)"
+        - '1190': "Sami (Inari)"
+        - '1191': "Sami (Skolt)"
+        - '1192': "Sami (Southern)"
+        - '1193': "Sami (Lule)"
+        - '1194': "Sami (Ume)"
+        - '1195': "Sami (Pite)"
+        - '1196': "Sami (Enontekiö)"
+        - '1197': "Sami (Kildin)"
+        - '1198': "Sami (Ter)"
+        - '1199': "Sami (Akkala)"
+
+
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="MsiInstaller" /> 
+            <EventID Qualifiers="0">1033</EventID> 
+            <Version>0</Version> 
+            <Level>4</Level> 
+            <Task>0</Task> 
+            <Opcode>0</Opcode> 
+            <Keywords>0x80000000000000</Keywords> 
+            <TimeCreated SystemTime="2021-01-15T02:14:12.8708371Z" /> 
+            <EventRecordID>9294</EventRecordID> 
+            <Correlation /> 
+            <Execution ProcessID="0" ThreadID="0" /> 
+            <Channel>Application</Channel> 
+            <Computer>computer</Computer> 
+            <Security UserID="S-1-5-21-3619236619-1337548381-1329840446-1001" /> 
+        </System>
+        <EventData>
+            <Data>Epson Photo+</Data> 
+            <Data>3.3.0.0</Data> 
+            <Data>1033</Data> 
+            <Data>0</Data> 
+            <Data>Seiko Epson Corporation</Data> 
+            <Data>(NULL)</Data> 
+            <Data /> 
+            <Binary>7B41423937314134452D463636392D344538322D414646302D3343333444463736383535337D3030303061373633363232333031663565653439613432333666343761363438663639643030303030393034</Binary> 
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4719_AuditPolicyChanged.yaml
+---CONTENT---
+Title: 'Audit Policy Changed'
+Channel: Security
+EventID: 4719
+RewriteFieldData:
+    AuditPolicyChanges:
+        - '%%8448': 'Success Removed'
+        - '%%8449': 'Success Added'
+        - '%%8450': 'Failure Removed'
+        - '%%8451': 'Failure Added'
+    CategoryId:
+        - '%%8272': 'System'
+        - '%%8273': 'Logon/Logoff'
+        - '%%8274': 'Object Access'
+        - '%%8275': 'Privilege Use'
+        - '%%8276': 'Detailed Tracking'
+        - '%%8277': 'Policy Change'
+        - '%%8278': 'Account Management'
+        - '%%8279': 'DS Access'
+        - '%%8280': 'Account Logon'
+    SubcategoryId:
+        - '%%12288': 'Security State Change'
+        - '%%12289': 'Security System Extension'
+        - '%%12290': 'System Integrity'
+        - '%%12291': 'IPsec Driver'
+        - '%%12292': 'Other System Events'
+        - '%%12544': 'Logon'
+        - '%%12545': 'Logoff'
+        - '%%12546': 'Account Lockout'
+        - '%%12547': 'IPsec Main Mode'
+        - '%%12548': 'Special Logon'
+        - '%%12549': 'IPsec Quick Mode'
+        - '%%12550': 'IPsec Extended Mode'
+        - '%%12551': 'Other Logon/Logoff Events'
+        - '%%12552': 'Network Policy Server'
+        - '%%12553': 'User/Device Claims'
+        - '%%12554': 'Group Membership'
+        - '%%12800': 'File System'
+        - '%%12801': 'Registry'
+        - '%%12802': 'Kernel Object'
+        - '%%12803': 'SAM'
+        - '%%12804': 'Other Object Access Events'
+        - '%%12805': 'Certification Services'
+        - '%%12806': 'Application Generated'
+        - '%%12807': 'Handle Manipulation'
+        - '%%12808': 'File Share'
+        - '%%12809': 'Filtering Platform Packet Drop'
+        - '%%12810': 'Filtering Platform Connection'
+        - '%%12811': 'Detailed File Share'
+        - '%%12812': 'Removable Storage'
+        - '%%12813': 'Central Policy Staging'
+        - '%%13056': 'Sensitive Privilege Use'
+        - '%%13057': 'Non Sensitive Privilege Use'
+        - '%%13058': 'Other Privilege Use Events'
+        - '%%13312': 'Process Creation'
+        - '%%13313': 'Process Termination'
+        - '%%13314': 'DPAPI Activity'
+        - '%%13315': 'RPC Events'
+        - '%%13316': 'Plug and Play Events'
+        - '%%13317': 'Token Right Adjusted Events'
+        - '%%13568': 'Audit Policy Change'
+        - '%%13569': 'Authentication Policy Change'
+        - '%%13570': 'Authorization Policy Change'
+        - '%%13571': 'MPSSVC Rule-Level Policy Change'
+        - '%%13572': 'Filtering Platform Policy Change'
+        - '%%13573': 'Other Policy Change Events'
+        - '%%13824': 'User Account Management'
+        - '%%13825': 'Computer Account Management'
+        - '%%13826': 'Security Group Management'
+        - '%%13827': 'Distribution Group Management'
+        - '%%13828': 'Application Group Management'
+        - '%%13829': 'Other Account Management Events'
+        - '%%14080': 'Directory Service Access'
+        - '%%14081': 'Directory Service Changes'
+        - '%%14082': 'Directory Service Replication'
+        - '%%14083': 'Detailed Directory Service Replication'
+        - '%%14336': 'Credential Validation'
+        - '%%14337': 'Kerberos Service Ticket Operations'
+        - '%%14338': 'Other Account Logon Events'
+        - '%%14339': 'Kerberos Authentication Service'
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
+            <EventID>4719</EventID> 
+            <Version>0</Version> 
+            <Level>0</Level> 
+            <Task>13568</Task> 
+            <Opcode>0</Opcode> 
+            <Keywords>0x8020000000000000</Keywords> 
+            <TimeCreated SystemTime="2016-08-18T15:43:46.9238281Z" /> 
+            <EventRecordID>4832</EventRecordID> 
+            <Correlation /> 
+            <Execution ProcessID="484" ThreadID="564" /> 
+            <Channel>Security</Channel> 
+            <Computer>IE10Win7</Computer> 
+            <Security /> 
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data> 
+            <Data Name="SubjectUserName">IE10WIN7$</Data> 
+            <Data Name="SubjectDomainName">WORKGROUP</Data> 
+            <Data Name="SubjectLogonId">0x3e7</Data> 
+            <Data Name="CategoryId">%%8278</Data> 
+            <Data Name="SubcategoryId">%%13826</Data> 
+            <Data Name="SubcategoryGuid">{0cce9237-69ae-11d9-bed3-505054503030}</Data> 
+            <Data Name="AuditPolicyChanges">%%8448</Data> 
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4688_ProcessCreation.yaml
+---CONTENT---
+Title: 'Process Creation'
+Channel: Security
+EventID: 4688
+RewriteFieldData:
+    MandatoryLabel:
+        - 'S-1-16-0': 'UNTRUSTED'
+        - 'S-1-16-4096': 'LOW_INTEGRITY'
+        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
+        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
+        - 'S-1-16-12288': 'HIGH_INTEGRITY'
+        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
+        - 'S-1-16-20480': 'PROTECTED_PROCESS'
+    TokenElevationType:
+        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
+        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
+        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
+HexToDecimal:
+    - 'NewProcessId'
+    - 'ProcessId'
+
+sample-evtx: |
+  <?xml version="1.0"?>
+  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+    <System>
+      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
+      <EventID>4688</EventID>
+      <Version>2</Version>
+      <Level>0</Level>
+      <Task>13312</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8020000000000000</Keywords>
+      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
+      <EventRecordID>284391</EventRecordID>
+      <Correlation/>
+      <Execution ProcessID="4" ThreadID="6292"/>
+      <Channel>Security</Channel>
+      <Computer>wef.windomain.local</Computer>
+      <Security/>
+    </System>
+    <EventData>
+      <Data Name="SubjectUserSid">S-1-5-18</Data>
+      <Data Name="SubjectUserName">WEF$</Data>
+      <Data Name="SubjectDomainName">WINDOMAIN</Data>
+      <Data Name="SubjectLogonId">0x3e7</Data>
+      <Data Name="NewProcessId">0x1980</Data>
+      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
+      <Data Name="TokenElevationType">%%1936</Data>
+      <Data Name="ProcessId">0x24c</Data>
+      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
+      <Data Name="TargetUserSid">S-1-0-0</Data>
+      <Data Name="TargetUserName">-</Data>
+      <Data Name="TargetDomainName">-</Data>
+      <Data Name="TargetLogonId">0x0</Data>
+      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
+      <Data Name="MandatoryLabel">S-1-16-16384</Data>
+    </EventData>
+  </Event>
+
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_4624_SuccessfulLogon.yaml
+---CONTENT---
+Title: 'Logon'
+Channel: Security
+EventID: 4624
+RewriteFieldData:
+    ElevatedToken:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+    ImpersonationLevel:
+        - '%%1832': 'IDENTIFICATION'
+        - '%%1833': 'IMPERSONATION'
+        - '%%1840': 'DELEGATION'
+        - '%%1841': 'DENIED BY PROCESS TRUST LABEL ACE'
+        - '%%1842': 'YES'
+        - '%%1844': 'SYSTEM'
+        - '%%1845': 'NOT AVAILABLE'
+        - '%%1846': 'DEFAULT'
+        - '%%1847': 'DISALLOW MM CONFIG'
+        - '%%1848': 'OFF'
+        - '%%1849': 'AUTO'
+    LogonType:
+        - '0': '0 - SYSTEM'
+        - '2': '2 - INTERACTIVE'
+        - '3': '3 - NETWORK'
+        - '4': '4 - BATCH'
+        - '5': '5 - SERVICE'
+        - '7': '7 - UNLOCK'
+        - '8': '8 - NETWORK CLEARTEXT'
+        - '9': '9 - NEW CREDENTIALS'
+        - '10': '10 - REMOTE INTERACTIVE'
+        - '11': '11 - CACHED INTERACTIVE'
+        - '12': '12 - CACHED REMOTE INTERACTIVE'
+        - '13': '13 - CACHED UNLOCK'
+    RestrictedAdminMode:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+    VirtualAccount:
+        - '%%1842': 'YES'
+        - '%%1843': 'NO'
+HexToDecimal: 'ProcessId'
+
+sample-evtx: |
+    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        <System>
+            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
+            <EventID>4624</EventID>
+            <Version>3</Version>
+            <Level>0</Level>
+            <Task>12544</Task>
+            <Opcode>0</Opcode>
+            <Keywords>0x8020000000000000</Keywords>
+            <TimeCreated SystemTime="2023-06-05T07:43:11.8338899Z" />
+            <EventRecordID>98438</EventRecordID>
+            <Correlation ActivityID="{8227fe63-9780-0003-07ff-27828097d901}" />
+            <Execution ProcessID="884" ThreadID="940" />
+            <Channel>Security</Channel>
+            <Computer>memanalysis</Computer>
+            <Security />
+        </System>
+        <EventData>
+            <Data Name="SubjectUserSid">S-1-5-18</Data>
+            <Data Name="SubjectUserName">MEMANALYSIS$</Data>
+            <Data Name="SubjectDomainName">WORKGROUP</Data>
+            <Data Name="SubjectLogonId">0x3e7</Data>
+            <Data Name="TargetUserSid">S-1-5-18</Data>
+            <Data Name="TargetUserName">SYSTEM</Data>
+            <Data Name="TargetDomainName">NT AUTHORITY</Data>
+            <Data Name="TargetLogonId">0x3e7</Data>
+            <Data Name="LogonType">5</Data>
+            <Data Name="LogonProcessName">Advapi</Data>
+            <Data Name="AuthenticationPackageName">Negotiate</Data>
+            <Data Name="WorkstationName">-</Data>
+            <Data Name="LogonGuid">{00000000-0000-0000-0000-000000000000}</Data>
+            <Data Name="TransmittedServices">-</Data>
+            <Data Name="LmPackageName">-</Data>
+            <Data Name="KeyLength">0</Data>
+            <Data Name="ProcessId">0x30c</Data>
+            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+            <Data Name="IpAddress">-</Data>
+            <Data Name="IpPort">-</Data>
+            <Data Name="ImpersonationLevel">%%1833</Data>
+            <Data Name="RestrictedAdminMode">-</Data>
+            <Data Name="RemoteCredentialGuard">-</Data>
+            <Data Name="TargetOutboundUserName">-</Data>
+            <Data Name="TargetOutboundDomainName">-</Data>
+            <Data Name="VirtualAccount">%%1843</Data>
+            <Data Name="TargetLinkedLogonId">0x0</Data>
+            <Data Name="ElevatedToken">%%1842</Data>
+        </EventData>
+    </Event>
+---FILE_END---
+---FILE_START---
+path: data_mapping/Security_5145_NetShareFileAccess.yaml
+---CONTENT---
+Title: 'NetShare File Access'
+Channel: Security
+EventID: 5145
+RewriteFieldData:
+    AccessList:
+        - '%%1537': 'DELETE'
+        - '%%1538': 'READ_CONTROL'
+        - '%%1539': 'WRITE_DAC'
+        - '%%1540': 'WRITE_OWNER'
+        - '%%1541': 'SYNCHRONIZE'
+        - '%%1542': 'ACCESS_SYS_SEC'
+        - '%%4416': 'READ_DATA'
+        - '%%4417': 'WRITE_DATA'
+        - '%%4418': 'APPEND_DATA'
+        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
+        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
+        - '%%4421': 'EXECUTE/TRAVERSE'
+        - '%%4422': 'DELETE_CHILD'
+        - '%%4423': 'READ_ATTRIBUTES'
+        - '%%4424': 'WRITE_ATTRIBUTES'
+sample-evtx:
+references:
+    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
+---FILE_END---
+---FILE_START---
+path: windash_characters.txt
+---CONTENT---
+/ # forward slash (0x002F)
+- # hyphen (0x002D)
+– # en dash (0x2013)
+— # em dash (0x2014)
+― # horizontal bar (0x2015)
+---FILE_END---
+---FILE_START---
+path: geoip_field_mapping.yaml
+---CONTENT---
+SrcIP:
+  - '%IpAddress%'
+  - '%ClientAddress%'
+  - '%SourceAddress%'
+  - '%SourceIp%'
+  - '%UserDataAddress%'
+  - '%UserDataParam3%'
+
+TgtIP:
+  - '%DestinationIp%'
+  - '%DestAddress%'
+
+Filter:
+  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
+    - 21 # RDS Sess Logon %UserDataAddress%
+    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
+    - 24 # RDS Sess Disconnect %UserDataAddress%
+  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
+    - 1149 # RDS Logon %UserDataParam3%
+  - Security:
+    - 4624 # Logon Success %IpAddress%
+    - 4625 # Logon Failure %IpAddress%
+    - 4648 # Explicit Logon %IpAddress%
+    - 4768 # Kerberos TGT Requested %IpAddress%
+    - 4769 # Kerberos Service Ticket Requested %IpAddress%
+    - 4778 # RDP Session Reconnect %ClientAddress%
+    - 4779 # RDP Session Disconnect %ClientAddress%
+    - 4825 # RDP Logon Failed %ClientAddress%
+    - 5140 # A network share object was accessed %IpAddress%
+    - 5145 # NetShare File Access %IpAddress%
+    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
+  - Microsoft-Windows-Sysmon/Operational: 
+    - 3 # Network Connection %SourceIp%
+---FILE_END---
+---FILE_START---
 path: generic_abbreviations.txt
 ---CONTENT---
 Original,GeneralAbbreviation
@@ -35,6 +1061,622 @@ Service,Svc
 Terminal,Term
 Universal,Univ
 Windows,Win
+---FILE_END---
+---FILE_START---
+path: channel_abbreviations.txt
+---CONTENT---
+Channel,Abbreviation
+Application,App
+DNS Server,DNS-Svr
+Key Management Service,KeyMgtSvc
+Microsoft-ServiceBus-Client,SvcBusCli
+Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
+Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
+Microsoft-Windows-AppLocker/MSI and Script,AppLocker
+Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
+Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
+Microsoft-Windows-Bits-Client/Operational,BitsCli
+Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
+Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
+Microsoft-Windows-NTLM/Operational,NTLM
+Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
+Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
+Microsoft-Windows-SmbClient/Security,SmbCliSec
+Microsoft-Windows-Sysmon/Operational,Sysmon
+Microsoft-Windows-TaskScheduler/Operational,TaskSch
+Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Cli
+Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
+Microsoft-Windows-PrintService/Admin,PrintAdm
+Microsoft-Windows-PrintService/Operational,PrintOp
+Microsoft-Windows-PowerShell/Operational,PwSh
+Microsoft-Windows-Windows Defender/Operational,Defender
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
+Microsoft-Windows-WinRM/Operational,WinRM
+Microsoft-Windows-WMI-Activity/Operational,WMI
+MSExchange Management,Exchange
+OpenSSH/Operational,OpenSSH
+Security,Sec
+System,Sys
+Windows PowerShell,PwShClassic
+Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
+Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-Forwarding/Operational,Forwarding
+Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
+Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
+Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
+Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
+Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
+Microsoft-Windows-TerminalServices-Gateway/Operational,RDS-GTW
+Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
+PowerShellCore,PwShCore
+
+---FILE_END---
+---FILE_START---
+path: channel_eid_info.txt
+---CONTENT---
+Channel,EventID,EventTitle
+Microsoft-Windows-Sysmon/Operational,1,Process Creation
+Microsoft-Windows-Sysmon/Operational,2,File Creation Timestamp Changed (Possible Timestomping)
+Microsoft-Windows-Sysmon/Operational,3,Network Connection
+Microsoft-Windows-Sysmon/Operational,4,Sysmon Service State Changed
+Microsoft-Windows-Sysmon/Operational,5,Process Terminated
+Microsoft-Windows-Sysmon/Operational,6,Driver Loaded
+Microsoft-Windows-Sysmon/Operational,7,Image Loaded
+Microsoft-Windows-Sysmon/Operational,8,Remote Thread Created (Possible Code Injection)
+Microsoft-Windows-Sysmon/Operational,9,Raw Access Read
+Microsoft-Windows-Sysmon/Operational,10,Process Access
+Microsoft-Windows-Sysmon/Operational,11,File Creation or Overwrite
+Microsoft-Windows-Sysmon/Operational,12,Registry Object Created/Deletion
+Microsoft-Windows-Sysmon/Operational,13,Registry Value Set
+Microsoft-Windows-Sysmon/Operational,14,Registry Key or Value Rename
+Microsoft-Windows-Sysmon/Operational,15,Alternate Data Stream Created
+Microsoft-Windows-Sysmon/Operational,16,Sysmon Service Configuration Changed
+Microsoft-Windows-Sysmon/Operational,17,Named Pipe Created
+Microsoft-Windows-Sysmon/Operational,18,Named Pipe Connection
+Microsoft-Windows-Sysmon/Operational,19,WmiEventFilter Activity
+Microsoft-Windows-Sysmon/Operational,20,WmiEventConsumer Activity
+Microsoft-Windows-Sysmon/Operational,21,WmiEventConsumerToFilter Activity
+Microsoft-Windows-Sysmon/Operational,22,DNS Query
+Microsoft-Windows-Sysmon/Operational,23,Deleted File Archived
+Microsoft-Windows-Sysmon/Operational,24,Clipboard Changed
+Microsoft-Windows-Sysmon/Operational,25,Process Tampering (Possible Process Hollowing or Herpaderping)
+Microsoft-Windows-Sysmon/Operational,26,File Deleted
+Microsoft-Windows-Sysmon/Operational,27,Executable File Write Blocked
+Microsoft-Windows-Sysmon/Operational,255,Sysmon Error
+Microsoft-Windows-PowerShell/Operational,4103,Module logging - Executing Pipeline
+Microsoft-Windows-PowerShell/Operational,4104,Script Block Logging
+Microsoft-Windows-PowerShell/Operational,4105,CommandStart started
+Microsoft-Windows-PowerShell/Operational,4106,CommandStart stopped
+Security,1100,Event logging service shutdown
+Security,1101,Audit events dropped by transport
+Security,1102,Audit log cleared
+Security,1104,Security log is full
+Security,1105,Event log automatic backup
+Security,1108,Event logging service error
+Security,4608,Windows startup
+Security,4609,Windows shutdown
+Security,4610,LSA loaded an authentication package
+Security,4611,A trusted logon process has been registered with the Local Security Authority
+Security,4612,Audit message queuing resoures exhausted (Possible loss of logs)
+Security,4614,LSA loaded notification package
+Security,4615,Invalid use of LPC port
+Security,4616,System time changed
+Security,4618,A monitored security event pattern has occurred
+Security,4621,Administrator recovered system from CrashOnAuditFail
+Security,4622,LSA loaded security package
+Security,4624,Logon success
+Security,4625,Logon failure
+Security,4634,Account logoff
+Security,4646,IKE DoS-prevention mode started
+Security,4647,User initiated logoff
+Security,4648,Explicit logon
+Security,4649,Replay attack was detected
+Security,4650,An IPsec Main Mode security association was established
+Security,4651,An IPsec Main Mode security association was established
+Security,4652,An IPsec Main Mode negotiation failed
+Security,4653,An IPsec Main Mode negotiation failed
+Security,4654,An IPsec Quick Mode negotiation failed
+Security,4655,An IPsec Main Mode security association ended
+Security,4656,Object handle requested
+Security,4657,Registry value modified
+Security,4658,Object handle closed
+Security,4659,Object handle requested with intent to delete
+Security,4660,Object deleted
+Security,4661,Object handle requested
+Security,4662,Object operation performed
+Security,4663,Object access attempt
+Security,4664,Hard link creation attempt
+Security,4665,Application client context creation attempt
+Security,4666,Application attempted an operation
+Security,4667,Application client context deleted
+Security,4668,Application initialized
+Security,4670,Object permissions changed
+Security,4671,Application attempted to access a blocked ordinal through the TBS
+Security,4672,Admin logon
+Security,4673,Privileged service called
+Security,4674,Privileged object operation attempt
+Security,4675,SIDs filtered
+Security,4685,Transaction state changed
+Security,4688,Process created
+Security,4689,Process exited
+Security,4690,Object handle duplication attempt
+Security,4691,Indirect access request to object
+Security,4692,Backup of data protection master key attempt
+Security,4693,Recovery of data protection master key attempt
+Security,4694,Protection of auditable protected data attempt
+Security,4695,Unprotection of auditable protected data attempt
+Security,4696,Primary token assigned to process
+Security,4697,Service installed
+Security,4698,Scheduled task created
+Security,4699,Scheduled task deleted
+Security,4700,Scheduled task enabled
+Security,4701,Scheduled task disabled
+Security,4702,Scheduled task updated
+Security,4704,User right assigned
+Security,4705,User right removed
+Security,4706,New trust created to a domain
+Security,4707,Domain trust removed
+Security,4709,IPsec services started
+Security,4710,IPsec services disabled
+Security,4711,PAStore Engine
+Security,4712,IPsec services encountered a potentially serious failure
+Security,4713,Kerberos policy changed
+Security,4714,Encrypted data recovery policy changed
+Security,4715,Object audit policy (SACL) changed
+Security,4716,Trusted domain information modified
+Security,4717,System security access granted to an account
+Security,4718,System security access removed from an account
+Security,4719,System audit policy changed
+Security,4720,User account created
+Security,4722,User account enabled
+Security,4723,Account password change attempt
+Security,4724,Account password reset attempt
+Security,4725,User account disabled
+Security,4726,User account deleted
+Security,4727,Security-enabled global group created
+Security,4728,Member added to security-enabled global group
+Security,4729,Member removed from security-enabled global group
+Security,4730,Security-enabled global group deleted
+Security,4731,Security-enabled local group created
+Security,4732,Member added to security-enabled local group
+Security,4733,Member removed from security-enabled local group
+Security,4734,Security-enabled local group deleted
+Security,4735,Security-enabled local group changed
+Security,4737,Security-enabled global group changed
+Security,4738,User account changed
+Security,4739,Domain policy changed
+Security,4740,User account locked out
+Security,4741,Computer account created
+Security,4742,Computer account changed
+Security,4743,Computer account deleted
+Security,4744,Security-disabled local group created
+Security,4745,Security-disabled local group changed
+Security,4746,Member added to security-disabled local group
+Security,4747,Member removed from security-disabled local group
+Security,4748,Security-disabled local group deleted
+Security,4749,Security-disabled global group created
+Security,4750,Security-disabled global group changed
+Security,4751,Member added to security-disabled global group
+Security,4752,Member removed from security-disabled global group
+Security,4753,Security-disabled global group deleted
+Security,4754,Security-enabled universal group created
+Security,4755,Security-enabled universal group changed
+Security,4756,Member added to security-enabled universal group
+Security,4757,Member removed from security-enabled universal group
+Security,4758,Security-enabled universal group deleted
+Security,4759,Security-disabled universal group created
+Security,4760,Security-disabled universal group changed
+Security,4761,Member added to security-disabled universal group
+Security,4762,Member removed from security-disabled universal group
+Security,4763,Security-disabled universal group deleted
+Security,4764,Group type changed
+Security,4765,SID history added to account
+Security,4766,Attempt to add SID history to account failed
+Security,4767,User account unlocked
+Security,4768,Kerberos authentication ticket (TGT) requested
+Security,4769,Kerberos service ticket requested
+Security,4770,Kerberos service ticket renewed
+Security,4771,Kerberos pre-authentication failed
+Security,4772,Kerberos authentication ticket request failed
+Security,4773,Kerberos service ticket request failed
+Security,4774,Account mapped for logon
+Security,4775,Account could not be mapped for logon
+Security,4776,DC attempted to validate account credentials
+Security,4777,DC failed to validate account credentials
+Security,4778,Window station session reconnected
+Security,4779,Window station session disconnected
+Security,4780,Administrators group account's ACL set
+Security,4781,Account name changed
+Security,4782,Account password hash accessed
+Security,4783,Basic application group created
+Security,4784,Basic application group changed
+Security,4785,Member added to basic application group
+Security,4786,Member removed from basic application group
+Security,4787,Non-member added to basic application group
+Security,4788,Non-member removed from basic application group
+Security,4789,Basic application group deleted
+Security,4790,LDAP query group created
+Security,4791,Basic application group changed
+Security,4792,LDAP query group deleted
+Security,4793,Password policy checking API called
+Security,4794,Directory Services Restore Mode administrator password set attempt
+Security,4800,Computer locked
+Security,4801,Computer unlocked
+Security,4802,Screen saver started
+Security,4803,Screen saver stopped
+Security,4816,RPC integrity violation when decrypting an incoming message
+Security,4817,Object auditing settings changed
+Security,4825,RDP logon failed
+Security,4864,Namespace collision detected
+Security,4865,Trusted forest information entry added
+Security,4866,Trusted forest information entry removed
+Security,4867,Trusted forest information entry modified
+Security,4868,Certificate manager denied pending certificate request
+Security,4869,Certificate Services received resubmitted certificate request
+Security,4870,Certificate Services revoked certificate
+Security,4871,Certificate Services received request to publish CRL
+Security,4872,Certificate Services published CRL
+Security,4873,Certificate request extension changed
+Security,4874,One or more certificate request attributes changed
+Security,4875,Certificate Services received shutdown request
+Security,4876,Certificate Services backup started
+Security,4877,Certificate Services backup completed
+Security,4878,Certificate Services restore started
+Security,4879,Certificate Services restore completed
+Security,4880,Certificate Services started
+Security,4881,Certificate Services stopped
+Security,4882,Certificate Services security permissions changed
+Security,4883,Certificate Services retrieved archived key
+Security,4884,Certificate Services imported certificate into its database
+Security,4885,Certificate Services audit filter changed
+Security,4886,Certificate Services received certificate request
+Security,4887,Certificate Services approved certificate request and issued certificate
+Security,4888,Certificate Services denied certificate request
+Security,4889,Certificate Services set status of certificate request to pending
+Security,4890,Certificate Services certificate manager settings changed
+Security,4891,Certificate Services configuration entry changed
+Security,4892,Certificate Services property changed
+Security,4893,Certificate Services archived a key
+Security,4894,Certificate Services imported and archived a key
+Security,4895,Certificate Services published CA certificate to AD
+Security,4896,One or more rows have been deleted from the certificate DB
+Security,4897,Role separation enabled
+Security,4898,Certificate Services loaded a template
+Security,4899,Certificate Services template updated
+Security,4900,Certificate Services template security updated
+Security,4902,Per-user audit policy table created
+Security,4904,Attempt to register security event source
+Security,4905,Attempt to unregister security event source
+Security,4906,CrashOnAuditFail value changed
+Security,4907,Auditing settings on object changed
+Security,4908,Special groups logon table modified
+Security,4909,Local policy settings for TBS changed
+Security,4910,Group policy settings for TBS changed
+Security,4912,Per user audit policy changed
+Security,4928,AD replica source naming context established
+Security,4929,AD replica source naming context removed
+Security,4930,AD replica source naming context modified
+Security,4931,AD replica destination naming context modified
+Security,4932,Synchronization of an AD naming context replica has started
+Security,4933,Synchronization of an AD naming context replica has ended
+Security,4934,AD object attributes were replicated
+Security,4935,Replication failure begins
+Security,4936,Replication failure ends
+Security,4937,A lingering object was removed from a replica
+Security,4944,Active policy when firewall started
+Security,4945,Rule listed when firewall started
+Security,4946,Rule added to firewall exception list
+Security,4947,Rule modified in firewall exception list
+Security,4948,Rule deleted from firewall exception list
+Security,4949,Firewall settings restored to default values
+Security,4950,Firewall setting changed
+Security,4951,Firewall rule ignored because major version number was not recognized
+Security,4952,Parts of a firewall rule ignored because its minor version number was not recognized
+Security,4953,Firewall rule could not be parsed
+Security,4954,Firewall Group Policy settings changed New settings applied
+Security,4956,Firewall changed active profile
+Security,4957,Firewall did not apply rule
+Security,4958,Firewall did not apply rule because it referred to items not configured on this computer
+Security,4960,IPsec dropped inbound packet Integrity check failed
+Security,4961,IPsec dropped inbound packet Replay check failed
+Security,4962,IPsec dropped inbound packet Replay check failed
+Security,4963,IPsec dropped inbound cleartext packet that should have been secured
+Security,4964,Special groups assigned to new logon
+Security,4965,IPsec received packet from remote computer with an incorrect SPI
+Security,4976,IPsec received invalid negotiation packet during Main Mode negotiation
+Security,4977,IPsec received invalid negotiation packet during Quick Mode negotiation
+Security,4978,IPsec received invalid negotiation packet during Extended Mode negotiation
+Security,4979,IPsec Main Mode and Extended Mode SAs established
+Security,4980,IPsec Main Mode and Extended Mode SAs established
+Security,4981,IPsec Main Mode and Extended Mode SAs established
+Security,4982,IPsec Main Mode and Extended Mode SAs established
+Security,4983,IPsec Extended Mode negotiation failed
+Security,4984,IPsec Extended Mode negotiation failed
+Security,4985,State of transaction changed
+Security,5024,Firewall service started
+Security,5025,Firewall service stopped
+Security,5027,Firewall service unable to retrieve security policy from local storage
+Security,5028,Firewall service unable to parse new security policy
+Security,5029,Firewall service failed to initialize driver
+Security,5030,Firewall service failed to start
+Security,5031,Firewall service blocked application from accepting incoming connections
+Security,5032,Firewall unable to notify user that it blocked an application from accepting incoming connections
+Security,5033,Firewall driver started
+Security,5034,Firewall driver stopped
+Security,5035,Firewall driver failed to start
+Security,5037,Firewall driver critical runtime error
+Security,5038,Code Integrity invalid file hash
+Security,5039,Registry key virtualized
+Security,5040,IPsec settings changed Authentication Set added
+Security,5041,IPsec settings changed Authentication Set modified
+Security,5042,IPsec settings changed Authentication Set deleted
+Security,5043,IPsec settings changed Connection Security Rule added
+Security,5044,IPsec settings changed Connection Security Rule modified
+Security,5045,IPsec settings changed Connection Security Rule deleted
+Security,5046,IPsec settings changed Crypto Set added
+Security,5047,IPsec settings changed Crypto Set modified
+Security,5048,IPsec settings changed Crypto Set deleted
+Security,5049,IPsec SA deleted
+Security,5050,Attempt to disable firewall using call to INetFwProfile
+Security,5051,A file was virtualized
+Security,5056,A cryptographic self test was performed
+Security,5057,A cryptographic primitive operation failed
+Security,5058,Key file operation
+Security,5059,Key migration operation
+Security,5060,Verification operation failed
+Security,5061,Cryptographic operation
+Security,5062,kernel-mode cryptographic self test performed
+Security,5063,Cryptographic provider operation attempted
+Security,5064,Cryptographic context operation attempted
+Security,5065,Cryptographic context modification attempted
+Security,5066,Cryptographic function operation attempted
+Security,5067,Cryptographic function modification attempted
+Security,5068,Cryptographic function provider operation attempted
+Security,5069,Cryptographic function property operation attempted
+Security,5070,Cryptographic function property operation attempted
+Security,5120,OCSP responder service started
+Security,5121,OCSP responder service stopped
+Security,5122,Configuration entry changed in the OCSP responder service
+Security,5123,Configuration entry changed in the OCSP responder service
+Security,5124,Security setting updated on OCSP responder service
+Security,5125,Request submitted to OCSP responder service
+Security,5126,Signing certificate automatically updated by OCSP responder service
+Security,5127,OCSP revocation provider updated revocation information
+Security,5136,Directory service object modified
+Security,5137,Directory service object created
+Security,5138,Directory service object undeleted
+Security,5139,Directory service object moved
+Security,5140,Network share object accessed
+Security,5141,Directory service object deleted
+Security,5142,Network share object added
+Security,5143,Network share object modified
+Security,5144,Network share object deleted
+Security,5145,Network share object checked for client access
+Security,5148,Firewall has detected a DoS attack and entered a defensive mode; packets associated with this attack will be discarded
+Security,5149,DoS attack subsided and normal processing resumed
+Security,5150,Firewall blocked a packet
+Security,5151,A more restrictive firewall filter blocked a packet
+Security,5152,Firewall blocked a packet
+Security,5153,A more restrictive firewall filter blocked a packet
+Security,5154,Firewall permitted an application to listen for incoming connections
+Security,5155,Firewall blocked an application from listening for incoming connections
+Security,5156,Firewall allowed a connection
+Security,5157,Firewall blocked a connection
+Security,5158,Firewall permitted local port binding
+Security,5159,Firewall blocked local port binding
+Security,5168,SPN check for SMB/SMB2 failed
+Security,5376,Credential Manager credentials backup
+Security,5377,Credential Manager credentials restore from backup
+Security,5378,Requested credentials delegation disallowed by policy
+Security,5440,Callout present when firewall base filtering engine started
+Security,5441,Filter present when firewall base filtering engine started
+Security,5442,Provider present when firewall base filtering engine started
+Security,5443,Provider context present when firewall base filtering engine started
+Security,5444,Sub-layer present when firewall base filtering engine started
+Security,5446,Firewall callout changed
+Security,5447,Firewall filter changed
+Security,5448,Firewall provider changed
+Security,5449,Firewall provider context changed
+Security,5450,Firewall sub-layer changed
+Security,5451,IPsec quick mode SA established
+Security,5452, IPsec quick mode SA ended
+Security,5453,IPsec negotiation failed because IKEEXT service is not started
+Security,5456,PAStore engine applied AD storage IPsec policy
+Security,5457,PAStore engine failed to apply AD storage IPsec policy
+Security,5458,PAStore engine applied locally cached copy of AD storage IPsec policy
+Security,5459,PAStore engine failed to apply locally cached copy of AD storage IPsec policy
+Security,5460,PAStore engine applied local registry storage IPsec policy
+Security,5461,PAStore engine failed to apply local registry storage IPsec policy
+Security,5462,PAStore engine failed to apply some rules of the active IPsec policy
+Security,5463,PAStore engine polled for changes to the active IPsec policy and detected no changes
+Security,5464,"PAStore engine polled for changes to the active IPsec policy, detected changes, and applied them to IPsec Services"
+Security,5465,PAStore engine received a control for forced reloading of IPsec policy and processed the control
+Security,5466,"PAStore engine polled for changes to the AD IPsec policy, determined that AD cannot be reached, and will use the cached copy of the AD IPsec policy instead"
+Security,5467,"PAStore engine polled for changes to the AD IPsec policy, determined that AD can be reached, and found no changes to the policy"
+Security,5468,"PAStore engine polled for changes to the AD IPsec policy, determined that AD can be reached, found changes to the policy, and applied those changes"
+Security,5471,PAStore engine loaded local storage IPsec policy
+Security,5472,PAStore engine failed to load local storage IPsec policy
+Security,5473,PAStore engine loaded directory storage IPsec policy
+Security,5474,PAStore engine failed to load directory storage IPsec policy
+Security,5477,PAStore engine failed to add quick mode filter
+Security,5478,IPsec services started
+Security,5479,IPsec services shutdown
+Security,5480,IPsec services failed to get the complete list of network interfaces
+Security,5483,IPsec services failed to initialize RPC server and could not be started
+Security,5484,IPsec services shut down due to critical failure
+Security,5485,IPsec services failed to process some IPsec filters on a PnP event for network interfaces
+Security,6144,Security policy GPO applied
+Security,6145,One or more errors occured while processing security policy GPO
+Security,6272,Network Policy Server granted user access
+Security,6273,Network Policy Server denied user access
+Security,6274,Network Policy Server discarded user request
+Security,6275,Network Policy Server discarded user accounting request
+Security,6276,Network Policy Server quarantined a user
+Security,6277,Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy
+Security,6278,Network Policy Server granted full access to a user because the host met the defined health policy
+Security,6279,Network Policy Server locked the user account due to repeated failed authentication attempts
+Security,6280,Network Policy Server unlocked user account
+Security,6281,Code Integrity determined that the page hashes of an image file are not valid 
+Security,6400,BranchCache: Received an incorrectly formatted response while discovering availability of content
+Security,6401,BranchCache: Received invalid data from a peer Data discarded
+Security,6402,BranchCache: The message to the hosted cache offering it data is incorrectly formatted
+Security,6403,BranchCache: The hosted cache sent an incorrectly formatted response to the client
+Security,6404,BranchCache: Hosted cache could not be authenticated using the provisioned SSL certificate
+Security,6405,BranchCache: %2 instance(s) of event id %1 occurred
+Security,6406,%1 registered to firewall to control filtering for the following: %2
+Security,6407,No info
+Security,6408,Registered product %1 failed and firewall is now controlling the filtering for %2
+Security,6410,Code integrity determined that a file does not meet the security requirements to load into a process
+System,1001,BSOD
+System,104,Event log cleared
+System,1127,Group Policy generic internal error
+System,1129,Group Policy application failed due to connectivity
+System,1125,Group Policy internal error
+System,27,KDC encryption type configuration
+System,16,Kerberos key integrity
+System,6,New kernel filter driver
+System,1022,New MSI file installed
+System,1033,New MSI file installed
+System,7045,New windows service
+System,7023,Service terminated
+System,7035,The %1 service was successfully sent a %2 control
+System,7036,The service entered the running/stopped state
+System,7030,"The service is marked as an interactive service but the system is configured to not allow interactive services"
+System,7040,Service start type changed
+System,7022,Windows service fail or crash
+System,7023,Windows service fail or crash
+System,7024,Windows service fail or crash
+System,7026,Windows service fail or crash
+System,7031,Windows service fail or crash
+System,7032,Windows service fail or crash
+System,7034,Windows service fail or crash
+System,19,Windows Update Installed
+Microsoft-Windows-WinRM/Operational,6,Creating WSMan session on client
+Microsoft-Windows-WinRM/Operational,169,Creating WSMan session on server
+Microsoft-Windows-WinRM/Operational,81,Processing client request for operation CreateShell
+Microsoft-Windows-WinRM/Operational,82,Entering the plugin for operation CreateShell with a ResourceURI
+Microsoft-Windows-WinRM/Operational,134,Sending response for operation CreateShell
+Microsoft-Windows-AppLocker/EXE and DLL,8003,AppLocker block error
+Microsoft-Windows-AppLocker/EXE and DLL,8004,AppLocker block warning
+Microsoft-Windows-AppLocker/MSI and Script,8005,AppLocker permitted the execution of a PowerShell script
+Microsoft-Windows-AppLocker/MSI and Script,8006,AppLocker warning error
+Microsoft-Windows-AppLocker/MSI and Script,8007,AppLocker warning
+Microsoft-Windows-WindowsUpdateClient/Operational,20,Windows update failed
+Microsoft-Windows-WindowsUpdateClient/Operational,24,Windows update failed
+Microsoft-Windows-WindowsUpdateClient/Operational,25,Windows update failed
+Microsoft-Windows-WindowsUpdateClient/Operational,31,Windows update failed
+Microsoft-Windows-WindowsUpdateClient/Operational,34,Windows update failed
+Microsoft-Windows-WindowsUpdateClient/Operational,35,Windows update failed
+Setup,1009,Hotpatching failed
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2004,Firewall rule add
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2005,Firewall rule change
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2006,Firewall rule deleted
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2033,Firewall rule deleted
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2009,Firewall failed to load Group Policy
+Microsoft-Windows-Application-Experience/Program-Inventory,903,New application installed
+Microsoft-Windows-Application-Experience/Program-Inventory,904,New application installed
+Microsoft-Windows-Application-Experience/Program-Inventory,905,Updated application
+Microsoft-Windows-Application-Experience/Program-Inventory,906,Updated application
+Microsoft-Windows-Application-Experience/Program-Inventory,907,Removed application
+Microsoft-Windows-Application-Experience/Program-Inventory,908,Removed application
+Microsoft-Windows-Application-Experience/Program-Inventory,800,Summary of software activities
+Setup,2,Update packages installed
+Microsoft-Windows-CodeIntegrity/Operational,3001,Code Integrity check warning
+Microsoft-Windows-CodeIntegrity/Operational,3002,Code Integrity check warning
+Microsoft-Windows-CodeIntegrity/Operational,3003,Code Integrity check warning
+Microsoft-Windows-CodeIntegrity/Operational,3004,Code Integrity check warning
+Microsoft-Windows-CodeIntegrity/Operational,3010,Code Integrity check warning
+Microsoft-Windows-CodeIntegrity/Operational,3023,Code Integrity check warning
+Microsoft-Windows-Windows Defender/Operational,1005,Scan failed
+Microsoft-Windows-Windows Defender/Operational,1006,Detected malware
+Microsoft-Windows-Windows Defender/Operational,1008,Action on malware failed
+Microsoft-Windows-Windows Defender/Operational,1010,Failed to remove item from quarantine
+Microsoft-Windows-Windows Defender/Operational,2001,Failed to update signatures
+Microsoft-Windows-Windows Defender/Operational,2003,Failed to update engine
+Microsoft-Windows-Windows Defender/Operational,2004,Reverting to last known good set of signatures
+Microsoft-Windows-Windows Defender/Operational,3002,Real-time protection failed
+Microsoft-Windows-Windows Defender/Operational,5008,Unexpected error
+Microsoft-Windows-NetworkProfile/Operational,10000,Network connection and disconnection status
+Microsoft-Windows-NetworkProfile/Operational,10001,Network connection and disconnection status
+Microsoft-Windows-WLAN-AutoConfig/Operational,8000,Starting wireless connection
+Microsoft-Windows-WLAN-AutoConfig/Operational,8011,Starting wireless connection
+Microsoft-Windows-WLAN-AutoConfig/Operational,8001,Successful wireless connection
+Microsoft-Windows-WLAN-AutoConfig/Operational,8003,Disconnected from wireless connection
+Microsoft-Windows-WLAN-AutoConfig/Operational,11000,Wireless asociation status
+Microsoft-Windows-WLAN-AutoConfig/Operational,11001,Wireless association status
+Microsoft-Windows-WLAN-AutoConfig/Operational,11002,Wireless association status
+Microsoft-Windows-WLAN-AutoConfig/Operational,11004,"Wireless security started, stopped, successful, or failed"
+Microsoft-Windows-WLAN-AutoConfig/Operational,11005,"Wireless security started, stopped, successful, or failed"
+Microsoft-Windows-WLAN-AutoConfig/Operational,11010,"Wireless security started, stopped, successful, or failed"
+Microsoft-Windows-WLAN-AutoConfig/Operational,11006,"Wireless security started, stopped, successful, or failed"
+Microsoft-Windows-WLAN-AutoConfig/Operational,8002,Wireless connection failed
+Microsoft-Windows-WLAN-AutoConfig/Operational,12011,Wireless authentication started and failed
+Microsoft-Windows-WLAN-AutoConfig/Operational,12012,Wireless authentication started and failed
+Microsoft-Windows-WLAN-AutoConfig/Operational,12013,Wireless authentication started and failed
+Microsfot-Windows-USB-USBHUB3-Analytic,43,New device information
+Microsoft-Windows-Kernel-PnP/Device Configuration,400,New mass storage installed
+Microsoft-Windows-Kernel-PnP/Device Configuration,410,New mass storage installed
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,21,Shell start notification received
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,23,Session logoff
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,24,Session disconnected
+Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,1149,User authentication
+Microsoft-Windows-TaskScheduler/Operational,106,Task scheduled
+---FILE_END---
+---FILE_START---
+path: opening_messages.txt
+---CONTENT---
+Elevating Windows DFIR to new heights~
+Getting 80% of the work done in 20% of the time~
+Striving for perfection~
+As fast as a peregrine falcon~
+Giving you the Windows event logs you've always wanted~
+Time to go hunting~
+DEATH (Detection Engineering And Threat Hunting) for all!
+Streamlining DFIR for the modern analyst~
+Taking threat detection to the next level~
+Setting new standards in Windows event visibility~
+Crafted for the relentless hunter~
+Fine-tuned for the art of detection~
+Forged for the modern-day digital detective~
+Cutting through the noise, straight to the threats~
+Finding needles in the hay stack~
+Collecting the gold specks in the desert~
+Since 2021~
+---FILE_END---
+---FILE_START---
+path: windows_versions.csv
+---CONTENT---
+Version,Build,WindowsVersion,ReleaseDate
+6.0,6000,Vista,2007/01/30
+6.0,6001,Vista SP1 / Server 2008,2008/03/18
+6.0,6002,Vista SP2 / Server 2008 SP2,2009/05/26
+6.1,7600,7 / Server 2008 R2,2009/10/22
+6.1,7601,7 SP1 / Server 2008 R2 SP1,2011/02/22
+6.02,9200,8 / Server 2012,2012/10/26
+6.2,9200,8 / Server 2012,2012/10/26
+6.03,9600,8.1 / Server 2012 R2,2013/10/17
+6.3,9600,8.1 / Server 2012 R2,2013/10/17
+10.0,10240,10 (1507),2015/07/29
+10.0,14393,Server 2016,2016/10/12
+10.0,16299,10 (1709),2017/10/17
+10.0,17134,10 (1803),2018/04/30
+10.0,17763,Server 2019,2018/10/02
+10.0,18362,10 (1903),2019/05/21
+10.0,19041,10 (2004),2020/05/27
+10.0,19042,10 (20H2),2020/10/20
+10.0,19043,10 (21H1),2021/05/18
+10.0,19044,10 (21H2),2021/10/05
+10.0,19045,10 (22H1),2022/05/10
+10.0,19046,10 (22H2),2022/09/20
+10.0,20348,Server 2022,2021/08/18
+10.0,22000,11 (21H2),2021/10/05
+10.0,22621,11 (22H2),2022/09/20
+10.0,22631,11 (23H2),2023/10/31
+10.0,26100,11 (24H2) / Server 2025,2024/10/01
+
 ---FILE_END---
 ---FILE_START---
 path: default_details.txt
@@ -144,45 +1786,16 @@ MsiInstaller, 11724, Product: %Data[1]%
 Microsoft-Windows-Ntfs, 98, Drive: %DriveName% ¦ Device: %DeviceName%
 ---FILE_END---
 ---FILE_START---
-path: opening_messages.txt
+path: level_tuning.txt
 ---CONTENT---
-Elevating Windows DFIR to new heights~
-Getting 80% of the work done in 20% of the time~
-Striving for perfection~
-As fast as a peregrine falcon~
-Giving you the Windows event logs you've always wanted~
-Time to go hunting~
-DEATH (Detection Engineering And Threat Hunting) for all!
-Streamlining DFIR for the modern analyst~
-Taking threat detection to the next level~
-Setting new standards in Windows event visibility~
-Crafted for the relentless hunter~
-Fine-tuned for the art of detection~
-Forged for the modern-day digital detective~
-Cutting through the noise, straight to the threats~
-Finding needles in the hay stack~
-Collecting the gold specks in the desert~
-Since 2021~
----FILE_END---
----FILE_START---
-path: pivot_keywords.txt
----CONTENT---
-Source Computers.WorkstationName
-Subject Users.SubjectUserName
-Target Users.TargetUserName
-Users.User
-Subject Logon IDs.SubjectLogonId
-Target Logon IDs.TargetLogonId
-Logon IDs.LogonId
-IP Addresses.IpAddress
-Source IP Addresses.SourceIp
-Source IP Addresses.ClientAddress
-Source IP Addresses.SourceAddress
-Target IP Addresses.DestinationIp
-Target IP Addresses.DestAddress
-Processes.Image
-Processes.NewProcessName
-Command Lines.CommandLine
+id,new_level
+33c276a1-2475-2f1f-aa3d-ec5d61dbe94c,informational # 'Application Uninstalled' - Originally low.
+b6ce0b2f-593b-5e1c-e137-d30b2974e30e,high # 'Suspicious Double Extension File Execution' - Sysmon 1 - Originally critical
+452b2159-5e6e-c494-63b9-b385d6195f58,high # 'Suspicious Double Extension File Execution' - Security 4688 - Originally critical
+51ba8477-86a4-6ff0-35fa-7b7f1b1e3f83,high # 'CobaltStrike Service Installations - System' - System 7045 - Originally critical
+daad2203-665f-294c-6d2f-f9272c3214f2,critical # 'Mimikatz DC Sync' - Security 4662 - Originally high
+8b061ac2-31c7-659d-aa1b-36ceed1b03f1,high # 'HackTool - Rubeus Execution' - Sysmon 1 - Originally critical
+be670d5c-31eb-7391-4d2e-d122c89cd5bb,high # 'HackTool - Rubeus Execution' - Security 4688 - Originally critical
 ---FILE_END---
 ---FILE_START---
 path: provider_abbreviations.txt
@@ -200,6 +1813,249 @@ Microsoft-Windows-Windows Defender,Defender
 Microsoft-Windows-Windows Firewall With Advanced Security,Firewall
 Microsoft-Windows-WindowsUpdateClient,WinUpdate
 Service Control Manager,SCM
+---FILE_END---
+---FILE_START---
+path: noisy_rules.txt
+---CONTENT---
+#Hayabusa rules
+0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
+8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
+1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
+9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
+3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
+6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
+320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
+a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
+b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
+0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
+84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
+84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
+---FILE_END---
+---FILE_START---
+path: target_event_IDs.txt
+---CONTENT---
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+50
+56
+59
+70
+98
+99
+104
+106
+129
+140
+141
+150
+191
+200
+216
+255
+300
+301
+302
+325
+326
+327
+354
+400
+524
+534
+567
+770
+771
+823
+848
+849
+854
+1013
+1024
+1034
+1040
+1042
+1102
+1116
+1149
+1511
+2002
+2003
+2004
+2005
+2006
+2008
+2100
+2102
+3001
+3002
+3007
+3033
+4100
+4103
+4104
+4616
+4624
+4625
+4634
+4647
+4648
+4649
+4656
+4661
+4662
+4663
+4672
+4673
+4674
+4688
+4689
+4692
+4697
+4698
+4699
+4702
+4706
+4719
+4720
+4723
+4724
+4728
+4729
+4732
+4738
+4741
+4742
+4743
+4765
+4768
+4769
+4771
+4776
+4778
+4779
+4781
+4794
+4800
+4825
+4904
+4905
+5001
+5010
+5012
+5038
+5136
+5140
+5142
+5145
+5156
+5379
+5805
+5857
+5859
+5860
+5861
+6004
+6005
+6006
+6008
+6038
+6281
+6416
+7023
+7031
+7034
+7036
+7040
+7045
+11724
+15457
+16403
+20001
+28115
+30803
+30804
+30806
+31010
+33205
+
+---FILE_END---
+---FILE_START---
+path: closing_messages.txt
+---CONTENT---
+知行合一 - Chi Kou Gou Itsu - Knowledge and action must be inseparable.
+初心忘るべからず - Shoshin Wasuru Bekarazu - Never forget the beginner's mind.
+無事是貴人 - Buji Kore Kinin - Once you free yourself from attachment and aversion, you will be truly a noble person.
+急がば回れ - Isogaba Maware - If you are in a hurry, take the long way.
+一瞬一瞬を大切に - Isshun Isshun O Taisetsu Ni - Treasure each moment.
+無念無想 - Munen Musou - No assumptions, no preconceptions.
+臨機応変 - Rin Ki Ou Hen - Adapt to the situation.
+日々是好日 - Nichinichi Kore Koujitsu - Everyday is a good day.
+風林火山 - Fuu Rin Ka Zan - Swift as the wind, silent as the forest, fierce as fire, immovable as a mountain.
+不動心 - Fudoushin - Immovable mind.
+守破離 - Shu Ha Ri - Follow, break, transcend.
+平常心是道 - Heijoushin Kore Dou - An ordinary mind is the way.
+水滴石穿 - Suiteki Sekisen - Dripping water wears through stone.
+塞翁が馬 - Saiou Ga Uma - Misfortune becomes a blessing.
+無我 - Muga - Collective effort outweigh individual accomplishment.
+柔よく剛を制す - Juu Yoku Gou O Seisu - Softness overcomes hardness.
+空即是色 - Kuu Soku Ze Shiki - Form is emptiness, emptiness is form.
+侘び寂び - Wabi Sabi - Beauty in imperfection and impermanence.
+見切り発車 - Mikiri Hassha - Starting a journey with no clear path.
+臨終行 - Rin Juu Gyou - Act as if it is your last task.
+知足 - Chisoku - Know when things are sufficient.
+漸進 - Zenshin - Gradual progress.
+不言実行 - Fugen Jikkou - Actions speak louder than words.
+無為自然 - Mui Shizen - Effortless and natural.
+一念通天 - Ichinen Tsuuten - Single-mindedness will take you to the heavens.
+臨戦態勢 - Rinsen Taisei - Always ready for battle.
+一事が万事 - Ichiji Ga Banji - One thing leads to everything.
+難行苦行 - Nangyou Kugyou - Arduous and rigorous practice.
+塞翁失馬 - Sai Ou Shitsu Ba - The old man lost his horse. (A blessing in disguise.)
+時来たり - Toki Kitari - The time has come.
+失敗は成功のもと - Shippai Wa Seikou No Moto - Failure is the root of success.
+天の時、地の利、人の和 - Ten No Toki, Chi No Ri, Hito No Wa - Heavenly timing, earthly advantage, personal harmony
+大器晩成 - Taiki Bansei - Great talents take time to mature.
+千里の道も一歩から - Senri No Michi Mo Ippo Kara - A journey of a thousand miles begins with a single step.
+残心 - Zanshin - Stay vigilant even after your task is complete.
+疾風勁草 - Shippuu Keisou - Strong grass withstands strong wind. 
+風流韻事 - Fuuryuu Injin - The art of refinement and elegance.
+知彼知己 - Chi Hi Chi Ki - Know thy enemy, know thyself.
+百聞は一見に如かず - Hyakubun Wa Ikken Ni Shikazu - Seeing once is better than hearing a hundred times.
+一難去ってまた一難 - Ichinan Satte Mata Ichinan - One difficulty after another.
+居安思危 - Kyo An Shi Ki - In times of peace, think of danger.
+苦あれば楽あり - Ku Areba Raku Ari - Positive outcomes come from enduring hardships.
+禍福は糾える縄の如し - Kafuku Wa Azanaeru Nawa No Gotoshi - Good and bad fortune are intertwined like a rope.
+頑張ってや〜 - Gambatte Ya~ - Do your best!
+笑う門には福来たる - Warau Kado Ni Wa Fuku Kitaru - Fortune comes to the house of those who laugh.
+一笑一若 - Isshou Ichijaku - One laugh, one youthful spirit.
+笑いは心の薬 - Warai Wa Kokoro No Kusuri - Laughter is medicine for the soul.
+苦は楽の種 - Ku Wa Raku No Tane - Suffering is the seed of joy.
+災い転じて福となす - Wazawai Tenjite Fuku To Nasu - Turn misfortune into fortune.
+困難に道あり - Konnan Ni Michi Ari - The obstacle is the way.
 ---FILE_END---
 ---FILE_START---
 path: eventkey_alias.txt
@@ -453,60 +2309,6 @@ WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
 Workstation,Event.EventData.Workstation
 WorkstationName,Event.EventData.WorkstationName
 
----FILE_END---
----FILE_START---
-path: noisy_rules.txt
----CONTENT---
-#Hayabusa rules
-0090ea60-f4a2-43a8-8657-3a9a4ddcf547 # Sysmon 6 Driver Loaded - Unknown Signature. It is not possible to list up all good signatures so will be many false positives.
-8b8db936-172e-4bb7-9f84-ccc954d51d93 # Sysmon 7 DLL Loaded - No Alerts
-1703ba97-b2c2-4071-a241-a16d017d25d3 # Sysmon 12 Registry Key Create/Delete
-9f5663ce-6205-4753-b486-fb8498d1fae5 # Sysmon 13 Registry Key Value Set
-3546ce10-19b4-4c4c-9658-f4f3b5d27ae9 # Sysmon 15 Registry Key Value Rename
-6dbed1df-f08a-47ab-9a58-999c0787d034 # RemoteConnectionManager_Op 261 RDS Connection
-320e2cb0-a56a-476f-a299-79dc45644fee # LocalSessionManager_Op 22 RDS Sess Start
-a5b3ebf0-141a-4264-b2ff-400c0d515fca # Security 4648 Explicit Logon (System Noise)
-b1782e40-d247-4de1-86d1-37392cb62e3b # Security 4624 Type 2 Interactive Logon (System Noise)
-0266af4f-8825-495e-959c-bff801094349 # Security 4624 Type 3 Network Logon (System Noise)
-84e5ff02-5f8f-48c4-a7e9-88aa1fb888f7 # Security 4624 Type 5 Service Logon (System Noise)
-84288799-8b61-4d98-bad0-4043c40cf992 # Security 4634 Logoff
----FILE_END---
----FILE_START---
-path: geoip_field_mapping.yaml
----CONTENT---
-SrcIP:
-  - '%IpAddress%'
-  - '%ClientAddress%'
-  - '%SourceAddress%'
-  - '%SourceIp%'
-  - '%UserDataAddress%'
-  - '%UserDataParam3%'
-
-TgtIP:
-  - '%DestinationIp%'
-  - '%DestAddress%'
-
-Filter:
-  - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational:
-    - 21 # RDS Sess Logon %UserDataAddress%
-    - 22 # RDS Sess Start (Noisy) %UserDataAddress%
-    - 24 # RDS Sess Disconnect %UserDataAddress%
-  - Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational:
-    - 1149 # RDS Logon %UserDataParam3%
-  - Security:
-    - 4624 # Logon Success %IpAddress%
-    - 4625 # Logon Failure %IpAddress%
-    - 4648 # Explicit Logon %IpAddress%
-    - 4768 # Kerberos TGT Requested %IpAddress%
-    - 4769 # Kerberos Service Ticket Requested %IpAddress%
-    - 4778 # RDP Session Reconnect %ClientAddress%
-    - 4779 # RDP Session Disconnect %ClientAddress%
-    - 4825 # RDP Logon Failed %ClientAddress%
-    - 5140 # A network share object was accessed %IpAddress%
-    - 5145 # NetShare File Access %IpAddress%
-    - 5156 # The Windows Filtering Platform has allowed a connection %SourceAddress%
-  - Microsoft-Windows-Sysmon/Operational: 
-    - 3 # Network Connection %SourceIp%
 ---FILE_END---
 ---FILE_START---
 path: proven_rules.txt
@@ -1791,251 +3593,6 @@ ffd622af-d049-449f-af5a-0492fdcc3a58
 
 ---FILE_END---
 ---FILE_START---
-path: windash_characters.txt
----CONTENT---
-/ # forward slash (0x002F)
-- # hyphen (0x002D)
-– # en dash (0x2013)
-— # em dash (0x2014)
-― # horizontal bar (0x2015)
----FILE_END---
----FILE_START---
-path: level_tuning.txt
----CONTENT---
-id,new_level
-33c276a1-2475-2f1f-aa3d-ec5d61dbe94c,informational # 'Application Uninstalled' - Originally low.
-b6ce0b2f-593b-5e1c-e137-d30b2974e30e,high # 'Suspicious Double Extension File Execution' - Sysmon 1 - Originally critical
-452b2159-5e6e-c494-63b9-b385d6195f58,high # 'Suspicious Double Extension File Execution' - Security 4688 - Originally critical
-51ba8477-86a4-6ff0-35fa-7b7f1b1e3f83,high # 'CobaltStrike Service Installations - System' - System 7045 - Originally critical
-daad2203-665f-294c-6d2f-f9272c3214f2,critical # 'Mimikatz DC Sync' - Security 4662 - Originally high
-8b061ac2-31c7-659d-aa1b-36ceed1b03f1,high # 'HackTool - Rubeus Execution' - Sysmon 1 - Originally critical
-be670d5c-31eb-7391-4d2e-d122c89cd5bb,high # 'HackTool - Rubeus Execution' - Security 4688 - Originally critical
----FILE_END---
----FILE_START---
-path: channel_abbreviations.txt
----CONTENT---
-Channel,Abbreviation
-Application,App
-DNS Server,DNS-Svr
-Key Management Service,KeyMgtSvc
-Microsoft-ServiceBus-Client,SvcBusCli
-Microsoft-Windows-CodeIntegrity/Operational,CodeInteg
-Microsoft-Windows-LDAP-Client/Debug,LDAP-Cli
-Microsoft-Windows-AppLocker/MSI and Script,AppLocker
-Microsoft-Windows-AppLocker/EXE and DLL,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Deployment,AppLocker
-Microsoft-Windows-AppLocker/Packaged app-Execution,AppLocker
-Microsoft-Windows-Bits-Client/Operational,BitsCli
-Microsoft-Windows-DHCP-Server/Operational,DHCP-Svr
-Microsoft-Windows-DriverFrameworks-UserMode/Operational,DvrFmwk
-Microsoft-Windows-NTLM/Operational,NTLM
-Microsoft-Windows-Security-Mitigations/KernelMode,SecMitig
-Microsoft-Windows-Security-Mitigations/UserMode,SecMitig
-Microsoft-Windows-SmbClient/Security,SmbCliSec
-Microsoft-Windows-Sysmon/Operational,Sysmon
-Microsoft-Windows-TaskScheduler/Operational,TaskSch
-Microsoft-Windows-TerminalServices-RDPClient/Operational,RDP-Cli
-Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational,RDP-CoreTS
-Microsoft-Windows-PrintService/Admin,PrintAdm
-Microsoft-Windows-PrintService/Operational,PrintOp
-Microsoft-Windows-PowerShell/Operational,PwSh
-Microsoft-Windows-Windows Defender/Operational,Defender
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,Firewall
-Microsoft-Windows-WinRM/Operational,WinRM
-Microsoft-Windows-WMI-Activity/Operational,WMI
-MSExchange Management,Exchange
-OpenSSH/Operational,OpenSSH
-Security,Sec
-System,Sys
-Windows PowerShell,PwShClassic
-Microsoft-Windows-Winsock-WS2HELP/Operational,Winsock-WS2HTLP
-Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant,ProgCompatAssist
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-Forwarding/Operational,Forwarding
-Microsoft-Windows-GroupPolicy/Operational,GroupPolicy
-Microsoft-Windows-User Profile Service/Operational,UserProfileSvc
-Microsoft-Windows-WindowsSystemAssessmentTool/Operational,WinSysAssessmentTool
-Microsoft-Windows-Resource-Exhaustion-Detector/Operational,RescourceExhaustionDetector
-Microsoft-Windows-Kernel-WHEA/Operational,KernelWHEA
-Microsoft-Windows-TerminalServices-Gateway/Operational,RDS-GTW
-Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,RDS-RCM
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,RDS-LSM
-PowerShellCore,PwShCore
-
----FILE_END---
----FILE_START---
-path: target_event_IDs.txt
----CONTENT---
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-50
-56
-59
-70
-98
-99
-104
-106
-129
-140
-141
-150
-191
-200
-216
-255
-300
-301
-302
-325
-326
-327
-354
-400
-524
-534
-567
-770
-771
-823
-848
-849
-854
-1013
-1024
-1034
-1040
-1042
-1102
-1116
-1149
-1511
-2002
-2003
-2004
-2005
-2006
-2008
-2100
-2102
-3001
-3002
-3007
-3033
-4100
-4103
-4104
-4616
-4624
-4625
-4634
-4647
-4648
-4649
-4656
-4661
-4662
-4663
-4672
-4673
-4674
-4688
-4689
-4692
-4697
-4698
-4699
-4702
-4706
-4719
-4720
-4723
-4724
-4728
-4729
-4732
-4738
-4741
-4742
-4743
-4765
-4768
-4769
-4771
-4776
-4778
-4779
-4781
-4794
-4800
-4825
-4904
-4905
-5001
-5010
-5012
-5038
-5136
-5140
-5142
-5145
-5156
-5379
-5805
-5857
-5859
-5860
-5861
-6004
-6005
-6006
-6008
-6038
-6281
-6416
-7023
-7031
-7034
-7036
-7040
-7045
-11724
-15457
-16403
-20001
-28115
-30803
-30804
-30806
-31010
-33205
-
----FILE_END---
----FILE_START---
 path: exclude_rules.txt
 ---CONTENT---
 # Replaced by Hayabusa rules:
@@ -2082,1579 +3639,22 @@ a4504cb2-23f6-6d94-5ae6-d6013cf1d995 # Suspicious Multiple File Rename Or Delete
 00000000-0000-0000-0000-000000000000 # TestFile
 ---FILE_END---
 ---FILE_START---
-path: channel_eid_info.txt
+path: pivot_keywords.txt
 ---CONTENT---
-Channel,EventID,EventTitle
-Microsoft-Windows-Sysmon/Operational,1,Process Creation
-Microsoft-Windows-Sysmon/Operational,2,File Creation Timestamp Changed (Possible Timestomping)
-Microsoft-Windows-Sysmon/Operational,3,Network Connection
-Microsoft-Windows-Sysmon/Operational,4,Sysmon Service State Changed
-Microsoft-Windows-Sysmon/Operational,5,Process Terminated
-Microsoft-Windows-Sysmon/Operational,6,Driver Loaded
-Microsoft-Windows-Sysmon/Operational,7,Image Loaded
-Microsoft-Windows-Sysmon/Operational,8,Remote Thread Created (Possible Code Injection)
-Microsoft-Windows-Sysmon/Operational,9,Raw Access Read
-Microsoft-Windows-Sysmon/Operational,10,Process Access
-Microsoft-Windows-Sysmon/Operational,11,File Creation or Overwrite
-Microsoft-Windows-Sysmon/Operational,12,Registry Object Created/Deletion
-Microsoft-Windows-Sysmon/Operational,13,Registry Value Set
-Microsoft-Windows-Sysmon/Operational,14,Registry Key or Value Rename
-Microsoft-Windows-Sysmon/Operational,15,Alternate Data Stream Created
-Microsoft-Windows-Sysmon/Operational,16,Sysmon Service Configuration Changed
-Microsoft-Windows-Sysmon/Operational,17,Named Pipe Created
-Microsoft-Windows-Sysmon/Operational,18,Named Pipe Connection
-Microsoft-Windows-Sysmon/Operational,19,WmiEventFilter Activity
-Microsoft-Windows-Sysmon/Operational,20,WmiEventConsumer Activity
-Microsoft-Windows-Sysmon/Operational,21,WmiEventConsumerToFilter Activity
-Microsoft-Windows-Sysmon/Operational,22,DNS Query
-Microsoft-Windows-Sysmon/Operational,23,Deleted File Archived
-Microsoft-Windows-Sysmon/Operational,24,Clipboard Changed
-Microsoft-Windows-Sysmon/Operational,25,Process Tampering (Possible Process Hollowing or Herpaderping)
-Microsoft-Windows-Sysmon/Operational,26,File Deleted
-Microsoft-Windows-Sysmon/Operational,27,Executable File Write Blocked
-Microsoft-Windows-Sysmon/Operational,255,Sysmon Error
-Microsoft-Windows-PowerShell/Operational,4103,Module logging - Executing Pipeline
-Microsoft-Windows-PowerShell/Operational,4104,Script Block Logging
-Microsoft-Windows-PowerShell/Operational,4105,CommandStart started
-Microsoft-Windows-PowerShell/Operational,4106,CommandStart stopped
-Security,1100,Event logging service shutdown
-Security,1101,Audit events dropped by transport
-Security,1102,Audit log cleared
-Security,1104,Security log is full
-Security,1105,Event log automatic backup
-Security,1108,Event logging service error
-Security,4608,Windows startup
-Security,4609,Windows shutdown
-Security,4610,LSA loaded an authentication package
-Security,4611,A trusted logon process has been registered with the Local Security Authority
-Security,4612,Audit message queuing resoures exhausted (Possible loss of logs)
-Security,4614,LSA loaded notification package
-Security,4615,Invalid use of LPC port
-Security,4616,System time changed
-Security,4618,A monitored security event pattern has occurred
-Security,4621,Administrator recovered system from CrashOnAuditFail
-Security,4622,LSA loaded security package
-Security,4624,Logon success
-Security,4625,Logon failure
-Security,4634,Account logoff
-Security,4646,IKE DoS-prevention mode started
-Security,4647,User initiated logoff
-Security,4648,Explicit logon
-Security,4649,Replay attack was detected
-Security,4650,An IPsec Main Mode security association was established
-Security,4651,An IPsec Main Mode security association was established
-Security,4652,An IPsec Main Mode negotiation failed
-Security,4653,An IPsec Main Mode negotiation failed
-Security,4654,An IPsec Quick Mode negotiation failed
-Security,4655,An IPsec Main Mode security association ended
-Security,4656,Object handle requested
-Security,4657,Registry value modified
-Security,4658,Object handle closed
-Security,4659,Object handle requested with intent to delete
-Security,4660,Object deleted
-Security,4661,Object handle requested
-Security,4662,Object operation performed
-Security,4663,Object access attempt
-Security,4664,Hard link creation attempt
-Security,4665,Application client context creation attempt
-Security,4666,Application attempted an operation
-Security,4667,Application client context deleted
-Security,4668,Application initialized
-Security,4670,Object permissions changed
-Security,4671,Application attempted to access a blocked ordinal through the TBS
-Security,4672,Admin logon
-Security,4673,Privileged service called
-Security,4674,Privileged object operation attempt
-Security,4675,SIDs filtered
-Security,4685,Transaction state changed
-Security,4688,Process created
-Security,4689,Process exited
-Security,4690,Object handle duplication attempt
-Security,4691,Indirect access request to object
-Security,4692,Backup of data protection master key attempt
-Security,4693,Recovery of data protection master key attempt
-Security,4694,Protection of auditable protected data attempt
-Security,4695,Unprotection of auditable protected data attempt
-Security,4696,Primary token assigned to process
-Security,4697,Service installed
-Security,4698,Scheduled task created
-Security,4699,Scheduled task deleted
-Security,4700,Scheduled task enabled
-Security,4701,Scheduled task disabled
-Security,4702,Scheduled task updated
-Security,4704,User right assigned
-Security,4705,User right removed
-Security,4706,New trust created to a domain
-Security,4707,Domain trust removed
-Security,4709,IPsec services started
-Security,4710,IPsec services disabled
-Security,4711,PAStore Engine
-Security,4712,IPsec services encountered a potentially serious failure
-Security,4713,Kerberos policy changed
-Security,4714,Encrypted data recovery policy changed
-Security,4715,Object audit policy (SACL) changed
-Security,4716,Trusted domain information modified
-Security,4717,System security access granted to an account
-Security,4718,System security access removed from an account
-Security,4719,System audit policy changed
-Security,4720,User account created
-Security,4722,User account enabled
-Security,4723,Account password change attempt
-Security,4724,Account password reset attempt
-Security,4725,User account disabled
-Security,4726,User account deleted
-Security,4727,Security-enabled global group created
-Security,4728,Member added to security-enabled global group
-Security,4729,Member removed from security-enabled global group
-Security,4730,Security-enabled global group deleted
-Security,4731,Security-enabled local group created
-Security,4732,Member added to security-enabled local group
-Security,4733,Member removed from security-enabled local group
-Security,4734,Security-enabled local group deleted
-Security,4735,Security-enabled local group changed
-Security,4737,Security-enabled global group changed
-Security,4738,User account changed
-Security,4739,Domain policy changed
-Security,4740,User account locked out
-Security,4741,Computer account created
-Security,4742,Computer account changed
-Security,4743,Computer account deleted
-Security,4744,Security-disabled local group created
-Security,4745,Security-disabled local group changed
-Security,4746,Member added to security-disabled local group
-Security,4747,Member removed from security-disabled local group
-Security,4748,Security-disabled local group deleted
-Security,4749,Security-disabled global group created
-Security,4750,Security-disabled global group changed
-Security,4751,Member added to security-disabled global group
-Security,4752,Member removed from security-disabled global group
-Security,4753,Security-disabled global group deleted
-Security,4754,Security-enabled universal group created
-Security,4755,Security-enabled universal group changed
-Security,4756,Member added to security-enabled universal group
-Security,4757,Member removed from security-enabled universal group
-Security,4758,Security-enabled universal group deleted
-Security,4759,Security-disabled universal group created
-Security,4760,Security-disabled universal group changed
-Security,4761,Member added to security-disabled universal group
-Security,4762,Member removed from security-disabled universal group
-Security,4763,Security-disabled universal group deleted
-Security,4764,Group type changed
-Security,4765,SID history added to account
-Security,4766,Attempt to add SID history to account failed
-Security,4767,User account unlocked
-Security,4768,Kerberos authentication ticket (TGT) requested
-Security,4769,Kerberos service ticket requested
-Security,4770,Kerberos service ticket renewed
-Security,4771,Kerberos pre-authentication failed
-Security,4772,Kerberos authentication ticket request failed
-Security,4773,Kerberos service ticket request failed
-Security,4774,Account mapped for logon
-Security,4775,Account could not be mapped for logon
-Security,4776,DC attempted to validate account credentials
-Security,4777,DC failed to validate account credentials
-Security,4778,Window station session reconnected
-Security,4779,Window station session disconnected
-Security,4780,Administrators group account's ACL set
-Security,4781,Account name changed
-Security,4782,Account password hash accessed
-Security,4783,Basic application group created
-Security,4784,Basic application group changed
-Security,4785,Member added to basic application group
-Security,4786,Member removed from basic application group
-Security,4787,Non-member added to basic application group
-Security,4788,Non-member removed from basic application group
-Security,4789,Basic application group deleted
-Security,4790,LDAP query group created
-Security,4791,Basic application group changed
-Security,4792,LDAP query group deleted
-Security,4793,Password policy checking API called
-Security,4794,Directory Services Restore Mode administrator password set attempt
-Security,4800,Computer locked
-Security,4801,Computer unlocked
-Security,4802,Screen saver started
-Security,4803,Screen saver stopped
-Security,4816,RPC integrity violation when decrypting an incoming message
-Security,4817,Object auditing settings changed
-Security,4825,RDP logon failed
-Security,4864,Namespace collision detected
-Security,4865,Trusted forest information entry added
-Security,4866,Trusted forest information entry removed
-Security,4867,Trusted forest information entry modified
-Security,4868,Certificate manager denied pending certificate request
-Security,4869,Certificate Services received resubmitted certificate request
-Security,4870,Certificate Services revoked certificate
-Security,4871,Certificate Services received request to publish CRL
-Security,4872,Certificate Services published CRL
-Security,4873,Certificate request extension changed
-Security,4874,One or more certificate request attributes changed
-Security,4875,Certificate Services received shutdown request
-Security,4876,Certificate Services backup started
-Security,4877,Certificate Services backup completed
-Security,4878,Certificate Services restore started
-Security,4879,Certificate Services restore completed
-Security,4880,Certificate Services started
-Security,4881,Certificate Services stopped
-Security,4882,Certificate Services security permissions changed
-Security,4883,Certificate Services retrieved archived key
-Security,4884,Certificate Services imported certificate into its database
-Security,4885,Certificate Services audit filter changed
-Security,4886,Certificate Services received certificate request
-Security,4887,Certificate Services approved certificate request and issued certificate
-Security,4888,Certificate Services denied certificate request
-Security,4889,Certificate Services set status of certificate request to pending
-Security,4890,Certificate Services certificate manager settings changed
-Security,4891,Certificate Services configuration entry changed
-Security,4892,Certificate Services property changed
-Security,4893,Certificate Services archived a key
-Security,4894,Certificate Services imported and archived a key
-Security,4895,Certificate Services published CA certificate to AD
-Security,4896,One or more rows have been deleted from the certificate DB
-Security,4897,Role separation enabled
-Security,4898,Certificate Services loaded a template
-Security,4899,Certificate Services template updated
-Security,4900,Certificate Services template security updated
-Security,4902,Per-user audit policy table created
-Security,4904,Attempt to register security event source
-Security,4905,Attempt to unregister security event source
-Security,4906,CrashOnAuditFail value changed
-Security,4907,Auditing settings on object changed
-Security,4908,Special groups logon table modified
-Security,4909,Local policy settings for TBS changed
-Security,4910,Group policy settings for TBS changed
-Security,4912,Per user audit policy changed
-Security,4928,AD replica source naming context established
-Security,4929,AD replica source naming context removed
-Security,4930,AD replica source naming context modified
-Security,4931,AD replica destination naming context modified
-Security,4932,Synchronization of an AD naming context replica has started
-Security,4933,Synchronization of an AD naming context replica has ended
-Security,4934,AD object attributes were replicated
-Security,4935,Replication failure begins
-Security,4936,Replication failure ends
-Security,4937,A lingering object was removed from a replica
-Security,4944,Active policy when firewall started
-Security,4945,Rule listed when firewall started
-Security,4946,Rule added to firewall exception list
-Security,4947,Rule modified in firewall exception list
-Security,4948,Rule deleted from firewall exception list
-Security,4949,Firewall settings restored to default values
-Security,4950,Firewall setting changed
-Security,4951,Firewall rule ignored because major version number was not recognized
-Security,4952,Parts of a firewall rule ignored because its minor version number was not recognized
-Security,4953,Firewall rule could not be parsed
-Security,4954,Firewall Group Policy settings changed New settings applied
-Security,4956,Firewall changed active profile
-Security,4957,Firewall did not apply rule
-Security,4958,Firewall did not apply rule because it referred to items not configured on this computer
-Security,4960,IPsec dropped inbound packet Integrity check failed
-Security,4961,IPsec dropped inbound packet Replay check failed
-Security,4962,IPsec dropped inbound packet Replay check failed
-Security,4963,IPsec dropped inbound cleartext packet that should have been secured
-Security,4964,Special groups assigned to new logon
-Security,4965,IPsec received packet from remote computer with an incorrect SPI
-Security,4976,IPsec received invalid negotiation packet during Main Mode negotiation
-Security,4977,IPsec received invalid negotiation packet during Quick Mode negotiation
-Security,4978,IPsec received invalid negotiation packet during Extended Mode negotiation
-Security,4979,IPsec Main Mode and Extended Mode SAs established
-Security,4980,IPsec Main Mode and Extended Mode SAs established
-Security,4981,IPsec Main Mode and Extended Mode SAs established
-Security,4982,IPsec Main Mode and Extended Mode SAs established
-Security,4983,IPsec Extended Mode negotiation failed
-Security,4984,IPsec Extended Mode negotiation failed
-Security,4985,State of transaction changed
-Security,5024,Firewall service started
-Security,5025,Firewall service stopped
-Security,5027,Firewall service unable to retrieve security policy from local storage
-Security,5028,Firewall service unable to parse new security policy
-Security,5029,Firewall service failed to initialize driver
-Security,5030,Firewall service failed to start
-Security,5031,Firewall service blocked application from accepting incoming connections
-Security,5032,Firewall unable to notify user that it blocked an application from accepting incoming connections
-Security,5033,Firewall driver started
-Security,5034,Firewall driver stopped
-Security,5035,Firewall driver failed to start
-Security,5037,Firewall driver critical runtime error
-Security,5038,Code Integrity invalid file hash
-Security,5039,Registry key virtualized
-Security,5040,IPsec settings changed Authentication Set added
-Security,5041,IPsec settings changed Authentication Set modified
-Security,5042,IPsec settings changed Authentication Set deleted
-Security,5043,IPsec settings changed Connection Security Rule added
-Security,5044,IPsec settings changed Connection Security Rule modified
-Security,5045,IPsec settings changed Connection Security Rule deleted
-Security,5046,IPsec settings changed Crypto Set added
-Security,5047,IPsec settings changed Crypto Set modified
-Security,5048,IPsec settings changed Crypto Set deleted
-Security,5049,IPsec SA deleted
-Security,5050,Attempt to disable firewall using call to INetFwProfile
-Security,5051,A file was virtualized
-Security,5056,A cryptographic self test was performed
-Security,5057,A cryptographic primitive operation failed
-Security,5058,Key file operation
-Security,5059,Key migration operation
-Security,5060,Verification operation failed
-Security,5061,Cryptographic operation
-Security,5062,kernel-mode cryptographic self test performed
-Security,5063,Cryptographic provider operation attempted
-Security,5064,Cryptographic context operation attempted
-Security,5065,Cryptographic context modification attempted
-Security,5066,Cryptographic function operation attempted
-Security,5067,Cryptographic function modification attempted
-Security,5068,Cryptographic function provider operation attempted
-Security,5069,Cryptographic function property operation attempted
-Security,5070,Cryptographic function property operation attempted
-Security,5120,OCSP responder service started
-Security,5121,OCSP responder service stopped
-Security,5122,Configuration entry changed in the OCSP responder service
-Security,5123,Configuration entry changed in the OCSP responder service
-Security,5124,Security setting updated on OCSP responder service
-Security,5125,Request submitted to OCSP responder service
-Security,5126,Signing certificate automatically updated by OCSP responder service
-Security,5127,OCSP revocation provider updated revocation information
-Security,5136,Directory service object modified
-Security,5137,Directory service object created
-Security,5138,Directory service object undeleted
-Security,5139,Directory service object moved
-Security,5140,Network share object accessed
-Security,5141,Directory service object deleted
-Security,5142,Network share object added
-Security,5143,Network share object modified
-Security,5144,Network share object deleted
-Security,5145,Network share object checked for client access
-Security,5148,Firewall has detected a DoS attack and entered a defensive mode; packets associated with this attack will be discarded
-Security,5149,DoS attack subsided and normal processing resumed
-Security,5150,Firewall blocked a packet
-Security,5151,A more restrictive firewall filter blocked a packet
-Security,5152,Firewall blocked a packet
-Security,5153,A more restrictive firewall filter blocked a packet
-Security,5154,Firewall permitted an application to listen for incoming connections
-Security,5155,Firewall blocked an application from listening for incoming connections
-Security,5156,Firewall allowed a connection
-Security,5157,Firewall blocked a connection
-Security,5158,Firewall permitted local port binding
-Security,5159,Firewall blocked local port binding
-Security,5168,SPN check for SMB/SMB2 failed
-Security,5376,Credential Manager credentials backup
-Security,5377,Credential Manager credentials restore from backup
-Security,5378,Requested credentials delegation disallowed by policy
-Security,5440,Callout present when firewall base filtering engine started
-Security,5441,Filter present when firewall base filtering engine started
-Security,5442,Provider present when firewall base filtering engine started
-Security,5443,Provider context present when firewall base filtering engine started
-Security,5444,Sub-layer present when firewall base filtering engine started
-Security,5446,Firewall callout changed
-Security,5447,Firewall filter changed
-Security,5448,Firewall provider changed
-Security,5449,Firewall provider context changed
-Security,5450,Firewall sub-layer changed
-Security,5451,IPsec quick mode SA established
-Security,5452, IPsec quick mode SA ended
-Security,5453,IPsec negotiation failed because IKEEXT service is not started
-Security,5456,PAStore engine applied AD storage IPsec policy
-Security,5457,PAStore engine failed to apply AD storage IPsec policy
-Security,5458,PAStore engine applied locally cached copy of AD storage IPsec policy
-Security,5459,PAStore engine failed to apply locally cached copy of AD storage IPsec policy
-Security,5460,PAStore engine applied local registry storage IPsec policy
-Security,5461,PAStore engine failed to apply local registry storage IPsec policy
-Security,5462,PAStore engine failed to apply some rules of the active IPsec policy
-Security,5463,PAStore engine polled for changes to the active IPsec policy and detected no changes
-Security,5464,"PAStore engine polled for changes to the active IPsec policy, detected changes, and applied them to IPsec Services"
-Security,5465,PAStore engine received a control for forced reloading of IPsec policy and processed the control
-Security,5466,"PAStore engine polled for changes to the AD IPsec policy, determined that AD cannot be reached, and will use the cached copy of the AD IPsec policy instead"
-Security,5467,"PAStore engine polled for changes to the AD IPsec policy, determined that AD can be reached, and found no changes to the policy"
-Security,5468,"PAStore engine polled for changes to the AD IPsec policy, determined that AD can be reached, found changes to the policy, and applied those changes"
-Security,5471,PAStore engine loaded local storage IPsec policy
-Security,5472,PAStore engine failed to load local storage IPsec policy
-Security,5473,PAStore engine loaded directory storage IPsec policy
-Security,5474,PAStore engine failed to load directory storage IPsec policy
-Security,5477,PAStore engine failed to add quick mode filter
-Security,5478,IPsec services started
-Security,5479,IPsec services shutdown
-Security,5480,IPsec services failed to get the complete list of network interfaces
-Security,5483,IPsec services failed to initialize RPC server and could not be started
-Security,5484,IPsec services shut down due to critical failure
-Security,5485,IPsec services failed to process some IPsec filters on a PnP event for network interfaces
-Security,6144,Security policy GPO applied
-Security,6145,One or more errors occured while processing security policy GPO
-Security,6272,Network Policy Server granted user access
-Security,6273,Network Policy Server denied user access
-Security,6274,Network Policy Server discarded user request
-Security,6275,Network Policy Server discarded user accounting request
-Security,6276,Network Policy Server quarantined a user
-Security,6277,Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy
-Security,6278,Network Policy Server granted full access to a user because the host met the defined health policy
-Security,6279,Network Policy Server locked the user account due to repeated failed authentication attempts
-Security,6280,Network Policy Server unlocked user account
-Security,6281,Code Integrity determined that the page hashes of an image file are not valid 
-Security,6400,BranchCache: Received an incorrectly formatted response while discovering availability of content
-Security,6401,BranchCache: Received invalid data from a peer Data discarded
-Security,6402,BranchCache: The message to the hosted cache offering it data is incorrectly formatted
-Security,6403,BranchCache: The hosted cache sent an incorrectly formatted response to the client
-Security,6404,BranchCache: Hosted cache could not be authenticated using the provisioned SSL certificate
-Security,6405,BranchCache: %2 instance(s) of event id %1 occurred
-Security,6406,%1 registered to firewall to control filtering for the following: %2
-Security,6407,No info
-Security,6408,Registered product %1 failed and firewall is now controlling the filtering for %2
-Security,6410,Code integrity determined that a file does not meet the security requirements to load into a process
-System,1001,BSOD
-System,104,Event log cleared
-System,1127,Group Policy generic internal error
-System,1129,Group Policy application failed due to connectivity
-System,1125,Group Policy internal error
-System,27,KDC encryption type configuration
-System,16,Kerberos key integrity
-System,6,New kernel filter driver
-System,1022,New MSI file installed
-System,1033,New MSI file installed
-System,7045,New windows service
-System,7023,Service terminated
-System,7035,The %1 service was successfully sent a %2 control
-System,7036,The service entered the running/stopped state
-System,7030,"The service is marked as an interactive service but the system is configured to not allow interactive services"
-System,7040,Service start type changed
-System,7022,Windows service fail or crash
-System,7023,Windows service fail or crash
-System,7024,Windows service fail or crash
-System,7026,Windows service fail or crash
-System,7031,Windows service fail or crash
-System,7032,Windows service fail or crash
-System,7034,Windows service fail or crash
-System,19,Windows Update Installed
-Microsoft-Windows-WinRM/Operational,6,Creating WSMan session on client
-Microsoft-Windows-WinRM/Operational,169,Creating WSMan session on server
-Microsoft-Windows-WinRM/Operational,81,Processing client request for operation CreateShell
-Microsoft-Windows-WinRM/Operational,82,Entering the plugin for operation CreateShell with a ResourceURI
-Microsoft-Windows-WinRM/Operational,134,Sending response for operation CreateShell
-Microsoft-Windows-AppLocker/EXE and DLL,8003,AppLocker block error
-Microsoft-Windows-AppLocker/EXE and DLL,8004,AppLocker block warning
-Microsoft-Windows-AppLocker/MSI and Script,8005,AppLocker permitted the execution of a PowerShell script
-Microsoft-Windows-AppLocker/MSI and Script,8006,AppLocker warning error
-Microsoft-Windows-AppLocker/MSI and Script,8007,AppLocker warning
-Microsoft-Windows-WindowsUpdateClient/Operational,20,Windows update failed
-Microsoft-Windows-WindowsUpdateClient/Operational,24,Windows update failed
-Microsoft-Windows-WindowsUpdateClient/Operational,25,Windows update failed
-Microsoft-Windows-WindowsUpdateClient/Operational,31,Windows update failed
-Microsoft-Windows-WindowsUpdateClient/Operational,34,Windows update failed
-Microsoft-Windows-WindowsUpdateClient/Operational,35,Windows update failed
-Setup,1009,Hotpatching failed
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2004,Firewall rule add
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2005,Firewall rule change
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2006,Firewall rule deleted
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2033,Firewall rule deleted
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall,2009,Firewall failed to load Group Policy
-Microsoft-Windows-Application-Experience/Program-Inventory,903,New application installed
-Microsoft-Windows-Application-Experience/Program-Inventory,904,New application installed
-Microsoft-Windows-Application-Experience/Program-Inventory,905,Updated application
-Microsoft-Windows-Application-Experience/Program-Inventory,906,Updated application
-Microsoft-Windows-Application-Experience/Program-Inventory,907,Removed application
-Microsoft-Windows-Application-Experience/Program-Inventory,908,Removed application
-Microsoft-Windows-Application-Experience/Program-Inventory,800,Summary of software activities
-Setup,2,Update packages installed
-Microsoft-Windows-CodeIntegrity/Operational,3001,Code Integrity check warning
-Microsoft-Windows-CodeIntegrity/Operational,3002,Code Integrity check warning
-Microsoft-Windows-CodeIntegrity/Operational,3003,Code Integrity check warning
-Microsoft-Windows-CodeIntegrity/Operational,3004,Code Integrity check warning
-Microsoft-Windows-CodeIntegrity/Operational,3010,Code Integrity check warning
-Microsoft-Windows-CodeIntegrity/Operational,3023,Code Integrity check warning
-Microsoft-Windows-Windows Defender/Operational,1005,Scan failed
-Microsoft-Windows-Windows Defender/Operational,1006,Detected malware
-Microsoft-Windows-Windows Defender/Operational,1008,Action on malware failed
-Microsoft-Windows-Windows Defender/Operational,1010,Failed to remove item from quarantine
-Microsoft-Windows-Windows Defender/Operational,2001,Failed to update signatures
-Microsoft-Windows-Windows Defender/Operational,2003,Failed to update engine
-Microsoft-Windows-Windows Defender/Operational,2004,Reverting to last known good set of signatures
-Microsoft-Windows-Windows Defender/Operational,3002,Real-time protection failed
-Microsoft-Windows-Windows Defender/Operational,5008,Unexpected error
-Microsoft-Windows-NetworkProfile/Operational,10000,Network connection and disconnection status
-Microsoft-Windows-NetworkProfile/Operational,10001,Network connection and disconnection status
-Microsoft-Windows-WLAN-AutoConfig/Operational,8000,Starting wireless connection
-Microsoft-Windows-WLAN-AutoConfig/Operational,8011,Starting wireless connection
-Microsoft-Windows-WLAN-AutoConfig/Operational,8001,Successful wireless connection
-Microsoft-Windows-WLAN-AutoConfig/Operational,8003,Disconnected from wireless connection
-Microsoft-Windows-WLAN-AutoConfig/Operational,11000,Wireless asociation status
-Microsoft-Windows-WLAN-AutoConfig/Operational,11001,Wireless association status
-Microsoft-Windows-WLAN-AutoConfig/Operational,11002,Wireless association status
-Microsoft-Windows-WLAN-AutoConfig/Operational,11004,"Wireless security started, stopped, successful, or failed"
-Microsoft-Windows-WLAN-AutoConfig/Operational,11005,"Wireless security started, stopped, successful, or failed"
-Microsoft-Windows-WLAN-AutoConfig/Operational,11010,"Wireless security started, stopped, successful, or failed"
-Microsoft-Windows-WLAN-AutoConfig/Operational,11006,"Wireless security started, stopped, successful, or failed"
-Microsoft-Windows-WLAN-AutoConfig/Operational,8002,Wireless connection failed
-Microsoft-Windows-WLAN-AutoConfig/Operational,12011,Wireless authentication started and failed
-Microsoft-Windows-WLAN-AutoConfig/Operational,12012,Wireless authentication started and failed
-Microsoft-Windows-WLAN-AutoConfig/Operational,12013,Wireless authentication started and failed
-Microsfot-Windows-USB-USBHUB3-Analytic,43,New device information
-Microsoft-Windows-Kernel-PnP/Device Configuration,400,New mass storage installed
-Microsoft-Windows-Kernel-PnP/Device Configuration,410,New mass storage installed
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,21,Shell start notification received
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,23,Session logoff
-Microsoft-Windows-TerminalServices-LocalSessionManager/Operational,24,Session disconnected
-Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational,1149,User authentication
-Microsoft-Windows-TaskScheduler/Operational,106,Task scheduled
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4674_ObjectAccessAttempt.yaml
----CONTENT---
-Title: 'Object Access Attempt'
-Channel: Security
-EventID: 4674
-RewriteFieldData:
-    AccessMask:
-        - '%%1537': 'DELETE'
-        - '%%1538': 'READ_CONTROL'
-        - '%%1539': 'WRITE_DAC'
-        - '%%1540': 'WRITE_OWNER'
-        - '%%1541': 'SYNCHRONIZE'
-        - '%%1542': 'ACCESS_SYS_SEC'
-        - '%%4416': 'READ_DATA'
-        - '%%4417': 'WRITE_DATA'
-        - '%%4418': 'APPEND_DATA'
-        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
-        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
-        - '%%4421': 'EXECUTE/TRAVERSE'
-        - '%%4422': 'DELETE_CHILD'
-        - '%%4423': 'READ_ATTRIBUTES'
-        - '%%4424': 'WRITE_ATTRIBUTES'
-        - '%%4432': 'QUERY_KEY_VALUE'
-        - '%%4433': 'SET_KEY_VALUE'
-        - '%%4434': 'CREATE_SUBKEY'
-        - '%%4435': 'ENUMERATE_SUBKEYS'
-        - '%%4436': 'KEY_CHANGES_NOTIFICATION'
-        - '%%4437': 'CREATE_LINK'
-        - '%%7168': 'CONNECT_TO_SERVICE_CONTROLLER'
-        - '%%7169': 'CREATE_NEW_SERVICE'
-        - '%%7170': 'ENUM_SERVICES'
-        - '%%7171': 'LOCK_SERVICE_DB_FOR_EXCLUSIVE_ACCESS'
-        - '%%7172': 'QUERY_SERVICE_DB_LOCK_STATE'
-        - '%%7173': 'SET_LAST_KNOWN_GOOD_STATE_OF_SERVICE_DB'
-        - '%%7184': 'SeImpersonatePrivilege'
-        - '%%7185': 'SeCreateGlobalPrivilege'
-        - '%%7186': 'SeTrustedCredManAccessPrivilege'
-        - '%%7187': 'SeRelabelPrivilege'
-        - '%%7188': 'SeIncreaseWorkingSetPrivilege'
-        - '%%7189': 'SeTimeZonePrivilege'
-        - '%%7190': 'SeCreateSymbolicLinkPrivilege'
-        - '%%7191': 'SeDelegateSessionUserImpersonatePrivilege'
-        - '%%7192': 'SeManageVolumePrivilege'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-            <EventID>4674</EventID>
-            <Version>0</Version>
-            <Level>0</Level>
-            <Task>13056</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8020000000000000</Keywords>
-            <TimeCreated SystemTime="2020-09-14T14:48:28.683048400Z"/>
-            <EventRecordID>39406</EventRecordID>
-            <Correlation/>
-            <Execution ProcessID="4" ThreadID="5756"/>
-            <Channel>Security</Channel>
-            <Computer>Sec504Student</Computer>
-            <Security/>
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-21-2977773840-2930198165-1551093962-1000</Data>
-            <Data Name="SubjectUserName">Sec504</Data>
-            <Data Name="SubjectDomainName">SEC504STUDENT</Data>
-            <Data Name="SubjectLogonId">0x99e3d</Data>
-            <Data Name="ObjectServer">SC Manager</Data>
-            <Data Name="ObjectType">SERVICE OBJECT</Data>
-            <Data Name="ObjectName">nginx</Data>
-            <Data Name="HandleId">0xffff820cb1d95928</Data>
-            <Data Name="AccessMask">%%1539</Data>
-            <Data Name="PrivilegeList">SeSecurityPrivilege</Data>
-            <Data Name="ProcessId">0x21c</Data>
-            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5157_NetConnBlocked.yaml
----CONTENT---
-Title: 'Network Connection Blocked'
-Channel: Security
-EventID: 5157
-RewriteFieldData:
-    Direction:
-        - '%%14592': 'Inbound'
-        - '%%14593': 'Outbound'
-    LayerName:
-        - '%%14610': 'Receive/Accept'
-sample-message: |
-    The Windows Filtering Platform has blocked a connection.
-
-    Application Information:
-        Process ID:		784
-        Application Name:	\device\harddiskvolume1\windows\system32\svchost.exe
-
-    Network Information:
-        Direction:		Inbound
-        Source Address:		172.17.11.209
-        Source Port:		53594
-        Destination Address:	172.29.42.10
-        Destination Port:		53
-        Protocol:		0
-
-    Filter Information:
-        Filter Run-Time ID:	66037
-        Layer Name:		Receive/Accept
-        Layer Run-Time ID:	44
-sample-evtx:
-    <EventData>
-        <Data Name="ProcessID">784</Data> 
-        <Data Name="Application">\device\harddiskvolume1\windows\system32\svchost.exe</Data> 
-        <Data Name="Direction">%%14592</Data> 
-        <Data Name="SourceAddress">172.17.11.209</Data> 
-        <Data Name="SourcePort">53594</Data> 
-        <Data Name="DestAddress">172.29.42.10</Data> 
-        <Data Name="DestPort">53</Data> 
-        <Data Name="Protocol">0</Data> 
-        <Data Name="FilterRTID">66037</Data> 
-        <Data Name="LayerName">%%14610</Data> 
-        <Data Name="LayerRTID">44</Data> 
-        <Data Name="RemoteUserID">S-1-0-0</Data> 
-        <Data Name="RemoteMachineID">S-1-0-0</Data> 
-    </EventData>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4625_FailedLogon.yaml
----CONTENT---
-Title: 'Failed Logon'
-Channel: Security
-EventID: 4625
-RewriteFieldData:
-    LogonType:
-        - '0': '0 - SYSTEM'
-        - '2': '2 - INTERACTIVE'
-        - '3': '3 - NETWORK'
-        - '4': '4 - BATCH'
-        - '5': '5 - SERVICE'
-        - '7': '7 - UNLOCK'
-        - '8': '8 - NETWORK CLEARTEXT'
-        - '9': '9 - NEW CREDENTIALS'
-        - '10': '10 - REMOTE INTERACTIVE'
-        - '11': '11 - CACHED INTERACTIVE'
-        - '12': '12 - CACHED REMOTE INTERACTIVE'
-        - '13': '13 - CACHED UNLOCK'
-    FailureReason:
-        - '%%2304': 'ERROR'
-        - '%%2305': 'ACCOUNT EXPIRED'
-        - '%%2306': 'NETLOGON NOT ACTIVE'
-        - '%%2307': 'ACCOUNT LOCKOUT'
-        - '%%2308': 'USER NOT GRANTED REQUESTED LOGON TYPE'
-        - '%%2309': 'PW EXPIRED'
-        - '%%2310': 'ACCOUNT DISABLED'
-        - '%%2311': 'OUTSIDE AUTHORIZED HOURS'
-        - '%%2312': 'UNAUTHORIZED COMPUTER'
-        - '%%2313': 'BAD USER OR PW'
-        - '%%2314': 'DOMAIN_SID_INCONSISTENT'
-        - '%%2315': 'SMARTCARD_LOGON_REQUIRED'
-    Status:
-        - '0x0': 'SUCCESS'
-        - '0xc000005e': 'NO LOGON SERVER'
-        - '0xc000006d': 'BAD USER OR PW'
-        - '0xc000006e': 'ACCOUNT RESTRICTION POLICY PREVENTED LOGON'
-        - '0xc000006f': 'OUTSIDE AUTHORIZED HOURS'
-        - '0xc0000070': 'UNAUTHORIZED COMPUTER'
-        - '0xc0000071': 'PW EXPIRED'
-        - '0xc0000072': 'ACCOUNT DISABLED'
-        - '0xc00000dc': 'SERVER IN WRONG STATE'
-        - '0xc0000133': 'CLOCK OUT OF SYNC WITH DC'
-        - '0xc000015b': 'NO LOGON RIGHT'
-        - '0xc000018c': 'TRUSTED DOMAIN FAILURE'
-        - '0xc0000192': 'NETLOGON SERVICE NOT STARTED'
-        - '0xc0000193': 'ACCOUNT EXPIRED'
-        - '0xc0000224': 'USER REQUIRED TO CHANGE PASSWORD'
-        - '0xc0000225': 'WINDOWS BUG'
-        - '0xc0000234': 'ACCOUNT LOCKED'
-        - '0xc00002ee': 'UNFINISHED CONTEXT DELETED'
-        - '0xc0000413': 'BLOCKED BY AUTHENTICATION FIREWALL'
-    SubStatus:
-        - '0x0': 'SUCCESS'
-        - '0xc0000064': 'UNKNOWN USER'
-        - '0xc000006a': 'WRONG PW'
-        - '0xc0000073': 'NO TRANSLATIONS'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-            <EventID>4625</EventID>
-            <Version>0</Version>
-            <Level>0</Level>
-            <Task>12544</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8010000000000000</Keywords>
-            <TimeCreated SystemTime="2021-05-20T12:49:53.378809600Z"/>
-            <EventRecordID>1861989</EventRecordID>
-            <Correlation ActivityID="{A67BE420-4636-0001-36E4-7BA63646D701}"/>
-            <Execution ProcessID="576" ThreadID="5164"/>
-            <Channel>Security</Channel>
-            <Computer>fs01.offsec.lan</Computer>
-            <Security/>
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data>
-            <Data Name="SubjectUserName">FS01$</Data>
-            <Data Name="SubjectDomainName">OFFSEC</Data>
-            <Data Name="SubjectLogonId">0x3e7</Data>
-            <Data Name="TargetUserSid">S-1-0-0</Data>
-            <Data Name="TargetUserName">NOUSER</Data>
-            <Data Name="TargetDomainName">FS01</Data>
-            <Data Name="Status">0xc000006d</Data>
-            <Data Name="FailureReason">%%2313</Data>
-            <Data Name="SubStatus">0xc0000064</Data>
-            <Data Name="LogonType">8</Data>
-            <Data Name="LogonProcessName">Advapi</Data>
-            <Data Name="AuthenticationPackageName">Negotiate</Data>
-            <Data Name="WorkstationName">FS01</Data>
-            <Data Name="TransmittedServices">-</Data>
-            <Data Name="LmPackageName">-</Data>
-            <Data Name="KeyLength">0</Data>
-            <Data Name="ProcessId">0x16d8</Data>
-            <Data Name="ProcessName">C:\Program Files\OpenSSH-Win64\sshd.exe</Data>
-            <Data Name="IpAddress">-</Data>
-            <Data Name="IpPort">-</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4688_ProcessCreation.yaml
----CONTENT---
-Title: 'Process Creation'
-Channel: Security
-EventID: 4688
-RewriteFieldData:
-    MandatoryLabel:
-        - 'S-1-16-0': 'UNTRUSTED'
-        - 'S-1-16-4096': 'LOW_INTEGRITY'
-        - 'S-1-16-8192': 'MEDIUM_INTEGRITY'
-        - 'S-1-16-8448': 'MEDIUM_HIGH_INTEGRITY'
-        - 'S-1-16-12288': 'HIGH_INTEGRITY'
-        - 'S-1-16-16384': 'SYSTEM_INTEGRITY'
-        - 'S-1-16-20480': 'PROTECTED_PROCESS'
-    TokenElevationType:
-        - '%%1936': 'FULL_TOKEN' # No privileges removed or groups disabled. Only used if UAC is disabled or if user is the built-in admin (b/c UAC is disabled by default), a service account or local system account
-        - '%%1937': 'ELEVATED_TOKEN' # No privileges removed or groups disabled. UAC is enabled but the user ran the process as an admin.
-        - '%%1938': 'LIMITED_TOKEN' # UAC is enabled and process was run without admin privileges.
-HexToDecimal:
-    - 'NewProcessId'
-    - 'ProcessId'
-
-sample-evtx: |
-  <?xml version="1.0"?>
-  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-    <System>
-      <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}"/>
-      <EventID>4688</EventID>
-      <Version>2</Version>
-      <Level>0</Level>
-      <Task>13312</Task>
-      <Opcode>0</Opcode>
-      <Keywords>0x8020000000000000</Keywords>
-      <TimeCreated SystemTime="2022-02-08T20:33:15.159387500Z"/>
-      <EventRecordID>284391</EventRecordID>
-      <Correlation/>
-      <Execution ProcessID="4" ThreadID="6292"/>
-      <Channel>Security</Channel>
-      <Computer>wef.windomain.local</Computer>
-      <Security/>
-    </System>
-    <EventData>
-      <Data Name="SubjectUserSid">S-1-5-18</Data>
-      <Data Name="SubjectUserName">WEF$</Data>
-      <Data Name="SubjectDomainName">WINDOMAIN</Data>
-      <Data Name="SubjectLogonId">0x3e7</Data>
-      <Data Name="NewProcessId">0x1980</Data>
-      <Data Name="NewProcessName">C:\Windows\System32\cmd.exe</Data>
-      <Data Name="TokenElevationType">%%1936</Data>
-      <Data Name="ProcessId">0x24c</Data>
-      <Data Name="CommandLine">cmd.exe /k tscon 2 /dest rdp-tcp#14</Data>
-      <Data Name="TargetUserSid">S-1-0-0</Data>
-      <Data Name="TargetUserName">-</Data>
-      <Data Name="TargetDomainName">-</Data>
-      <Data Name="TargetLogonId">0x0</Data>
-      <Data Name="ParentProcessName">C:\Windows\System32\services.exe</Data>
-      <Data Name="MandatoryLabel">S-1-16-16384</Data>
-    </EventData>
-  </Event>
-
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688'
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5145_NetShareFileAccess.yaml
----CONTENT---
-Title: 'NetShare File Access'
-Channel: Security
-EventID: 5145
-RewriteFieldData:
-    AccessList:
-        - '%%1537': 'DELETE'
-        - '%%1538': 'READ_CONTROL'
-        - '%%1539': 'WRITE_DAC'
-        - '%%1540': 'WRITE_OWNER'
-        - '%%1541': 'SYNCHRONIZE'
-        - '%%1542': 'ACCESS_SYS_SEC'
-        - '%%4416': 'READ_DATA'
-        - '%%4417': 'WRITE_DATA'
-        - '%%4418': 'APPEND_DATA'
-        - '%%4419': 'READ_EXTENDED_ATTRIBUTES'
-        - '%%4420': 'WRITE_EXTENDED_ATTRIBUTES'
-        - '%%4421': 'EXECUTE/TRAVERSE'
-        - '%%4422': 'DELETE_CHILD'
-        - '%%4423': 'READ_ATTRIBUTES'
-        - '%%4424': 'WRITE_ATTRIBUTES'
-sample-evtx:
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145'
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4624_SuccessfulLogon.yaml
----CONTENT---
-Title: 'Logon'
-Channel: Security
-EventID: 4624
-RewriteFieldData:
-    ElevatedToken:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-    ImpersonationLevel:
-        - '%%1832': 'IDENTIFICATION'
-        - '%%1833': 'IMPERSONATION'
-        - '%%1840': 'DELEGATION'
-        - '%%1841': 'DENIED BY PROCESS TRUST LABEL ACE'
-        - '%%1842': 'YES'
-        - '%%1844': 'SYSTEM'
-        - '%%1845': 'NOT AVAILABLE'
-        - '%%1846': 'DEFAULT'
-        - '%%1847': 'DISALLOW MM CONFIG'
-        - '%%1848': 'OFF'
-        - '%%1849': 'AUTO'
-    LogonType:
-        - '0': '0 - SYSTEM'
-        - '2': '2 - INTERACTIVE'
-        - '3': '3 - NETWORK'
-        - '4': '4 - BATCH'
-        - '5': '5 - SERVICE'
-        - '7': '7 - UNLOCK'
-        - '8': '8 - NETWORK CLEARTEXT'
-        - '9': '9 - NEW CREDENTIALS'
-        - '10': '10 - REMOTE INTERACTIVE'
-        - '11': '11 - CACHED INTERACTIVE'
-        - '12': '12 - CACHED REMOTE INTERACTIVE'
-        - '13': '13 - CACHED UNLOCK'
-    RestrictedAdminMode:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-    VirtualAccount:
-        - '%%1842': 'YES'
-        - '%%1843': 'NO'
-HexToDecimal: 'ProcessId'
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
-            <EventID>4624</EventID>
-            <Version>3</Version>
-            <Level>0</Level>
-            <Task>12544</Task>
-            <Opcode>0</Opcode>
-            <Keywords>0x8020000000000000</Keywords>
-            <TimeCreated SystemTime="2023-06-05T07:43:11.8338899Z" />
-            <EventRecordID>98438</EventRecordID>
-            <Correlation ActivityID="{8227fe63-9780-0003-07ff-27828097d901}" />
-            <Execution ProcessID="884" ThreadID="940" />
-            <Channel>Security</Channel>
-            <Computer>memanalysis</Computer>
-            <Security />
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data>
-            <Data Name="SubjectUserName">MEMANALYSIS$</Data>
-            <Data Name="SubjectDomainName">WORKGROUP</Data>
-            <Data Name="SubjectLogonId">0x3e7</Data>
-            <Data Name="TargetUserSid">S-1-5-18</Data>
-            <Data Name="TargetUserName">SYSTEM</Data>
-            <Data Name="TargetDomainName">NT AUTHORITY</Data>
-            <Data Name="TargetLogonId">0x3e7</Data>
-            <Data Name="LogonType">5</Data>
-            <Data Name="LogonProcessName">Advapi</Data>
-            <Data Name="AuthenticationPackageName">Negotiate</Data>
-            <Data Name="WorkstationName">-</Data>
-            <Data Name="LogonGuid">{00000000-0000-0000-0000-000000000000}</Data>
-            <Data Name="TransmittedServices">-</Data>
-            <Data Name="LmPackageName">-</Data>
-            <Data Name="KeyLength">0</Data>
-            <Data Name="ProcessId">0x30c</Data>
-            <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
-            <Data Name="IpAddress">-</Data>
-            <Data Name="IpPort">-</Data>
-            <Data Name="ImpersonationLevel">%%1833</Data>
-            <Data Name="RestrictedAdminMode">-</Data>
-            <Data Name="RemoteCredentialGuard">-</Data>
-            <Data Name="TargetOutboundUserName">-</Data>
-            <Data Name="TargetOutboundDomainName">-</Data>
-            <Data Name="VirtualAccount">%%1843</Data>
-            <Data Name="TargetLinkedLogonId">0x0</Data>
-            <Data Name="ElevatedToken">%%1842</Data>
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4720_UserAccountCreated.yaml
----CONTENT---
-Title: 'Local User Account Created'
-Channel: Security
-EventID: 4720
-RewriteFieldData:
-    PasswordLastSet:
-        - '%%1794': '<never>'
-    AccountExpires:
-        - '%%1794': '<never>'
-    UserAccountControl:
-        - '%%2080': 'AccountDisabled'
-        - '%%2082': 'PasswordNotRequired-Enabled'
-        - '%%2084': 'NormalAccount-Enabled'
-    LogonHours:
-        - '%%1793': '<value not set>'
-        - '%%1797': 'All'
-    DisplayName:
-        - '%%1793': '<value not set>'
-    HomeDirectory:
-        - '%%1793': '<value not set>'
-    HomePath:
-        - '%%1793': '<value not set>'
-    ScriptPath:
-        - '%%1793': '<value not set>'
-    ProfilePath:
-        - '%%1793': '<value not set>'
-    UserWorkstations:  
-        - '%%1793': '<value not set>'
-    UserParameters:
-        - '%%1793': '<value not set>'
-sample-message: |
-    A user account was created.
-
-    Subject:
-        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1111
-        Account Name:		admmig
-        Account Domain:		OFFSEC
-        Logon ID:		0x58D874
-
-    New Account:
-        Security ID:		S-1-5-21-1470532092-3758209836-3742276719-1001
-        Account Name:		hacking-local-acct
-        Account Domain:		JUMP01
-
-    Attributes:
-        SAM Account Name:	hacking-local-acct
-        Display Name:		<value not set>
-        User Principal Name:	-
-        Home Directory:		<value not set>
-        Home Drive:		<value not set>
-        Script Path:		<value not set>
-        Profile Path:		<value not set>
-        User Workstations:	<value not set>
-        Password Last Set:	<never>
-        Account Expires:		<never>
-        Primary Group ID:	513
-        Allowed To Delegate To:	-
-        Old UAC Value:		0x0
-        New UAC Value:		0x15
-        User Account Control:	
-            Account Disabled
-            'Password Not Required' - Enabled
-            'Normal Account' - Enabled
-        User Parameters:	<value not set>
-        SID History:		-
-        Logon Hours:		All
-
-    Additional Information:
-        Privileges		-
-sample-evtx: |
-    <EventData>
-        <Data Name="TargetUserName">hacking-local-acct</Data> 
-        <Data Name="TargetDomainName">JUMP01</Data> 
-        <Data Name="TargetSid">S-1-5-21-1470532092-3758209836-3742276719-1001</Data> 
-        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1111</Data> 
-        <Data Name="SubjectUserName">admmig</Data> 
-        <Data Name="SubjectDomainName">OFFSEC</Data> 
-        <Data Name="SubjectLogonId">0x58d874</Data> 
-        <Data Name="PrivilegeList">-</Data> 
-        <Data Name="SamAccountName">hacking-local-acct</Data> 
-        <Data Name="DisplayName">%%1793</Data> 
-        <Data Name="UserPrincipalName">-</Data> 
-        <Data Name="HomeDirectory">%%1793</Data> 
-        <Data Name="HomePath">%%1793</Data> 
-        <Data Name="ScriptPath">%%1793</Data> 
-        <Data Name="ProfilePath">%%1793</Data> 
-        <Data Name="UserWorkstations">%%1793</Data> 
-        <Data Name="PasswordLastSet">%%1794</Data> 
-        <Data Name="AccountExpires">%%1794</Data> 
-        <Data Name="PrimaryGroupId">513</Data> 
-        <Data Name="AllowedToDelegateTo">-</Data> 
-        <Data Name="OldUacValue">0x0</Data> 
-        <Data Name="NewUacValue">0x15</Data> 
-        <Data Name="UserAccountControl">%%2080 %%2082 %%2084</Data> 
-        <Data Name="UserParameters">%%1793</Data> 
-        <Data Name="SidHistory">-</Data> 
-        <Data Name="LogonHours">%%1797</Data> 
-    </EventData>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4741_ComputerAccountCreated.yaml
----CONTENT---
-Title: 'Computer Account Created'
-Channel: Security
-EventID: 4741
-RewriteFieldData:
-    DisplayName:
-        - '%%1793': '<value not set>'
-    HomeDirectory:
-        - '%%1793': '<value not set>'
-    HomePath:
-        - '%%1793': '<value not set>'
-    ScriptPath:
-        - '%%1793': '<value not set>'
-    ProfilePath:
-        - '%%1793': '<value not set>'    
-    UserWorkstations:
-        - '%%1793': '<value not set>' 
-    PasswordLastSet:
-        - '%%1794': '<never>'
-    AccountExpires:
-        - '%%1794': '<never>'
-    UserAccountControl:
-        - '%%2082': 'PasswordNotRequired-Enabled'
-        - '%%2087': 'WorkstationTrustAccount-Enabled'
-    UserParameters:
-        - '%%1792': '<value changed, but not displayed>'
-    LogonHours:
-        - '%%1793': '<value not set>'
-sample-message: |
-    A computer account was created.
-
-    Subject:
-        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1234
-        Account Name:		hack1
-        Account Domain:		OFFSEC
-        Logon ID:		0x308FB82AD
-
-    New Computer Account:
-        Security ID:		S-1-5-21-4230534742-2542757381-3142984815-1296
-        Account Name:		compnay-88$
-        Account Domain:		OFFSEC
-
-    Attributes:
-        SAM Account Name:	compnay-88$
-        Display Name:		<value not set>
-        User Principal Name:	-
-        Home Directory:		<value not set>
-        Home Drive:		<value not set>
-        Script Path:		<value not set>
-        Profile Path:		<value not set>
-        User Workstations:	<value not set>
-        Password Last Set:	<never>
-        Account Expires:		<never>
-        Primary Group ID:	515
-        AllowedToDelegateTo:	-
-        Old UAC Value:		0x0
-        New UAC Value:		0x84
-        User Account Control:	
-            'Password Not Required' - Enabled
-            'Workstation Trust Account' - Enabled
-        User Parameters:	<value changed, but not displayed>
-        SID History:		-
-        Logon Hours:		<value not set>
-        DNS Host Name:		-
-        Service Principal Names:	-
-
-    Additional Information:
-        Privileges		SeMachineAccountPrivilege
-sample-evtx: |
-    <EventData>
-        <Data Name="TargetUserName">compnay-88$</Data> 
-        <Data Name="TargetDomainName">OFFSEC</Data> 
-        <Data Name="TargetSid">S-1-5-21-4230534742-2542757381-3142984815-1296</Data> 
-        <Data Name="SubjectUserSid">S-1-5-21-4230534742-2542757381-3142984815-1234</Data> 
-        <Data Name="SubjectUserName">hack1</Data> 
-        <Data Name="SubjectDomainName">OFFSEC</Data> 
-        <Data Name="SubjectLogonId">0x308fb82ad</Data> 
-        <Data Name="PrivilegeList">SeMachineAccountPrivilege</Data> 
-        <Data Name="SamAccountName">compnay-88$</Data> 
-        <Data Name="DisplayName">%%1793</Data> 
-        <Data Name="UserPrincipalName">-</Data> 
-        <Data Name="HomeDirectory">%%1793</Data> 
-        <Data Name="HomePath">%%1793</Data> 
-        <Data Name="ScriptPath">%%1793</Data> 
-        <Data Name="ProfilePath">%%1793</Data> 
-        <Data Name="UserWorkstations">%%1793</Data> 
-        <Data Name="PasswordLastSet">%%1794</Data> 
-        <Data Name="AccountExpires">%%1794</Data> 
-        <Data Name="PrimaryGroupId">515</Data> 
-        <Data Name="AllowedToDelegateTo">-</Data> 
-        <Data Name="OldUacValue">0x0</Data> 
-        <Data Name="NewUacValue">0x84</Data> 
-        <Data Name="UserAccountControl">%%2082 %%2087</Data> 
-        <Data Name="UserParameters">%%1792</Data> 
-        <Data Name="SidHistory">-</Data> 
-        <Data Name="LogonHours">%%1793</Data> 
-        <Data Name="DnsHostName">-</Data> 
-        <Data Name="ServicePrincipalNames">-</Data> 
-    </EventData>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_4719_AuditPolicyChanged.yaml
----CONTENT---
-Title: 'Audit Policy Changed'
-Channel: Security
-EventID: 4719
-RewriteFieldData:
-    AuditPolicyChanges:
-        - '%%8448': 'Success Removed'
-        - '%%8449': 'Success Added'
-        - '%%8450': 'Failure Removed'
-        - '%%8451': 'Failure Added'
-    CategoryId:
-        - '%%8272': 'System'
-        - '%%8273': 'Logon/Logoff'
-        - '%%8274': 'Object Access'
-        - '%%8275': 'Privilege Use'
-        - '%%8276': 'Detailed Tracking'
-        - '%%8277': 'Policy Change'
-        - '%%8278': 'Account Management'
-        - '%%8279': 'DS Access'
-        - '%%8280': 'Account Logon'
-    SubcategoryId:
-        - '%%12288': 'Security State Change'
-        - '%%12289': 'Security System Extension'
-        - '%%12290': 'System Integrity'
-        - '%%12291': 'IPsec Driver'
-        - '%%12292': 'Other System Events'
-        - '%%12544': 'Logon'
-        - '%%12545': 'Logoff'
-        - '%%12546': 'Account Lockout'
-        - '%%12547': 'IPsec Main Mode'
-        - '%%12548': 'Special Logon'
-        - '%%12549': 'IPsec Quick Mode'
-        - '%%12550': 'IPsec Extended Mode'
-        - '%%12551': 'Other Logon/Logoff Events'
-        - '%%12552': 'Network Policy Server'
-        - '%%12553': 'User/Device Claims'
-        - '%%12554': 'Group Membership'
-        - '%%12800': 'File System'
-        - '%%12801': 'Registry'
-        - '%%12802': 'Kernel Object'
-        - '%%12803': 'SAM'
-        - '%%12804': 'Other Object Access Events'
-        - '%%12805': 'Certification Services'
-        - '%%12806': 'Application Generated'
-        - '%%12807': 'Handle Manipulation'
-        - '%%12808': 'File Share'
-        - '%%12809': 'Filtering Platform Packet Drop'
-        - '%%12810': 'Filtering Platform Connection'
-        - '%%12811': 'Detailed File Share'
-        - '%%12812': 'Removable Storage'
-        - '%%12813': 'Central Policy Staging'
-        - '%%13056': 'Sensitive Privilege Use'
-        - '%%13057': 'Non Sensitive Privilege Use'
-        - '%%13058': 'Other Privilege Use Events'
-        - '%%13312': 'Process Creation'
-        - '%%13313': 'Process Termination'
-        - '%%13314': 'DPAPI Activity'
-        - '%%13315': 'RPC Events'
-        - '%%13316': 'Plug and Play Events'
-        - '%%13317': 'Token Right Adjusted Events'
-        - '%%13568': 'Audit Policy Change'
-        - '%%13569': 'Authentication Policy Change'
-        - '%%13570': 'Authorization Policy Change'
-        - '%%13571': 'MPSSVC Rule-Level Policy Change'
-        - '%%13572': 'Filtering Platform Policy Change'
-        - '%%13573': 'Other Policy Change Events'
-        - '%%13824': 'User Account Management'
-        - '%%13825': 'Computer Account Management'
-        - '%%13826': 'Security Group Management'
-        - '%%13827': 'Distribution Group Management'
-        - '%%13828': 'Application Group Management'
-        - '%%13829': 'Other Account Management Events'
-        - '%%14080': 'Directory Service Access'
-        - '%%14081': 'Directory Service Changes'
-        - '%%14082': 'Directory Service Replication'
-        - '%%14083': 'Detailed Directory Service Replication'
-        - '%%14336': 'Credential Validation'
-        - '%%14337': 'Kerberos Service Ticket Operations'
-        - '%%14338': 'Other Account Logon Events'
-        - '%%14339': 'Kerberos Authentication Service'
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
-            <EventID>4719</EventID> 
-            <Version>0</Version> 
-            <Level>0</Level> 
-            <Task>13568</Task> 
-            <Opcode>0</Opcode> 
-            <Keywords>0x8020000000000000</Keywords> 
-            <TimeCreated SystemTime="2016-08-18T15:43:46.9238281Z" /> 
-            <EventRecordID>4832</EventRecordID> 
-            <Correlation /> 
-            <Execution ProcessID="484" ThreadID="564" /> 
-            <Channel>Security</Channel> 
-            <Computer>IE10Win7</Computer> 
-            <Security /> 
-        </System>
-        <EventData>
-            <Data Name="SubjectUserSid">S-1-5-18</Data> 
-            <Data Name="SubjectUserName">IE10WIN7$</Data> 
-            <Data Name="SubjectDomainName">WORKGROUP</Data> 
-            <Data Name="SubjectLogonId">0x3e7</Data> 
-            <Data Name="CategoryId">%%8278</Data> 
-            <Data Name="SubcategoryId">%%13826</Data> 
-            <Data Name="SubcategoryGuid">{0cce9237-69ae-11d9-bed3-505054503030}</Data> 
-            <Data Name="AuditPolicyChanges">%%8448</Data> 
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/Security_5140_NetShareAccess.yaml
----CONTENT---
-Title: 'NetShare Access'
-Channel: Security
-EventID: 5140
-RewriteFieldData:
-    AccessList:
-        - '%%4416': 'READ_DATA' # Apparently will always be just this value.
-
-sample-evtx:
-references:
-    - 'https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140'
----FILE_END---
----FILE_START---
-path: data_mapping/Application_1022-1033_MSI-Install.yaml
----CONTENT---
-Title: 'MSI Install'
-Channel: Application
-EventID: 1033
-Provider_Name: MsiInstaller
-RewriteFieldData:
-    Data[3]:
-        - '1025': "Arabic (Saudi Arabia)"
-        - '1026': "Bulgarian"
-        - '1027': "Catalan"
-        - '1028': "Chinese (Traditional)"
-        - '1029': "Czech"
-        - '1030': "Danish"
-        - '1031': "German (Germany)"
-        - '1032': "Greek"
-        - '1033': "English (US)"
-        - '1034': "Spanish (Traditional Sort)"
-        - '1035': "Finnish"
-        - '1036': "French (France)"
-        - '1037': "Hebrew"
-        - '1038': "Hungarian"
-        - '1039': "Icelandic"
-        - '1040': "Italian (Italy)"
-        - '1041': "Japanese"
-        - '1042': "Korean"
-        - '1043': "Dutch (Netherlands)"
-        - '1044': "Norwegian (Bokmål)"
-        - '1045': "Polish"
-        - '1046': "Portuguese (Brazil)"
-        - '1047': "Portuguese (Portugal)"
-        - '1048': "Romanian"
-        - '1049': "Russian"
-        - '1050': "Croatian"
-        - '1051': "Slovak"
-        - '1052': "Albanian"
-        - '1053': "Swedish"
-        - '1054': "Thai"
-        - '1055': "Turkish"
-        - '1056': "Urdu"
-        - '1057': "Indonesian"
-        - '1058': "Ukrainian"
-        - '1059': "Belarusian"
-        - '1060': "Slovenian"
-        - '1061': "Estonian"
-        - '1062': "Latvian"
-        - '1063': "Lithuanian"
-        - '1064': "Tajik (Cyrillic)"
-        - '1065': "Persian"
-        - '1066': "Vietnamese"
-        - '1067': "Armenian"
-        - '1068': "Azerbaijani (Latin)"
-        - '1069': "Basque"
-        - '1070': "Upper Sorbian"
-        - '1071': "Macedonian (FYROM)"
-        - '1072': "Sesotho"
-        - '1073': "Tsonga"
-        - '1074': "Tswana"
-        - '1075': "Venda"
-        - '1076': "Xhosa"
-        - '1077': "Zulu"
-        - '1078': "Afrikaans"
-        - '1079': "Georgian"
-        - '1080': "Faroese"
-        - '1081': "Hindi"
-        - '1082': "Maltese"
-        - '1083': "Sami (Northern)"
-        - '1084': "Gaelic (Scotland)"
-        - '1085': "Yiddish"
-        - '1086': "Malay (Malaysia)"
-        - '1087': "Kazakh"
-        - '1088': "Kyrgyz (Cyrillic)"
-        - '1089': "Swahili"
-        - '1090': "Turkmen"
-        - '1091': "Uzbek (Latin)"
-        - '1092': "Tatar"
-        - '1093': "Bengali (India)"
-        - '1094': "Punjabi (India)"
-        - '1095': "Gujarati"
-        - '1096': "Oriya"
-        - '1097': "Tamil"
-        - '1098': "Telugu"
-        - '1099': "Kannada"
-        - '1100': "Malayalam"
-        - '1101': "Assamese"
-        - '1102': "Marathi"
-        - '1103': "Sanskrit"
-        - '1104': "Mongolian (Cyrillic)"
-        - '1105': "Tibetan"
-        - '1106': "Welsh"
-        - '1107': "Khmer"
-        - '1108': "Lao"
-        - '1109': "Burmese"
-        - '1110': "Galician"
-        - '1111': "Konkani"
-        - '1112': "Manipuri"
-        - '1113': "Sindhi (India)"
-        - '1114': "Syriac"
-        - '1115': "Sinhalese"
-        - '1116': "Cherokee"
-        - '1117': "Inuktitut (Syllabics)"
-        - '1118': "Amharic"
-        - '1119': "Tamazight (Latin)"
-        - '1120': "Kashmiri"
-        - '1121': "Nepali"
-        - '1122': "Frisian"
-        - '1123': "Pashto"
-        - '1124': "Filipino"
-        - '1125': "Divehi"
-        - '1126': "Edo"
-        - '1127': "Fulfulde"
-        - '1128': "Hausa"
-        - '1129': "Ibibio"
-        - '1130': "Yoruba"
-        - '1131': "Quechua"
-        - '1132': "Sesotho sa Leboa"
-        - '1133': "Bashkir"
-        - '1134': "Luxembourgish"
-        - '1135': "Greenlandic"
-        - '1136': "Igbo"
-        - '1137': "Kanuri"
-        - '1138': "Oromo"
-        - '1139': "Tigrigna (Ethiopia)"
-        - '1140': "Tigrigna (Eritrea)"
-        - '1141': "Ganda"
-        - '1142': "Hawaiian"
-        - '1143': "Latin"
-        - '1144': "Somali"
-        - '1145': "Yi"
-        - '1146': "N'ko"
-        - '1147': "Dari"
-        - '1148': "Scottish Gaelic"
-        - '1150': "Central Atlas Tamazight (Latin)"
-        - '1151': "Nepal Bhasa"
-        - '1152': "Rhaeto-Romance"
-        - '1153': "Mapudungun"
-        - '1154': "Mongolian (Traditional)"
-        - '1155': "Sakha"
-        - '1156': "K'iche"
-        - '1157': "Kinyarwanda"
-        - '1158': "Wolof"
-        - '1159': "Duala"
-        - '1160': "Jola-Fonyi"
-        - '1161': "Ewe"
-        - '1162': "Wari"
-        - '1163': "Sesotho sa Leboa"
-        - '1164': "Kalenjin"
-        - '1165': "Iban"
-        - '1166': "Quechua (Ecuador)"
-        - '1167': "Garifuna"
-        - '1168': "Twi"
-        - '1169': "Pedi"
-        - '1170': "Hausa (Nigeria)"
-        - '1171': "Kikuyu"
-        - '1172': "Zulu (South Africa)"
-        - '1173': "Yoruba (Nigeria)"
-        - '1174': "Twi (Ghana)"
-        - '1175': "Kalenjin (Kenya)"
-        - '1176': "Iban (Malaysia)"
-        - '1177': "Zulu (South Africa)"
-        - '1178': "Afrikaans (South Africa)"
-        - '1179': "Somali (Somalia)"
-        - '1180': "Swahili (Kenya)"
-        - '1181': "Zulu (South Africa)"
-        - '1182': "Igbo (Nigeria)"
-        - '1183': "Cree (Canada)"
-        - '1184': "Inuktitut (Canada)"
-        - '1185': "Inuktitut (Latin)"
-        - '1186': "Ojibwe"
-        - '1187': "Dene"
-        - '1188': "Naskapi"
-        - '1189': "Danish (Denmark)"
-        - '1190': "Sami (Inari)"
-        - '1191': "Sami (Skolt)"
-        - '1192': "Sami (Southern)"
-        - '1193': "Sami (Lule)"
-        - '1194': "Sami (Ume)"
-        - '1195': "Sami (Pite)"
-        - '1196': "Sami (Enontekiö)"
-        - '1197': "Sami (Kildin)"
-        - '1198': "Sami (Ter)"
-        - '1199': "Sami (Akkala)"
-
-
-
-sample-evtx: |
-    <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-        <System>
-            <Provider Name="MsiInstaller" /> 
-            <EventID Qualifiers="0">1033</EventID> 
-            <Version>0</Version> 
-            <Level>4</Level> 
-            <Task>0</Task> 
-            <Opcode>0</Opcode> 
-            <Keywords>0x80000000000000</Keywords> 
-            <TimeCreated SystemTime="2021-01-15T02:14:12.8708371Z" /> 
-            <EventRecordID>9294</EventRecordID> 
-            <Correlation /> 
-            <Execution ProcessID="0" ThreadID="0" /> 
-            <Channel>Application</Channel> 
-            <Computer>computer</Computer> 
-            <Security UserID="S-1-5-21-3619236619-1337548381-1329840446-1001" /> 
-        </System>
-        <EventData>
-            <Data>Epson Photo+</Data> 
-            <Data>3.3.0.0</Data> 
-            <Data>1033</Data> 
-            <Data>0</Data> 
-            <Data>Seiko Epson Corporation</Data> 
-            <Data>(NULL)</Data> 
-            <Data /> 
-            <Binary>7B41423937314134452D463636392D344538322D414646302D3343333444463736383535337D3030303061373633363232333031663565653439613432333666343761363438663639643030303030393034</Binary> 
-        </EventData>
-    </Event>
----FILE_END---
----FILE_START---
-path: data_mapping/System_7023_ServiceTerminated.yaml
----CONTENT---
-Title: 'Service Terminated'
-Channel: System
-Provider_Name: 'Service Control Manager'
-EventID: 7023
-RewriteFieldData:
-    param2:
-        - '%%1062': 'The service has not been started.'
-        - '%%1792': 'An attempt was made to logon, but the network logon service was not started.'
-sample-message: |
-    The Windows Time service terminated with the following error: 
-    An attempt was made to logon, but the network logon service was not started.
-sample-evtx:
-    <EventData>
-        <Data Name="param1">Windows Time</Data> 
-        <Data Name="param2">%%1792</Data> 
-    </EventData>
----FILE_END---
----FILE_START---
-path: closing_messages.txt
----CONTENT---
-知行合一 - Chi Kou Gou Itsu - Knowledge and action must be inseparable.
-初心忘るべからず - Shoshin Wasuru Bekarazu - Never forget the beginner's mind.
-無事是貴人 - Buji Kore Kinin - Once you free yourself from attachment and aversion, you will be truly a noble person.
-急がば回れ - Isogaba Maware - If you are in a hurry, take the long way.
-一瞬一瞬を大切に - Isshun Isshun O Taisetsu Ni - Treasure each moment.
-無念無想 - Munen Musou - No assumptions, no preconceptions.
-臨機応変 - Rin Ki Ou Hen - Adapt to the situation.
-日々是好日 - Nichinichi Kore Koujitsu - Everyday is a good day.
-風林火山 - Fuu Rin Ka Zan - Swift as the wind, silent as the forest, fierce as fire, immovable as a mountain.
-不動心 - Fudoushin - Immovable mind.
-守破離 - Shu Ha Ri - Follow, break, transcend.
-平常心是道 - Heijoushin Kore Dou - An ordinary mind is the way.
-水滴石穿 - Suiteki Sekisen - Dripping water wears through stone.
-塞翁が馬 - Saiou Ga Uma - Misfortune becomes a blessing.
-無我 - Muga - Collective effort outweigh individual accomplishment.
-柔よく剛を制す - Juu Yoku Gou O Seisu - Softness overcomes hardness.
-空即是色 - Kuu Soku Ze Shiki - Form is emptiness, emptiness is form.
-侘び寂び - Wabi Sabi - Beauty in imperfection and impermanence.
-見切り発車 - Mikiri Hassha - Starting a journey with no clear path.
-臨終行 - Rin Juu Gyou - Act as if it is your last task.
-知足 - Chisoku - Know when things are sufficient.
-漸進 - Zenshin - Gradual progress.
-不言実行 - Fugen Jikkou - Actions speak louder than words.
-無為自然 - Mui Shizen - Effortless and natural.
-一念通天 - Ichinen Tsuuten - Single-mindedness will take you to the heavens.
-臨戦態勢 - Rinsen Taisei - Always ready for battle.
-一事が万事 - Ichiji Ga Banji - One thing leads to everything.
-難行苦行 - Nangyou Kugyou - Arduous and rigorous practice.
-塞翁失馬 - Sai Ou Shitsu Ba - The old man lost his horse. (A blessing in disguise.)
-時来たり - Toki Kitari - The time has come.
-失敗は成功のもと - Shippai Wa Seikou No Moto - Failure is the root of success.
-天の時、地の利、人の和 - Ten No Toki, Chi No Ri, Hito No Wa - Heavenly timing, earthly advantage, personal harmony
-大器晩成 - Taiki Bansei - Great talents take time to mature.
-千里の道も一歩から - Senri No Michi Mo Ippo Kara - A journey of a thousand miles begins with a single step.
-残心 - Zanshin - Stay vigilant even after your task is complete.
-疾風勁草 - Shippuu Keisou - Strong grass withstands strong wind. 
-風流韻事 - Fuuryuu Injin - The art of refinement and elegance.
-知彼知己 - Chi Hi Chi Ki - Know thy enemy, know thyself.
-百聞は一見に如かず - Hyakubun Wa Ikken Ni Shikazu - Seeing once is better than hearing a hundred times.
-一難去ってまた一難 - Ichinan Satte Mata Ichinan - One difficulty after another.
-居安思危 - Kyo An Shi Ki - In times of peace, think of danger.
-苦あれば楽あり - Ku Areba Raku Ari - Positive outcomes come from enduring hardships.
-禍福は糾える縄の如し - Kafuku Wa Azanaeru Nawa No Gotoshi - Good and bad fortune are intertwined like a rope.
-頑張ってや〜 - Gambatte Ya~ - Do your best!
-笑う門には福来たる - Warau Kado Ni Wa Fuku Kitaru - Fortune comes to the house of those who laugh.
-一笑一若 - Isshou Ichijaku - One laugh, one youthful spirit.
-笑いは心の薬 - Warai Wa Kokoro No Kusuri - Laughter is medicine for the soul.
-苦は楽の種 - Ku Wa Raku No Tane - Suffering is the seed of joy.
-災い転じて福となす - Wazawai Tenjite Fuku To Nasu - Turn misfortune into fortune.
-困難に道あり - Konnan Ni Michi Ari - The obstacle is the way.
----FILE_END---
----FILE_START---
-path: windows_versions.csv
----CONTENT---
-Version,Build,WindowsVersion,ReleaseDate
-6.0,6000,Vista,2007/01/30
-6.0,6001,Vista SP1 / Server 2008,2008/03/18
-6.0,6002,Vista SP2 / Server 2008 SP2,2009/05/26
-6.1,7600,7 / Server 2008 R2,2009/10/22
-6.1,7601,7 SP1 / Server 2008 R2 SP1,2011/02/22
-6.02,9200,8 / Server 2012,2012/10/26
-6.2,9200,8 / Server 2012,2012/10/26
-6.03,9600,8.1 / Server 2012 R2,2013/10/17
-6.3,9600,8.1 / Server 2012 R2,2013/10/17
-10.0,10240,10 (1507),2015/07/29
-10.0,14393,Server 2016,2016/10/12
-10.0,16299,10 (1709),2017/10/17
-10.0,17134,10 (1803),2018/04/30
-10.0,17763,Server 2019,2018/10/02
-10.0,18362,10 (1903),2019/05/21
-10.0,19041,10 (2004),2020/05/27
-10.0,19042,10 (20H2),2020/10/20
-10.0,19043,10 (21H1),2021/05/18
-10.0,19044,10 (21H2),2021/10/05
-10.0,19045,10 (22H1),2022/05/10
-10.0,19046,10 (22H2),2022/09/20
-10.0,20348,Server 2022,2021/08/18
-10.0,22000,11 (21H2),2021/10/05
-10.0,22621,11 (22H2),2022/09/20
-10.0,22631,11 (23H2),2023/10/31
-10.0,26100,11 (24H2) / Server 2025,2024/10/01
-
+Source Computers.WorkstationName
+Subject Users.SubjectUserName
+Target Users.TargetUserName
+Users.User
+Subject Logon IDs.SubjectLogonId
+Target Logon IDs.TargetLogonId
+Logon IDs.LogonId
+IP Addresses.IpAddress
+Source IP Addresses.SourceIp
+Source IP Addresses.ClientAddress
+Source IP Addresses.SourceAddress
+Target IP Addresses.DestinationIp
+Target IP Addresses.DestAddress
+Processes.Image
+Processes.NewProcessName
+Command Lines.CommandLine
 ---FILE_END---
