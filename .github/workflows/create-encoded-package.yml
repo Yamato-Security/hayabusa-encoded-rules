@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '30 20 * * *'
 
+permissions:
+  contents: write
+
 jobs:
   zip-and-commit:
     runs-on: ubuntu-latest
