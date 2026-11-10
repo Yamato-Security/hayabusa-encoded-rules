@@ -1733,11 +1733,13 @@ Version,Event.System.Version
 CategoryName,Event.EventData.Category Name
 DetectionUser,Event.EventData.Detection User
 DomainName,Event.EventData.SubjectDomainName
+Feature_Name,Event.EventData.Feature Name
 image,Event.EventData.Image
 Imphash,Event.EventData.Hashes
 JobTitle,Event.EventData.name
 Message,Event.EventData
 New_Value,Event.EventData.New Value
+Old_Value,Event.EventData.Old Value
 OriginalFilename,Event.EventData.OriginalFileName
 query,Event.EventData.Query
 SAMAccountName,Event.EventData.SamAccountName
@@ -1799,19 +1801,15 @@ WMI-UserDataUser,Event.UserData.Operation_TemporaryEssStarted.User
 ---FILE_START---
 path: pivot_keywords.txt
 ---CONTENT---
-Source Computers.WorkstationName
-Subject Users.SubjectUserName
-Target Users.TargetUserName
+Users.SubjectUserName
+Users.TargetUserName
 Users.User
-Subject Logon IDs.SubjectLogonId
-Target Logon IDs.TargetLogonId
-Logon IDs.LogonId
 IP Addresses.IpAddress
-Source IP Addresses.SourceIp
-Source IP Addresses.ClientAddress
-Source IP Addresses.SourceAddress
-Target IP Addresses.DestinationIp
-Target IP Addresses.DestAddress
+IP Addresses.SourceIp
+IP Addresses.ClientAddress
+IP Addresses.SourceAddress
+IP Addresses.DestinationIp
+IP Addresses.DestAddress
 Processes.Image
 Processes.NewProcessName
 Command Lines.CommandLine
